@@ -1,0 +1,16 @@
+{
+  "name": "paperlint",
+  "owner": {
+    "name": "juardilag"
+  },
+  "metadata": {
+    "description": "Tools for writing scientific papers with Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "paperlint",
+      "source": "./",
+      "description": "Scientific paper writing: procedure, rules, LaTeX linter, cold-reader agent, bibliography checker."
+    }
+  ]
+}
