@@ -1,0 +1,25 @@
+# Terminology decisions for one paper: one name per object.
+# paperlint flags the avoided variants (check PL010). Claude and the cold-reader agent
+# also read the notes and the symbol list. Uncomment and adapt the examples.
+
+# Acronyms that need no definition in your field (top-level key: keep it first).
+known_acronyms = []
+
+# A term with variants the paper does not use:
+# [[term]]
+# name = "memory kernel"                     # the name used in the text
+# avoid = ["retarded self-energy", "memory function"]
+# avoid_in = "main"                          # "main" (before \appendix), "appendix" or "all"
+# note = "the appendix names it the retarded self-energy once, linked to this name"
+
+# A specialist term that stays in the appendices:
+# [[term]]
+# name = "Weyl symbol"
+# appendix_only = true
+# main_text = "function that represents the operator"
+
+# Symbols, one meaning each (documentation for Claude and the cold reader, not linted):
+# [[symbol]]
+# symbol = "\\theta(\\tau)"
+# meaning = "Heaviside step function"
+# defined = "Sec. II, step 2"

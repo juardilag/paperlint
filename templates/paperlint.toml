@@ -1,0 +1,28 @@
+# paperlint configuration for one paper. Put this file next to your main .tex file.
+# Every key is optional; the values shown are the defaults.
+
+[paper]
+files = ["main.tex"]          # files linted when you run lint.py with no arguments
+bib = ["refs.bib"]            # bibliography files for check_refs.py
+glossary = "glossary.toml"    # this paper's terminology decisions (see glossary.toml)
+
+[style]
+max_sentence_words = 25       # sentences above this are reported as info (PL015)
+hard_sentence_words = 27      # sentences above this are warnings (PL001)
+ban_colons = true             # PL002
+ban_semicolons = true         # PL003
+ban_em_dash = true            # PL004 (en dashes in ranges and names are always fine)
+emph_max_words = 4            # longer \emph{...} spans are reported (PL009)
+reference_style = "cleveref"  # "cleveref": flag hand-typed Eq.~\ref{...}; "any": allow them
+
+[words]
+known_acronyms = []           # acronyms that need no definition in your field, e.g. ["DNA"]
+allow = []                    # default banned patterns to switch off, e.g. ["\\bvery\\b"]
+ban = [                       # extra phrases to ban in this paper
+  # "clearly",
+  # { pattern = "\\bstate-of-the-art\\b", advice = "say what it improves on" },
+]
+anthropomorphic = []          # extra verbs to flag as anthropomorphic
+
+[checks]
+disable = []                  # check codes to switch off, e.g. ["PL014"]
