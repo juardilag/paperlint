@@ -1,7 +1,7 @@
 # paperlint
 
-paperlint helps Claude write scientific papers that read as if a careful scientist wrote
-them. It is a plugin for [Claude Code](https://claude.com/claude-code), Anthropic's
+paperlint helps Claude write scientific papers that are clear, precise and easy to
+follow. It is a plugin for [Claude Code](https://claude.com/claude-code), Anthropic's
 coding assistant for the terminal.
 
 Text written with an LLM often has the same problems. It uses technical terms without
