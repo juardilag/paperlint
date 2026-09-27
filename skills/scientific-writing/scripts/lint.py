@@ -96,6 +96,12 @@ DEFAULT_ANTHROPOMORPHIC = [
     "knows", "wants", "decides", "tells", "feels", "chooses",
 ]
 
+# Unit symbols with two or more capitals, which PL011 must not treat as acronyms.
+DEFAULT_KNOWN = {
+    "GB", "MB", "TB", "KB", "PB", "GiB", "MiB", "TiB",
+    "GHz", "MHz", "THz", "PHz", "MeV", "GeV", "TeV", "PeV", "MW", "GW", "TW", "MPa", "GPa",
+}
+
 # Abbreviations after which a full stop does not end a sentence.
 ABBREVIATIONS = {
     "e.g", "i.e", "cf", "vs", "etc", "al", "approx", "resp", "viz",
@@ -175,7 +181,8 @@ class Config:
 def load_config(start: Path, explicit: Path | None = None) -> Config:
     """Read the nearest paperlint.toml and the glossary it points to."""
     cfg = Config(banned=list(DEFAULT_BANNED),
-                 anthropomorphic=list(DEFAULT_ANTHROPOMORPHIC))
+                 anthropomorphic=list(DEFAULT_ANTHROPOMORPHIC),
+                 known_acronyms=set(DEFAULT_KNOWN))
     path = explicit
     if path is None:
         d = start if start.is_dir() else start.parent
@@ -198,7 +205,7 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
                 "reference_style"):
         if key in style:
             setattr(cfg, key, style[key])
-    cfg.known_acronyms = set(words.get("known_acronyms", []))
+    cfg.known_acronyms |= set(words.get("known_acronyms", []))
     for pat in words.get("allow", []):
         cfg.banned = [(p, a) for p, a in cfg.banned if p != pat
                       and not re.fullmatch(p, pat, re.I)]
