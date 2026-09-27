@@ -130,6 +130,10 @@ claude --plugin-dir .                         # try local changes in a session
 To add a rule, write the general principle in `rules.md` and one rejected/accepted pair
 in `examples.md`. To add a check, add it to `lint.py` with a test in `tests/`.
 
+Claude Code only updates an installed plugin when its version changes. Raise `version`
+in `.claude-plugin/plugin.json` with every release, then users run
+`/plugin marketplace update paperlint` and `/plugin update paperlint@paperlint`.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
