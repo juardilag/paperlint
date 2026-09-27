@@ -5,12 +5,9 @@ them. It is a plugin for [Claude Code](https://claude.com/claude-code), Anthropi
 coding assistant for the terminal.
 
 Text written with an LLM often has the same problems. It uses technical terms without
-defining them, states slogans instead of physics, and refers to things the reader has
+defining them, states slogans instead of facts, and refers to things the reader has
 not seen yet. paperlint gives Claude a set of writing rules and the tools to check them,
 so fewer of these problems reach you.
-
-The rules come from a supervisor's line-by-line review of a physics paper written with
-Claude. They apply to any field.
 
 ## What it does
 
@@ -86,7 +83,7 @@ every time.
 | PL011 | Acronym used before it is spelled out |
 | PL012 | Sentence starts with a bare "This", as in "This means that" |
 | PL013 | Reference typed by hand, such as `Eq.~\ref{…}` |
-| PL014 | Physical objects described as people, as in "the bath remembers" |
+| PL014 | Things described as if they were people, as in "the model remembers" |
 | PL015 | Sentence longer than 25 words (a milder note) |
 
 You can also run the checker without Claude, for example before submitting.
