@@ -1,0 +1,8 @@
+[[term]]
+name = "damping"
+avoid = ["friction"]
+avoid_in = "main"
+[[term]]
+name = "Weyl symbol"
+appendix_only = true
+main_text = "function that represents the operator"

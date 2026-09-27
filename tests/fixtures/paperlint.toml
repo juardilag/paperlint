@@ -1,0 +1,3 @@
+[paper]
+files = ["bad.tex"]
+glossary = "glossary.toml"
