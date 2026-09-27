@@ -1,10 +1,19 @@
 {
   "name": "paperlint",
   "version": "0.1.0",
-  "description": "Write and review scientific papers with Claude Code so they read as written by a careful scientist, not an LLM: a writing procedure, style rules, a LaTeX linter, a cold-reader review agent and a bibliography checker.",
-  "author": { "name": "juardilag" },
+  "description": "Write and review clear, precise scientific papers with Claude Code. Includes a writing procedure, style rules, a LaTeX checker, a fresh-reader review agent and a bibliography checker.",
+  "author": {
+    "name": "juardilag"
+  },
   "homepage": "https://github.com/juardilag/paperlint",
   "repository": "https://github.com/juardilag/paperlint",
   "license": "MIT",
-  "keywords": ["scientific-writing", "latex", "papers", "linting", "review", "bibtex"]
+  "keywords": [
+    "scientific-writing",
+    "latex",
+    "papers",
+    "linting",
+    "review",
+    "bibtex"
+  ]
 }

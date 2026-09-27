@@ -1,6 +1,6 @@
 ---
 name: scientific-writing
-description: Procedure, rules and tools for writing or revising scientific papers so the text reads as written by a careful human scientist, not an LLM. Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
+description: Procedure, rules and tools for writing or revising scientific papers so the text is clear, precise and easy to follow, and avoids the typical problems of LLM prose. Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
 ---
 
 # Writing scientific papers
