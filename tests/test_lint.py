@@ -127,6 +127,11 @@ class Acronyms(unittest.TestCase):
         cfg = lint.Config(known_acronyms={"GPU"})
         self.assertNotIn("PL011", codes("The GPU is fast.", cfg))
 
+    def test_units_are_not_acronyms(self):
+        cfg = lint.load_config(HERE / "fixtures" / "good.tex")
+        fs = lint.lint_text(DOC % "The card has 12 GB of memory at 2 GHz.", "t.tex", cfg)
+        self.assertNotIn("PL011", [f.code for f in fs])
+
     def test_roman_numerals(self):
         self.assertNotIn("PL011", codes("Table II lists the values."))
 
