@@ -113,7 +113,10 @@ Symbols and notation
   defines. When a figure shows a symbol, check that the text defines it before the figure
   is referenced.
 - Don't reuse a symbol for two things in the same section (e.g. θ for a step function and
-  a phase).
+  a phase). This includes averages and brackets. "The overline denotes the average over
+  noise realisations" followed later by "from here on the overline denotes the average
+  over trajectories" gives one symbol two meanings. Define it once, as the average that
+  covers both (over trajectories, each with its own noise realisation).
 
 Back-references
 - **Demonstratives and pronouns must point to something unique that was just named.**
@@ -168,6 +171,12 @@ Back-references
 - **Justify every structural feature of an equation when it appears**: odd-looking
   factors (a −2i that comes from a convention), step functions (causality), and choices
   such as a Poisson bracket where a reader expects a constant.
+  Say also what a factor carries physically when the argument depends on it, for example
+  that coth(ω/2T) = 1 + 2n_B(ω) carries the zero-point fluctuations through its term 1.
+- **Standard conventions are stated, not left to the reader.** A stochastic equation
+  with multiplicative noise says which calculus it uses (physical noise with a finite
+  correlation time gives the Stratonovich interpretation in the white-noise limit, by the
+  Wong–Zakai theorem). Such conventions are editorial fixes, not author decisions.
 - **Use technical terms correctly and consistently.** Check that a word like
   "stationary" is the right one. Use the same verb for the same operation, and a
   different verb for a different operation (e.g. "integrated out" for an exact removal,
@@ -196,12 +205,12 @@ Back-references
   type) is introduced in the general method, with how it enters the equations and when
   it applies. The method figure shows it, and the appendix that derives the method
   carries it through the derivation. The results then only choose values and refer
-  back. For example, a chemical potential μ appeared first in a results section, and
-  neither the method nor its figure mentioned it. It became a paragraph in the method
-  saying why μ is allowed (the rotating-wave coupling exchanges one bath quantum at a
-  time) and how it enters (coth[(ω−μ)/2T]). It was also added to the figure label, the
-  kernel table and the appendix derivation. The same holds for the list of inputs in the
-  method's closing summary.
+  back. The converse also holds. **A parameter the results never vary does not belong
+  in the paper.** For example, a chemical potential μ was introduced in the method, the
+  figure, the kernel table and the appendix because one results section mentioned it.
+  A check of the code showed that every run had μ = 0, so it was removed everywhere.
+  Before adding a parameter to the method, check that some result uses a value other than
+  the trivial one.
 - **Derivations have the generality of the main text.** If the main text allows a
   parameter or a case, the appendix derivation includes it, and states where it does
   not apply (e.g. why μ is meaningful for one coupling and not the other).
@@ -214,6 +223,13 @@ Back-references
   the action, its equation, and one or two sentences of why, in about 70 words or fewer.
   If a definition makes a step long, replace the term by a plain description (section 3) or move
   the detail to the appendix.
+- **Answers to review questions go where they belong.** A cold reader or referee asks
+  "why?" about every factor, convention and special case. Answer in the main text only
+  what the reader needs to follow the argument. Put derivation details, conventions,
+  validity conditions and special cases in the appendix, with a pointer. A revision
+  after a review should not leave the method longer than before. In one paper, answering
+  every question in place turned a five-step method into a page of qualifications, and
+  the authors had to move it all back to the appendix.
 - **Specialist terminology stays in the appendices.** When the main text can describe an
   object in plain words, it does. The appendix gives the technical name and links the
   two. Example: "a function O_W of these variables" in the method, and "the Weyl symbol,

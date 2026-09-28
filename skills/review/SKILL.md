@@ -13,6 +13,24 @@ Review a section as a reader with no context would.
 3. When it returns, triage every finding against the text yourself: confirm it, or say
    why it is wrong (e.g. the term is defined two paragraphs earlier). Do not pass findings
    on unchecked.
-4. Show the user the confirmed findings, grouped by severity, each with the quoted words
-   and a proposed fix. Ask before editing, unless the user asked you to fix them.
-5. After fixing, run `lint.py` on the section (see the lint skill) and report both results.
+4. For each confirmed finding, decide where the answer belongs, following section 6 of
+   `skills/scientific-writing/rules.md` (main text vs. appendix):
+   - **Main text**, as a clause, only if the reader needs it to follow the argument of
+     the section: a definition at first use, the reason for a choice, a missing premise.
+   - **Appendix**, with a pointer from the main text, for derivation details, factors,
+     conventions, special cases and validity conditions.
+   - **No change** if an appendix already answers it and the text points there.
+   - **Literature**, for "says who?" findings and statements about other papers that
+     the text does not support: pass them to `/paperlint:literature` rather than
+     answering from memory.
+   A review should not make a method section longer. If the confirmed fixes add more
+   than a few clauses to the main text, move the detail to the appendix instead.
+   Editorial fixes (definitions, notation, pointers, wording, the reason for a factor,
+   a standard convention) do not need the authors. Only content decisions do. See
+   `/paperlint:revise`, which applies this policy and runs rounds until the section is
+   done.
+5. Show the user the confirmed findings, grouped by severity, each with the quoted words,
+   the proposed fix and where it goes (main text, appendix, or no change). Ask before
+   editing, unless the user asked you to fix them.
+6. After fixing, run `lint.py` on the section (see the lint skill) and report both results.
+   Also compare the length of the section before and after, and say if it grew.
