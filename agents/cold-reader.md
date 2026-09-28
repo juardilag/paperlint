@@ -47,7 +47,10 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    introduced only in a figure caption, or used with two meanings.
 3. **Missing why.** A step, a factor, an equation feature or a choice of model that is
    stated without its reason ("why the Poisson bracket and not a constant?", "why this
-   spectral density?").
+   spectral density?"). Two cases are easy to miss: a quantity given by a formula without
+   saying what it is or why it has that value ("the rate Γ = 2πJ(ω₀)": which rate? why
+   2π?), and a correction or replacement without the error it fixes ("Eq. (B5) replaces
+   the damping term": why?).
 4. **Ambiguous references.** "it", "its", "this", "that", "the same", "such", "the
    corresponding" where more than one object could be meant, or none was named.
 5. **References without context.** "the method of Ref. [12]" when the text has not said
@@ -55,13 +58,21 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
 6. **Placeholder or vague words.** "microscopic", "structured", "flat" (in what?),
    "methods that reach many sites" (which?), "agrees well" (to what precision?).
 7. **Claims without support.** A statement about the literature, a scaling or a bound with
-   no citation, derivation or pointer.
+   no citation, derivation or pointer. A general statement about the method that names
+   one case ("spins are sampled as in Ref. [7]") when other sections of the paper use
+   other cases: grep the paper for them. In a general method, also flag a step that
+   singles out one kind of system ("for a spin, ...") when the paper treats several.
+   In a numbered procedure, flag a step whose first sentence does not say what the step
+   does or produces.
 8. **Logical gaps.** A "therefore" without a reason, a jump to a quantity the reader was
    not prepared for, a paragraph whose first sentence does not say what it is about.
 9. **LLM-sounding prose.** Slogans and aphorisms, dash asides, informal words for methods
    ("recipe", "engine"), anthropomorphism ("the bath remembers"), compressed participle
    phrases, a term followed by its own paraphrase, repetition of what an earlier section
-   said.
+   said. Read each paragraph aloud as a whole: flag one that reads as a list of short
+   sentences, a chain of definitions, a patchwork of appended clarifications ("Here X
+   is ...", "It equals ...", "then ... then"), or that gives instructions ("Take ...")
+   outside a numbered procedure (rules.md, section 2b).
 10. **Section connections.** Whether the opening says why the section exists and what is
     known, and whether the end leads to the next section.
 

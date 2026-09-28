@@ -111,6 +111,13 @@ They are harder to see than a banned word, so check for them when rereading a pa
   leads to the next paragraph.
 - **Paraphrase after a symbol.** "the noise ξ, the random force," or "Γ, the rate,"
   when both were already defined. Once a symbol is defined, use it alone.
+- **Patchwork paragraphs.** Revisions add one sentence per finding: a definition here
+  ("Here ω₀ is ..."), a reason there ("It equals ..."), until the paragraph is a string
+  of answers with "then ... then ..." between them. When an edit adds a sentence, reread
+  the paragraph whole and rewrite it so that each sentence follows from the one before.
+- **Instructions outside a procedure.** "Take the rotating-wave coupling ..." in running
+  prose reads as a lecture. Outside numbered steps, state the condition ("The limit
+  requires ...", "For a flat spectral density, ...").
 - **Over-hedging.** "may potentially", "could possibly", "appears to suggest". One hedge
   per claim, and only when the claim is uncertain. Results the paper shows are stated
   plainly.
@@ -219,6 +226,16 @@ Back-references
   in Eqs. (3) and (4)).
 - **Claim only what holds in general.** Don't state a scaling or a bound (e.g. "the error
   is suppressed as 1/N") unless it is true for the case at hand.
+- **A statement about the method covers every case the paper uses.** If the paper uses
+  several variants of a step (several initial distributions, integrators, bath models),
+  a sentence that names one either says it is an example ("for a spin, for example, ...")
+  or points to where all of them are listed. Check the scope against the other sections
+  and the code, not against the sentence being edited. Rewording is where this goes
+  wrong: turning a fragment into a sentence, or a pointer into a claim, must not narrow
+  what the text says.
+  In a general method, a step stays general: it does not single out one kind of system
+  ("for a spin, ..."), even as an example, when the paper treats several. It points to
+  the appendix that gives each case, with the same wording in every step that does so.
 - Speculative extensions either get made specific or go to the conclusions as outlook.
 - **Justify every structural feature of an equation when it appears**: odd-looking
   factors (a −i/2 that comes from a convention), step functions (causality), and choices
@@ -226,6 +243,21 @@ Back-references
   Say also what a factor carries physically when the argument depends on it, for example
   that coth(ω/2T) = 1 + 2n_B(ω) carries the zero-point fluctuations through its term 1,
   or that a factor 1/√N keeps a rate independent of the system size.
+- **A quantity given by a formula says what it is and why it has that value.** "The
+  decay rate Γ = 2πJ(ω₀)" leaves two questions: which rate (link it to where the reader
+  met it, e.g. the jump operator of the master equation), and why 2πJ(ω₀) (the
+  golden-rule rate of decay into the resonant bath modes, with a reference).
+- **A correction says what it corrects.** "Eq. (A17) replaces the memory term for this
+  case" leaves the reader asking why. Name the error in one clause at the place the
+  correction is introduced ("the classical memory term makes the spin precess
+  spuriously"), and let later sections refer back.
+- **A why is one clause, not a derivation.** In the main text the reason names what goes
+  wrong or what a factor means, at the level of the argument. The mechanism behind it
+  (which operator identity fails, how a term is generated) goes to the appendix. Answering
+  a "why?" with four sentences of mechanism was flagged as "too much technical detail".
+- **Cut sentences the argument does not use.** "Ref. [12] absorbs the accompanying
+  frequency shift into ω₀" answers a question nobody asked there; it belongs in the
+  appendix or nowhere.
 - **Standard conventions are stated, not left to the reader.** A stochastic equation
   with multiplicative noise says which calculus it uses (physical noise with a finite
   correlation time gives the Stratonovich interpretation in the white-noise limit, by the
@@ -274,6 +306,10 @@ Back-references
   mechanisms belong in the subsection itself.
 - **Keep procedure steps short.** A reviewer wrote "too long, chop it!". Each step gives
   the action, its equation, and one or two sentences of why, in about 70 words or fewer.
+  The first sentence of a step states what the step does or produces, as an instruction
+  ("Compute the memory kernel", "Write the equations of motion of the closed system").
+  The how follows. A step that opens with its technique ("Replace the operators by
+  classical variables") and leaves its result for the end hides what it is for.
   If a definition makes a step long, replace the term by a plain description (section 3) or move
   the detail to the appendix.
 - **Answers to review questions go where they belong.** A cold reader or referee asks
