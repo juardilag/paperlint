@@ -110,6 +110,16 @@ sentence instead of explaining again.
 contains the square of the occupation, the operator obeys n̂² = n̂, the classical number
 does not, so ...). *(Authors: "too much technical detail")* That mechanism is App. B's.
 
+## A property the formula does not show (section 5)
+
+**Flagged:** "The noise has the correlation ⟨ξξ⟩ = −(i/2)K(t − t′). Its correlation is
+real and its spectrum is non-negative." *(Authors: "there is an i/2, so it is not clear
+why it is real")*
+
+**Accepted:** "Because K is purely imaginary (Eq. (3)), the factor −i/2 makes the
+correlation real. Its spectrum, πJ(|ω|)coth(|ω|/2T), is non-negative." The reason is one
+clause, and the spectrum is written in a form whose sign the reader can see.
+
 ## Unusual property of a familiar object (section 3)
 
 **Flagged:** "The noise is then complex." *(Reviewer: "how can a noise be complex?")*

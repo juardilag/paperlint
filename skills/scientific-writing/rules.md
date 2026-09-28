@@ -243,6 +243,13 @@ Back-references
   Say also what a factor carries physically when the argument depends on it, for example
   that coth(ω/2T) = 1 + 2n_B(ω) carries the zero-point fluctuations through its term 1,
   or that a factor 1/√N keeps a rate independent of the system size.
+- **A property the formula does not show needs its reason.** When the text calls an
+  expression real, positive, symmetric or conserved and the formula on the page
+  displays an i, a minus sign or a missing symmetry, say in one clause why the property
+  holds, or write the expression in a form that shows it. "Its correlation is real",
+  next to −(i/2)Σ^K, was flagged because the reader sees the i. The fix names the
+  reason (Σ^K is purely imaginary) and gives the spectrum in explicitly real form,
+  πJ(|ω|)coth(|ω|/2T).
 - **A quantity given by a formula says what it is and why it has that value.** "The
   decay rate Γ = 2πJ(ω₀)" leaves two questions: which rate (link it to where the reader
   met it, e.g. the jump operator of the master equation), and why 2πJ(ω₀) (the
@@ -296,6 +303,14 @@ Back-references
   check of the code showed that every run used the trivial value, so it was removed
   everywhere. Before adding a parameter to the method, check in the code that some
   result uses a value other than the trivial one.
+- **The results apply the method; they do not replace a step of it.** When a results
+  section writes the equation of motion of a model, derive it from the general method
+  and compare, and check the code that produced the figure. A form that agrees with the
+  method only in a limit (for example a bosonised equation for a spin, which matches
+  the spin bracket only at full polarisation) is an error in the text or in the code,
+  not a detail to state. One paper divided a spin field by S^z so that a collective spin
+  obeyed a bosonic equation; the authors wanted the spin equations, and the code and
+  the figure had to be redone.
 - **Derivations have the generality of the main text.** If the main text allows a
   parameter or a case, the appendix derivation includes it, and states where it does
   not apply (e.g. why a parameter is meaningful for one coupling and not the other).
