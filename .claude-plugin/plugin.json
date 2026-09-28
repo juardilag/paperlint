@@ -1,6 +1,6 @@
 {
   "name": "paperlint",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Write, revise and finish scientific papers with Claude Code. Three commands (write, revise, finish) plan and draft from your ideas, check each section against the whole paper with a fresh reader, a literature agent and a LaTeX checker, and fix what they find until the text is done.",
   "author": {
     "name": "juardilag"

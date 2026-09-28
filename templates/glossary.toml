@@ -7,10 +7,10 @@ known_acronyms = []
 
 # A term with variants the paper does not use:
 # [[term]]
-# name = "memory kernel"                     # the name used in the text
-# avoid = ["retarded self-energy", "memory function"]
-# avoid_in = "main"                          # "main" (before \appendix), "appendix" or "all"
-# note = "the appendix names it the retarded self-energy once, linked to this name"
+# name = "lattice site"                      # the name used in the text
+# avoid = ["node", "lattice point"]
+# avoid_in = "all"                           # "main" (before \appendix), "appendix" or "all"
+# note = "one name for the same object throughout"
 
 # A specialist term that stays in the appendices:
 # [[term]]

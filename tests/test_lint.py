@@ -23,7 +23,8 @@ class Fixtures(unittest.TestCase):
         src = (HERE / "fixtures" / "bad.tex").read_text()
         found = {f.code for f in lint.lint_text(src, "bad.tex", cfg)}
         expected = {"PL001", "PL002", "PL003", "PL004", "PL005", "PL006", "PL007",
-                    "PL008", "PL009", "PL010", "PL011", "PL012", "PL013", "PL014"}
+                    "PL008", "PL009", "PL010", "PL011", "PL012", "PL013", "PL014",
+                    "PL016", "PL017"}
         self.assertEqual(expected - found, set())
 
     def test_good_fixture_is_clean(self):
@@ -54,7 +55,7 @@ class Sentences(unittest.TestCase):
 
 class Openers(unittest.TestCase):
     def test_symbol_start(self):
-        self.assertIn("PL005", codes("$N$ atoms couple to the cavity."))
+        self.assertIn("PL005", codes("$N$ atoms couple to the lattice."))
 
     def test_numeral_start(self):
         self.assertIn("PL005", codes("50 samples were prepared."))
@@ -99,6 +100,19 @@ class Punctuation(unittest.TestCase):
 
 
 class Words(unittest.TestCase):
+    def test_parenthetical_pointers(self):
+        self.assertIn("PL016", codes("A follows (\\cref{a}) and B follows (\\cref{b}) here."))
+        self.assertNotIn("PL016", codes("A follows from the kernel (\\cref{a}) here."))
+
+    def test_antithesis(self):
+        self.assertIn("PL017", codes("The step is a consequence, not an extra assumption."))
+        self.assertIn("PL017", codes("The method is not a fit but a derivation."))
+        self.assertNotIn("PL017", codes("We do not use a cutoff, but the result converges."))
+
+    def test_llm_openers(self):
+        self.assertIn("PL007", codes("Notably, the kernel is causal."))
+        self.assertIn("PL007", codes("The bath plays a key role in the relaxation."))
+
     def test_banned(self):
         self.assertIn("PL007", codes("We use a recipe to obtain the result."))
 

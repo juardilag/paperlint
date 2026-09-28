@@ -1,225 +1,245 @@
 # Examples: flagged text and accepted rewrites
 
-Every pair below comes from a real review of an LLM-assisted physics paper. The left
-side was flagged by the supervisor or a co-author; the right side is the version they
-accepted. The paper was about open quantum systems, but each pair illustrates a rule
-that holds in any field. Read the pair for its rule, which is named in the heading.
+Each pair shows a sentence a reviewer or co-author flagged, and a rewrite of the kind
+they accept. The pairs are invented, modelled on real reviews of LLM-assisted papers.
+Most follow one imaginary physics paper, a stochastic method for atoms in an optical
+lattice coupled to a phonon bath. A few come from other fields, to show that the rules
+do not depend on the subject. Read each pair for its rule, which is named in the
+heading.
 
-When writing, match the accepted versions in tone and density: plain words, one idea
-per sentence, every term defined, every claim tied to an equation or a reference.
+When writing, match the accepted versions in tone and density: plain words, sentences
+joined by the logic between them, every term defined, every claim tied to an equation,
+a figure or a reference.
 
 ---
 
 ## Slogans and aphorisms (rules.md, section 2)
 
-**Flagged:** "The bath's fluctuation–dissipation relation is an identity of the
-construction and not an assumption."
+**Flagged:** "Detailed balance is a property of the construction, not an assumption."
 
-**Accepted:** "The fluctuation–dissipation relation of the thermal bath then gives the
-noise kernel in terms of the Fourier transform Σ^R(ω)." *(State what the relation does,
-where it is used, and cite it.)*
+**Accepted:** "Because the phonons start in thermal equilibrium, the noise and the
+damping obey the fluctuation–dissipation relation [refs], and the atoms relax to the
+thermal state of the lattice (App. B)." *(Say what holds, why, and where it is shown.)*
 
-**Flagged:** "The coupling fixes Â, and the modes enter only through their spectral
-density."
+**Flagged:** "The coupling fixes everything; the phonons enter only through their
+spectrum."
 
-**Accepted:** "Here H_S is the system Hamiltonian and Â is the Hermitian system operator
-that couples to the bath. … A continuum of such modes in thermal equilibrium is fully
-characterised by its temperature T and its spectral density J(ω)."
+**Accepted:** "The phonons couple to the atomic density on each site. A continuum of
+such modes in thermal equilibrium affects the atoms only through its temperature T and
+its spectral density J(ω)."
 
 ## Placeholder words (section 2)
 
-**Flagged:** "This section derives the corresponding equation from a microscopic model
-of the bath." *(Reviewer: "What is a microscopic equation?")*
+**Flagged:** "This section derives the corresponding equation from a microscopic model."
+*(Reviewer: "which equation? what is microscopic here?")*
 
-**Accepted:** "Here we derive a Langevin equation that keeps the memory of the bath.
-Instead of a master equation, we start from the Hamiltonian of the system and the bath,
-including their coupling (Eq. (2))."
+**Accepted:** "Instead of a rate equation, we start from the Hamiltonian of the atoms,
+the phonons and their coupling (Eq. (2)), and derive a stochastic equation for the site
+occupations."
 
 ## Implicit contrast with prior work (section 2)
 
-**Flagged:** the method is "the non-Markovian generalisation anticipated in Ref. [16]",
-with no statement of what Ref. [16] has.
+**Flagged:** the method is "the natural generalisation of Ref. [12]", with no statement
+of what Ref. [12] does.
 
-**Accepted:** "Hosseinabadi et al. obtained from the Lindblad equation, Eq. (1), a
-Langevin equation for the classical spin variables. … In their equation the damping
-depends only on the spin variables at the same instant. The noise is white, which means
-that its correlations are proportional to δ(t−t′) and its spectrum is flat. Both the
-damping and the noise are determined by the jump operators." And later: "At zero
-temperature, the Markovian TWA of Ref. [16] is the memoryless limit of Eq. (6)."
+**Accepted:** "Smith et al. [12] describe the phonons by a single relaxation rate, so the
+damping of an atom depends only on its state at the same instant. Here the damping
+depends on the past of the atom over the phonon correlation time. For a phonon bath with
+a flat spectral density this memory vanishes, and the equation of Ref. [12] is
+recovered."
 
 ## Colloquial metaphor, anthropomorphism (section 2)
 
-**Flagged:** "whose decay in τ sets how long the bath remembers"
+**Flagged:** "the time over which the lattice remembers its past"
 
-**Accepted:** "The decay time of Σ^R(τ) is the bath correlation time."
+**Accepted:** "the correlation time of the phonons"
 
-**Flagged:** "what the atoms inherit once the mode between them and the bath is
-eliminated"
+**Flagged:** "the proteins sense the crowding and decide to fold"
 
-**Accepted:** "The atoms are then driven by a field that depends on their own past over
-the cavity decay time."
+**Accepted:** "at high crowding the folded state has the lower free energy, and the
+folding rate increases"
 
 ## Informal words for methods (section 2)
 
-**Flagged:** "The recipe of Hosseinabadi et al. …", "this is what eliminating the cavity
-buys", "the two engines", "prices the two shortcuts".
+**Flagged:** "Our recipe", "the trick that buys the speed-up", "the two engines",
+"this prices the approximation".
 
-**Accepted:** "the procedure", "the correction is available only because the cavity has
-been integrated out", "the cavity-kept and integrated-out formulations", "measures the
-cost of each approximation".
+**Accepted:** "our procedure", "the step that makes the calculation faster", "the two
+formulations", "this measures the cost of the approximation".
 
 ## Standard vocabulary still needs defining (section 3)
 
-**Flagged:** "white noise", "jump operators", "Langevin equation", "master equation",
-"convolution", "coloured noise", all used without definition or reference.
-*(Reviewer: "what is white noise? … what are those? reference??")*
+**Flagged:** "master equation", "white noise", "Langevin equation", "convolution", all
+used without definition or reference. *(Reviewer: "what is white noise? reference?")*
 
-**Accepted, one clause each at first use:**
-- "a master equation. A master equation is an equation of motion for the density matrix
-  ρ of the system alone, from which the bath has been eliminated [refs]."
-- "The jump operators L_j describe the processes through which the bath changes the
-  state of the system. An example is L = √Γ a for the loss of cavity photons at rate Γ."
-- "A Langevin equation is an equation of motion that contains, besides the deterministic
-  dynamics, a damping term and a random force, the noise [refs]."
-- "The damping then becomes a convolution, (Σ^R ∗ A)(t) = ∫dt′ Σ^R(t−t′)A(t′). Here A is
-  the system variable that couples to the bath. The convolution adds up the past values
-  A(t′), each weighted by the memory kernel Σ^R at the time difference t − t′."
-- "The noise becomes coloured, which means that its correlations extend over a finite time
-  and its spectrum depends on frequency [ref]."
+**Accepted, each inside the sentence that first uses it:**
+- "The standard description is a master equation, an equation of motion for the density
+  matrix of the atoms alone, from which the phonons have been eliminated [refs]."
+- "Each atom obeys a Langevin equation [refs], in which the deterministic motion is
+  supplemented by a damping term and a random force, the noise."
+- "The damping becomes a convolution, (K ∗ n)(t) = ∫dt′ K(t−t′) n(t′), which adds up the
+  past occupations n(t′), each weighted by the memory kernel K at the time difference."
 
 ## Plain description instead of jargon (section 3)
 
-**Flagged:** "by its Weyl symbol 𝒪_W(φ)" … "the phase-space function" *(Reviewer: "what is
-the phase space?")*
+**Flagged:** "We represent each operator by its Weyl symbol on phase space." *(Reviewer:
+"what is the phase space here?")*
 
-**Accepted:** "Replace every operator 𝒪̂ by a function 𝒪_W(φ) of these variables. The
-function is chosen so that the expectation value ⟨𝒪̂⟩ equals the average of 𝒪_W over the
-Wigner function ρ_W of the density matrix. For a spin, the spin operators become the
-components of a classical vector." The appendix then says "The function 𝒪_W of step 1 is
-known as the Weyl symbol of 𝒪̂ [refs]."
+**Accepted:** "Each operator is replaced by a function of the classical variables, chosen
+so that its average over the initial distribution equals the quantum expectation value."
+The appendix then adds: "This function is known as the Weyl symbol of the operator
+[refs]."
 
 ## Unusual property of a familiar object (section 3)
 
 **Flagged:** "The noise is then complex." *(Reviewer: "how can a noise be complex?")*
 
-**Accepted:** "Because Â is not Hermitian, the bath force on it is a complex field. The
-noise is then complex, ξ(t) = ξ₁(t) + iξ₂(t) with ξ₁ and ξ₂ real Gaussian noises, and its
-correlation is \overline{ξ(t)ξ*(t′)} = −2iΣ^K(t−t′)."
+**Accepted:** "Because the atoms couple to the phonons through a hopping operator, which
+is not Hermitian, the force on them is a complex field. The noise is then complex,
+ξ = ξ₁ + iξ₂, with ξ₁ and ξ₂ real Gaussian noises of equal variance."
 
 ## Notation introduced with a full clause (section 3)
 
-**Flagged:** "classical variables φ_α, collectively φ" *("what is this? it's a bit odd")*
+**Flagged:** "occupations n_j, collectively n"
 
-**Accepted:** "classical variables φ_α, and denote the set of all φ_α by φ."
+**Accepted:** "occupations n_j, and we denote the set of all n_j by n."
 
-**Flagged:** a figure caption saying "with ∗ the convolution" while the text never
-introduced ∗.
+**Flagged:** a caption saying "with K the memory kernel" while the text never introduced
+K.
 
-**Accepted:** the text defines (Σ^R ∗ A)(t) where the convolution first appears, and the
-caption no longer defines anything.
+**Accepted:** the text defines K where the convolution first appears, and the caption
+uses it without defining it.
 
 ## Back-references (section 3)
 
-**Flagged:** "The same step underlies TWA for bosons and for spins." *("I don't
-understand this.")*
+**Flagged:** "The same step underlies the method for fermions." *("the same as what?")*
 
-**Accepted:** "This step is the same as in TWA without a bath [refs]."
+**Accepted:** "This sampling step is the same as in the method without phonons [refs]."
 
-**Flagged:** "The convolution adds up its past values" *("its past values? of what?")*
+**Flagged:** "The convolution adds up its past values." *("its? the convolution's?")*
 
-**Accepted:** "The convolution adds up the past values A(t′)".
+**Accepted:** "The convolution adds up the past occupations n(t′)."
 
 ## Redundancy (section 4)
 
-**Flagged:** "The bath starts in thermal equilibrium at temperature T. For a continuum of
-modes it then enters the system dynamics only through T and the spectral density."
+**Flagged:** "The phonons start at temperature T. They then enter the dynamics only
+through T and J(ω)." *(T twice)*
 
-**Accepted:** "A continuum of such modes in thermal equilibrium is fully characterised by
-its temperature T and its spectral density J(ω)."
+**Accepted:** "A thermal phonon bath affects the atoms only through its temperature T
+and its spectral density J(ω)."
 
-**Flagged:** "In the equation of Ref. [31] the damping is local in time, set by the spin
-variables at the same instant." *(term + its own paraphrase)*
+**Flagged:** "In Ref. [12] the damping is instantaneous, set by the state at the same
+time." *(a term and its own paraphrase)*
 
-**Accepted:** "In their equation the damping depends only on the spin variables at the
-same instant."
+**Accepted:** "In Ref. [12] the damping depends only on the state at the same time."
 
-**Flagged:** a paragraph opening "The Markovian TWA of Ref. [31] is the memoryless limit
-of Eq. (6)" and closing "The result is the Langevin equation of Ref. [31]."
+**Flagged:** a paragraph that opens "The rate equation of Ref. [12] is the memoryless
+limit of Eq. (6)" and closes "The result is the rate equation of Ref. [12]."
 
-**Accepted:** the closing sentence is cut; the topic sentence makes the claim once.
+**Accepted:** the closing sentence is cut. The topic sentence makes the claim once.
 
-## Cutting a premise (section 4) — a fix that was rejected
+## Cutting a premise (section 4), a fix that was rejected
 
-A redundancy pass removed "Hosseinabadi et al. obtained from the Lindblad equation a
-Langevin equation …" from the opening of the method section, because the introduction
-already said it. The authors reverted the cut: "now it does not make any sense". A section
+A redundancy pass removed "Smith et al. describe the phonons by a single relaxation
+rate" from the opening of the method, because the introduction said it already. The
+authors reverted the cut: "now the method does not say what it improves on". A section
 opening may recall what it builds on. Keep that recall.
 
 ## Method vs. results (section 6)
 
-**Flagged:** in the method section, "In the Rabi model of Sec. III B1 … the correction
-reduces the deviation from the exact solution by a factor of four to six."
-*("this is not necessary")*
+**Flagged:** in the method, "the correction reduces the error by a factor of four to
+six" *("this belongs to the results")*.
 
-**Accepted:** the sentence moves to the results; the method says only "Appendix A3
-derives a correction for this precession."
+**Accepted:** the number moves to the results section that shows it. The method says
+only "App. C derives a correction for this error."
 
-**Flagged:** a chemical potential μ used first in the results, never mentioned in the
-method or its figure.
+**Flagged:** a parameter that the method, its figure and its table carry, while every
+simulation in the paper sets it to zero.
 
-**Accepted:** a method paragraph saying why μ is allowed and how it enters ("The
-rotating-wave coupling also allows a chemical potential μ for the bath. … The factor
-coth(ω/2T) in Eq. (4) then becomes coth[(ω−μ)/2T]"), plus μ in the figure label, the
-kernel table and the appendix derivation.
+**Accepted:** the parameter is removed everywhere, after checking the simulation input
+files.
 
 ## Procedure steps too long (section 6)
 
-**Flagged:** steps of 110–125 words *("too long, chop it!")*.
+**Flagged:** steps of 110 to 125 words *("too long, chop it!")*.
 
-**Accepted:** each step gives the action, its equation, and one or two sentences of why,
-about 70 words. Definitions that made steps long were replaced by plain descriptions.
+**Accepted:** each step gives the action, its equation and one or two sentences of why,
+in about 70 words. The definitions that made the steps long became plain descriptions,
+and the details moved to the appendix.
+
+## Answering review questions in place (section 6)
+
+**Flagged:** after a review, every step of the method carried its own qualifications:
+the Fourier convention, the validity of an approximation, a special case, and three
+pointers in parentheses. *(Authors: "too many technical details for the main text")*
+
+**Accepted:** the method keeps the argument and one pointer per step. The conventions,
+validity conditions and special cases moved to the appendix, which the pointers name.
 
 ## Closing a section (section 9)
 
-**Flagged:** "Section III therefore tests each kernel against a known result, and then
-applies both to a driven system." *(vague; it hid the most interesting test)*
+**Flagged:** "Section IV therefore tests the method against known results and then
+applies it." *(vague; it hid the most interesting test)*
 
 **Accepted:**
-> The inputs of the method are the system Hamiltonian H_S, the coupling operator Â, the
-> spectral density J(ω) and the bath temperature T. Compared with the Markovian TWA, it
-> adds two ingredients, the memory kernel and the noise kernel, and each has to be tested.
-> The memory kernel must reproduce dynamics in which the past of the system matters.
-> Section III A tests it against an exact solution and an analytic theory. The noise
-> kernel carries the zero-point fluctuations of the bath through the factor coth(ω/2T) in
-> Eq. (4), while each trajectory is classical. Section III B tests whether the
-> trajectories nevertheless relax to a state that obeys the quantum
-> fluctuation–dissipation relation. Section III C then applies both kernels to a driven
-> model, for which no consistent Lindblad description exists.
+> The method needs the lattice Hamiltonian, the coupling to the phonons, their spectral
+> density and their temperature. Compared with a rate equation, it adds a memory kernel
+> and a coloured noise, and each needs its own test. The memory kernel must reproduce
+> dynamics in which the past of an atom matters, so Sec. IV A compares it with an exact
+> solution for eight sites. The noise must drive the atoms to the thermal state of the
+> lattice, although each trajectory is classical, and Sec. IV B tests that. Section V
+> then applies both to a driven lattice, where no rate equation is consistent.
 
-**Rejected alternative:** dropping the transition entirely because the next section had
-an overview ("we have to connect all the sections to the reader").
+**Rejected alternative:** dropping the transition because the next section opens with
+its own overview ("the reader needs the connection between the sections").
 
 ## Captions (section 7)
 
-**Flagged:** "Grey, individual trajectories. Shaded, their spread. Heavy line, their
-mean."
+**Flagged:** "Grey, individual trajectories. Shaded, their spread. Black, the mean."
 
 **Accepted:** "Grey lines show individual trajectories, the shaded band their spread,
-and the heavy line their mean."
+and the black line their mean."
 
 ## Introduction (section 9)
 
-**Flagged:** a results paragraph in the introduction full of values ("agree to
-5.9 × 10⁻³ for 30 atoms", "2.61 s at N = 8192") *("I don't like that we put a ton of
-results in the intro")*.
+**Flagged:** an introduction paragraph full of values ("agrees to 6 × 10⁻³ for 30 sites",
+"2.6 s for 8192 sites") *("too many numbers for an introduction")*.
 
-**Accepted:** one sentence per result in words, each with a pointer: "In the Dicke model
-it agrees with the exact solution across the superradiant transition (Sec. III A1)."
+**Accepted:** one sentence per result, in words, with a pointer: "For eight sites the
+method agrees with the exact solution at all interaction strengths (Sec. IV A)."
 
 ## Smoother word order (section 2)
 
-**Flagged:** "We start from the Hamiltonian of the system, the bath and their coupling,
-Eq. (2) below, instead of a master equation." *("This can be written more smoothly")*
+**Flagged:** "We start from the Hamiltonian of the atoms, the phonons and their coupling,
+Eq. (2) below, instead of a rate equation." *("put the known thing first")*
 
-**Accepted:** "Instead of a master equation, we start from the Hamiltonian of the system
-and the bath, including their coupling (Eq. (2))."
+**Accepted:** "Instead of a rate equation, we start from the Hamiltonian of the atoms,
+the phonons and their coupling (Eq. (2))."
+
+## Rhythm and texture (section 2b)
+
+**Flagged**, a paragraph that passes the linter and still reads as generated:
+> The lattice is coupled to a phonon bath. The bath is harmonic (Sec. II). The coupling
+> is linear (App. A). The bath can therefore be integrated out exactly, which means that
+> no approximation is made. Notably, the result is a consequence of the model, not an
+> additional assumption. The damping is a convolution. The noise is coloured, which means
+> that its correlations extend over a finite time.
+
+**Accepted:**
+> Because the phonon bath is harmonic and couples linearly to the lattice, it can be
+> integrated out exactly (App. A). What remains for the atoms is a damping term that is a
+> convolution over their past, and a noise whose correlations extend over the correlation
+> time of the phonons.
+
+What changed: sentences joined by the relation between them ("Because"), one pointer
+instead of two, no "which means that" definitions in a row, no "Notably", no "not an
+additional assumption", and the claim that no approximation is made is left to the
+appendix, which shows it.
+
+**Flagged**, from an ecology paper:
+> Notably, predation plays a key role in the dynamics. The predator density is high. The
+> prey density is low. This underscores the importance of top-down control.
+
+**Accepted:**
+> Where predators are dense the prey density falls by half within one season (Fig. 3),
+> which is the top-down control that the model predicts for this food web.

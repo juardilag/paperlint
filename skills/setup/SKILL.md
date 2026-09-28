@@ -10,8 +10,8 @@ Set up paperlint for one paper.
    `python3 "${CLAUDE_PLUGIN_ROOT}/skills/scientific-writing/scripts/init_project.py" $ARGUMENTS`.
    It never overwrites existing files.
 2. Read the paper. Propose `glossary.toml` entries for:
-   - objects that appear under two or more names (e.g. "memory kernel" and "retarded
-     self-energy"), with the name to keep and the ones to avoid;
+   - objects that appear under two or more names (e.g. "decay rate" and "relaxation
+     rate"), with the name to keep and the ones to avoid;
    - specialist terms that should stay in the appendices;
    - acronyms that the field uses without definition, if any;
    - symbols with their single meaning.

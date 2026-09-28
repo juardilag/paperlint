@@ -1,10 +1,11 @@
 # Rules for scientific writing
 
-These rules come from a supervisor's line-by-line review of an LLM-assisted physics
-paper and from the co-authors' later corrections. They apply to any field. The examples
-are taken from that paper; apply the principle, not the example.
+These rules come from line-by-line reviews of LLM-assisted papers by supervisors and
+co-authors. They apply to any field. The examples are invented to illustrate them, most
+of them in one imaginary physics paper about atoms in an optical lattice coupled to a
+phonon bath. Apply the principle, not the example.
 
-**House defaults.** A few rules are strong preferences of the original authors rather
+**House defaults.** A few rules are strong preferences rather
 than universal rules: no colons or semicolons in running text, no em dashes, sentences
 under 25 words, and no numbers in the introduction. They are on by default because they
 push LLM prose toward plain English. A paper can switch the mechanical ones off in
@@ -28,75 +29,126 @@ like two experts talking at a blackboard, which makes it unreadable to anyone el
 
 ## 2. Write like a scientist, not like an LLM
 Reviewers flag these as "no human would say it like that":
-- **Aphorisms and slogans.** Examples: "the relation is an identity of the construction
-  and not an assumption", "the coupling fixes A", "prices the two shortcuts", "the only
-  approximation, and it acts on the system alone". Say the physics plainly.
-- **Dash asides** ("– the bath is already carried by ξ –"). Use no em dashes at all.
+- **Aphorisms and slogans.** Examples: "detailed balance is a property of the
+  construction, not an assumption", "the coupling fixes everything", "prices the two
+  shortcuts", "the only approximation, and it acts on the lattice alone". Say the physics
+  plainly.
+- **Dash asides** ("– the phonons are already in the noise –"). Use no em dashes at all.
   Rewrite with a comma or a full stop, not a colon or semicolon. En dashes only in ranges
   (2.1–2.6) and joined names (Caldeira–Leggett).
 - **Meta phrases that do nothing**: "in the order it is carried out", "Applying the
-  protocol.", "Table I gives both for…". Cut them.
+  method.", "Table I gives both for…". Cut them.
 - **Italic emphasis on whole sentences.** Don't use it.
-- **Colloquial metaphors for technical quantities.** "How long the bath remembers" should
-  be "the bath correlation time". Use scientific language.
+- **Colloquial metaphors for technical quantities.** "How long the lattice remembers"
+  should be "the phonon correlation time". Use scientific language.
 - **Informal nouns and verbs for methods and results**: "the recipe", "the trick", "the
   engine", "buys", "prices", "the price of". Write "the method", "the procedure", "the
   formulation", "costs", "requires".
-- **Compressed participle phrases** that pack a claim into a clause: "truncating the
-  system sector alone", "with the system made semiclassical rather than exact". Write the
+- **Compressed participle phrases** that pack a claim into a clause: "approximating the
+  lattice alone", "with the atoms made classical rather than exact". Write the
   claim as a full sentence with a subject and a verb.
-- **Narrating a concept as a sequence of actions**: "the bath is traced out before the
-  first trajectory is propagated". State what the method assumes or approximates instead.
+- **Narrating a concept as a sequence of actions**: "the phonons are traced out before
+  the first trajectory is run". State what the method assumes or approximates instead.
 - **Stiff, list-like, "student" prose**: short declarative sentences strung together
   without connecting logic. Paragraphs should flow and argue. Polish slowly; don't rush.
 - **Placeholder words that name nothing**: "a microscopic model", "the corresponding
   equation", "a structured bath" with no structure given. Name the concrete object, for
-  example "the Hamiltonian of the system and the bath, including their coupling (Eq. (2))".
+  example "the Hamiltonian of the atoms, the phonons and their coupling (Eq. (2))".
 - **Contrasts left implicit.** When the work differs from the closest prior work, say
   exactly what each side has, and show how the prior result is recovered as a limit.
-  Example: "In Ref. [16] the damping depends only on the variables at the same instant and
+  Example: "In Ref. [12] the damping depends only on the state at the same instant and
   the noise is white. Here the damping is a convolution with a memory kernel and the noise
-  is coloured. With a flat spectral density the kernels become δ(τ) and Ref. [16] is
+  is coloured. With a flat phonon spectrum the kernel becomes δ(τ) and Ref. [12] is
   recovered."
 - **Put the known or contrasted element first and the new element last.** "Instead of a
-  master equation, we start from the Hamiltonian…" reads better than "We start from the
-  Hamiltonian…, Eq. (2) below, instead of a master equation".
+  rate equation, we start from the Hamiltonian…" reads better than "We start from the
+  Hamiltonian…, Eq. (2) below, instead of a rate equation".
 - **Losing context**: stating something as if it were obvious, or jumping to a quantity
-  the reader wasn't prepared for ("the photon number decays at 2κ" in the middle of a
-  kernel discussion: "do you mean the cavity photon?"). Set up each quantity before it
+  the reader wasn't prepared for ("the occupation decays at 2γ" in the middle of a
+  kernel discussion: "the occupation of which site?"). Set up each quantity before it
   appears.
-- **Anthropomorphism.** Atoms don't "inherit" or "see", baths don't "remember", drives
-  don't "move" things, and a coupling doesn't "fix" anything. Describe the physics that
+- **Anthropomorphism.** Atoms don't "inherit" or "see", baths don't "remember", cells
+  don't "decide", drives don't "move" things, and a coupling doesn't "fix" anything. Describe the physics that
   actually happens.
+
+## 2b. Rhythm and texture: what makes prose read as machine-written
+A text can pass every rule above and still read as generated. These patterns cause it.
+They are harder to see than a banned word, so check for them when rereading a paragraph.
+- **Uniform short sentences.** The 25-word limit is a ceiling, not a target. A paragraph
+  of ten sentences of twelve words reads as a list. Vary the length, and join sentences
+  that belong together with the word that states their relation: because, so, but,
+  although, while, whereas, which. Two full stops where one "because" would do lose the
+  logic.
+- **The same opening in every sentence.** "The kernel … The kernel … The noise … The
+  noise …". Start some sentences with the condition, the contrast or the cause ("For a
+  flat spectral density, …", "Because the bath is harmonic, …").
+- **Chained definitions.** One sentence per term, each "X is Y, which means that Z",
+  turns a paragraph into a glossary. Define a term inside the sentence that uses it, or
+  define two related terms together. Use "which means that" at most once per paragraph.
+- **Parenthetical pointers everywhere.** "(Sec. III A)", "(App. A2)", "(Table I)" after
+  every clause. Keep at most one pointer in parentheses per sentence. When the pointer
+  matters, make it the subject ("App. A2 derives the correlation"); when it does not,
+  cut it. A roadmap sentence that lists the appendices is the exception.
+- **Stacked qualifications.** "To leading order, at zero temperature, for the
+  rotating-wave coupling, in the white-noise limit, …". State the conditions once, where
+  they first apply, usually at the start of the paragraph, and do not repeat them in
+  every sentence.
+- **The antithesis reflex.** "X is a consequence of the derivation, not an additional
+  assumption", "not A but B", "rather than". LLMs use this contrast by default. Keep it
+  only where a reader would really expect the rejected alternative, and at most once in
+  a section.
+- **Lists of three.** "clear, precise and robust", "why, what and how". A triple is a
+  rhythm, not an argument. Name the items that matter, however many there are.
+- **Signposting and transitions that carry nothing.** "Notably", "Importantly",
+  "Crucially", "Interestingly", "It is worth noting", "Moreover" at the start of a
+  sentence, "In this section we", "We now turn to", "As discussed above". Cut them. If a
+  point is important, the sentence should say why.
+- **Stock phrases.** "plays a key role", "sheds light on", "paves the way", "a testament
+  to", "the landscape of", "intricate", "pivotal", "underscores", "showcases". Say what
+  happens.
+- **Echo endings.** A paragraph that ends by restating its first sentence ("This shows
+  that the method is exact.") adds nothing. End on the new point, or on the step that
+  leads to the next paragraph.
+- **Paraphrase after a symbol.** "the noise ξ, the random force," or "Γ, the rate,"
+  when both were already defined. Once a symbol is defined, use it alone.
+- **Over-hedging.** "may potentially", "could possibly", "appears to suggest". One hedge
+  per claim, and only when the claim is uncertain. Results the paper shows are stated
+  plainly.
+
+The test: read the paragraph aloud. If it sounds like a list, a press release or a
+lecture on terminology, rewrite it until it sounds like one scientist explaining a
+result to another.
 
 ## 3. The reader has no context
 Terms
 - **Standard vocabulary is not exempt.** At its first use in the document, every
   technical term gets a one-clause definition and a reference, even terms every expert
   knows. Cite the original work where possible, otherwise a standard textbook.
-  Examples a reviewer flagged in one paper: master equation, Lindblad equation, jump
-  operator, Langevin equation, white noise, coloured noise, convolution. Other examples:
-  Markovian, Wigner function, Poisson bracket, fluctuation–dissipation relation, soft
-  mode, order parameter, critical exponent, rotating-wave coupling, "integrating out",
-  multiplicative noise, sub-Ohmic, and named models.
+  Examples reviewers flag: master equation, rate equation, Langevin equation, white
+  noise, coloured noise, convolution, Markovian, Wigner function, Poisson bracket,
+  fluctuation–dissipation relation, order parameter, critical exponent, "integrating
+  out", multiplicative noise, mean-field approximation, and named models. The same holds
+  outside physics: likelihood, random effect, cross-validation, knockdown.
 - The definition goes where the term first appears (usually the introduction), not later.
 - Spell out every acronym at first use, including common ones (QED, GPU).
 - **Prefer a plain description to a term that needs defining.** If a term needs more
   than one clause to define in the main text, describe the object in plain words instead
-  and keep the term for the appendix (see 6). Examples: "the kernel describes how the bath
-  responds at time τ to a perturbation at time 0" instead of "the retarded response
-  function"; "a function of these variables" instead of "a Weyl symbol on phase space".
+  and keep the term for the appendix (see 6). Examples: "the kernel describes how the
+  phonons respond at time τ to a displacement of an atom at time 0" instead of "the
+  retarded response function", and "a function of these variables" instead of "a Weyl
+  symbol on phase space".
 - Unusual properties of familiar objects need one sentence saying what they mean and why
   they arise. For example, "the noise is then complex" provoked "how can a noise be
-  complex?". Write "Because Â is not Hermitian, the bath force on it is a complex field,
-  ξ = ξ₁ + iξ₂ with ξ₁ and ξ₂ real Gaussian noises", and give its correlation.
-- Jargon ("exact c-number representations", "symmetrised correlators", "star-product
-  correction") needs a one-line explanation. If it doesn't matter to the argument, drop it.
+  complex?". Write "Because the hopping operator is not Hermitian, the force on the atoms
+  is a complex field, ξ = ξ₁ + iξ₂ with ξ₁ and ξ₂ real Gaussian noises", and give its
+  correlation.
+- Jargon ("a cumulant closure", "symmetrised correlators", "a counter-term") needs a
+  one-line explanation. If it doesn't matter to the argument, drop it.
 - If the document never uses something, don't mention it in the main text.
 
 References
 - Introduce every reference by what it did (authors, system, result) before leaning on
-  it. "The Langevin equation of Ref. [16]" means nothing to someone who hasn't read [16].
+  it. "The rate equation of Ref. [12]" means nothing to someone who hasn't read [12].
 - For every step of a method, cite where it was done first.
 - Cite again at the first mention in each section, even if the introduction cited it.
   Readers jump straight to a section.
@@ -123,10 +175,10 @@ Back-references
   "That Hamiltonian" or "this equation" leaves the reader searching. Write "the
   Hamiltonian of Eq. (2)" or "the Langevin equation (6)". The same applies to "the same",
   "such", "the corresponding", "the above", "it" and "its". Examples that failed:
-  - "The same step underlies TWA" did not say which step, or the same as what. It became
-    "This step is the same as in TWA without a bath".
+  - "The same step underlies the fermionic method" did not say which step, or the same
+    as what. It became "This sampling step is the same as in the method without phonons".
   - In "The convolution adds up its past values", "its" read as the convolution. It became
-    "the past values A(t′)".
+    "the past occupations n(t′)".
   - In "θ(τ) makes it vanish, and its decay time…", the nearest noun was θ, not the kernel.
 - Name the object when two candidates are in play ("its spectral density" with two baths).
 - Don't use names that collide with better-known ones ("the standard model" for a
@@ -136,17 +188,17 @@ Back-references
 - Don't restate the same idea in the introduction, the method and the results ("we have
   said that many times"). The introduction and the method must not share paragraphs.
 - **No redundancy at any scale.** Each fact appears once.
-  - Within a paragraph, don't repeat a quantity or claim in nearby sentences. "The bath
-    starts at temperature T. It then enters only through T and J(ω)" states T twice.
-    Write "a thermal bath is fully characterised by its temperature T and its spectral
-    density J(ω)".
+  - Within a paragraph, don't repeat a quantity or claim in nearby sentences. "The
+    phonons start at temperature T. They then enter only through T and J(ω)" states T
+    twice. Write "a thermal phonon bath affects the atoms only through its temperature T
+    and its spectral density J(ω)".
   - Don't define a term circularly ("the response function, the response of the bath").
   - Don't pair a term with its own paraphrase ("the damping is local in time, set by the
     variables at the same instant"). If the plain version is clear, use only that.
   - Don't assert something and then derive it again two sentences later (the noise is
     "real", ... "the correlation is therefore real").
   - A paragraph that opens with a claim about Ref. [X] doesn't close by restating it ("The
-    result is the Langevin equation of Ref. [X]"). The topic sentence makes the claim once.
+    result is the rate equation of Ref. [X]"). The topic sentence makes the claim once.
   - Across a section, once a concept is explained, refer back to it and don't explain it
     again. Each explanation lives in one place: the words where the concept first appears,
     the formula where it is used.
@@ -155,24 +207,25 @@ Back-references
     introduction said it. That recall is context, not redundancy.
   - Keep the copy the argument needs where it needs it, and cut the others.
   - A "therefore" needs its reason in the sentence before.
-  - After cutting, reread the paragraph from its first sentence. In the original paper,
-    two redundancy cuts broke the method section: one made its opening meaningless and
+  - After cutting, reread the paragraph from its first sentence. In one paper, two
+    redundancy cuts broke the method section: one made its opening meaningless and
     was reverted, the other left a "therefore" with no reason.
 
 ## 5. Be specific and correct
 - **No vague qualifiers.** "A flat, memoryless bath" should say flat in what (the spectral
-  density). "Methods that reach many spins [..]" should say which methods.
+  density). "Methods that reach many sites [..]" should say which methods.
 - **Tie each claim to the equation that realises it.** "We keep the bath at a microscopic
   level" must point to where that happens (the kernels computed from the spectral density
   in Eqs. (3) and (4)).
-- **Claim only what holds in general.** Don't state a scaling or a bound (e.g. "suppressed
-  in 1/S") unless it is true for the case at hand.
+- **Claim only what holds in general.** Don't state a scaling or a bound (e.g. "the error
+  is suppressed as 1/N") unless it is true for the case at hand.
 - Speculative extensions either get made specific or go to the conclusions as outlook.
 - **Justify every structural feature of an equation when it appears**: odd-looking
-  factors (a −2i that comes from a convention), step functions (causality), and choices
+  factors (a −i/2 that comes from a convention), step functions (causality), and choices
   such as a Poisson bracket where a reader expects a constant.
   Say also what a factor carries physically when the argument depends on it, for example
-  that coth(ω/2T) = 1 + 2n_B(ω) carries the zero-point fluctuations through its term 1.
+  that coth(ω/2T) = 1 + 2n_B(ω) carries the zero-point fluctuations through its term 1,
+  or that a factor 1/√N keeps a rate independent of the system size.
 - **Standard conventions are stated, not left to the reader.** A stochastic equation
   with multiplicative noise says which calculus it uses (physical noise with a finite
   correlation time gives the Stratonovich interpretation in the white-noise limit, by the
@@ -206,14 +259,14 @@ Back-references
   it applies. The method figure shows it, and the appendix that derives the method
   carries it through the derivation. The results then only choose values and refer
   back. The converse also holds. **A parameter the results never vary does not belong
-  in the paper.** For example, a chemical potential μ was introduced in the method, the
-  figure, the kernel table and the appendix because one results section mentioned it.
-  A check of the code showed that every run had μ = 0, so it was removed everywhere.
-  Before adding a parameter to the method, check that some result uses a value other than
-  the trivial one.
+  in the paper.** For example, a bath parameter was carried through the method, the
+  method figure, a table and the appendix because one results section mentioned it. A
+  check of the code showed that every run used the trivial value, so it was removed
+  everywhere. Before adding a parameter to the method, check in the code that some
+  result uses a value other than the trivial one.
 - **Derivations have the generality of the main text.** If the main text allows a
   parameter or a case, the appendix derivation includes it, and states where it does
-  not apply (e.g. why μ is meaningful for one coupling and not the other).
+  not apply (e.g. why a parameter is meaningful for one coupling and not the other).
 - The method section says what each ingredient is and why it is there, not how well it
   performs. Accuracy figures ("reduces the deviation by a factor of four to six") belong
   in the results section that shows them.
@@ -233,16 +286,16 @@ Back-references
 - **Specialist terminology stays in the appendices.** When the main text can describe an
   object in plain words, it does. The appendix gives the technical name and links the
   two. Example: "a function O_W of these variables" in the method, and "the Weyl symbol,
-  which is the function O_W of Sec. II" in the appendix. Typical candidates are Weyl
-  symbol, phase space, quasi-probability, self-energy, star product, Keldysh rotation and
-  Hubbard–Stratonovich.
+  which is the function O_W of Sec. II" in the appendix. Typical candidates in physics are
+  Weyl symbol, phase space, self-energy, star product and Hubbard–Stratonovich, and in
+  statistics sufficient statistic, Fisher information and conjugate prior.
 - Before relying on a known limitation of prior work, explain it so the reader understands
   why it matters.
 - **Appendices follow the same rules as the main text.** Each opens with why it exists,
   what is known (with references) and what it does. Technical terms are allowed there,
   but each gets a one-clause definition at first use and a link to its main-text name
-  ("In Keldysh field theory Σ^R and Σ^K are called the retarded and Keldysh
-  self-energies"). No slogans ("the truncation enters here and nowhere else"), no dash
+  ("In field theory the memory kernel is called the retarded self-energy"). No slogans
+  ("the approximation enters here and nowhere else"), no dash
   asides, no italic sentences.
 
 ## 7. Captions and titles
@@ -258,7 +311,8 @@ Back-references
   titles too, re-render the figure, and look at it. A caption that says one thing while
   the legend says another is a contradiction the reader sees at once.
 - Section and subsection titles say what the section finds or does, not just label the
-  setup ("General protocol" and "Cavity memory against an exact solution" were flagged).
+  setup ("General protocol" and "Memory against an exact solution" were flagged; "The
+  memory kernel reproduces the exact dynamics" was accepted).
 
 ## 8. Mechanics (LaTeX)
 - Cross-reference with a single mechanism (e.g. `\cref`/`\Cref`) and set the journal's
@@ -290,7 +344,7 @@ Paragraphs and flow
   3. For each new ingredient, the question it raises and the specific test that answers
      it, with the reason the test is meaningful, tied to an equation.
   4. The step after the tests (application), with a pointer.
-- Name the tests. "Tests each kernel against a known result" was rejected as vague,
+- Name the tests. "Tests the method against known results" was rejected as vague,
   because it hid the most interesting test. See examples.md, "Closing a section", for the
   accepted version.
 - The transition is not the roadmap. If the next section opens with its own overview, the
@@ -300,7 +354,7 @@ Paragraphs and flow
 
 Sentences
 - Aim for fewer than 25 words. More than three prepositions in a sentence means rewrite it.
-- No stacks of nouns used as adjectives ("single-spin memory-kernel star-product
+- No stacks of nouns used as adjectives ("single-site memory-kernel boundary-term
   correction").
 - Front-load the key word. Put the new point at the start of the sentence, not at the end
   of a dependent clause.
@@ -325,7 +379,7 @@ No fluff
 
 Terminology and tense
 - One name per object throughout the document. If K is "the memory kernel" in one
-  section, it is not "the retarded self-energy" in the next without saying so, and
+  section, it is not "the response function" in the next without saying so, and
   "damping" is not "friction" two paragraphs later. A new name signals a new object.
 - Watch words that mean different things in different fields or contexts (e.g.
   "coherent", "flat", "stationary", "kernel" for both an integral kernel and a GPU kernel)

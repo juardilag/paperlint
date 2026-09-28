@@ -76,6 +76,13 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 - Contrast with prior work explicitly: what they have, what we have, and the limit that
   recovers theirs. Known element first, new element last.
 
+**Sound like a person, not a generator** (§2b)
+- Vary sentence length and join related sentences with because, so, but, although.
+- No chained one-sentence definitions, at most one parenthetical pointer per sentence.
+- State conditions once, not in every sentence. One hedge per uncertain claim.
+- No "not X but Y" reflex, no triples for rhythm, no "Notably"/"Importantly" openers,
+  no stock phrases, no paragraph that ends by restating its first sentence.
+
 **The reader has no context** (§3)
 - Every technical term gets a one-clause definition and a reference at first use, even
   standard ones (master equation, white noise, convolution). Spell out every acronym.

@@ -49,8 +49,10 @@ To update later, run `claude plugin marketplace update paperlint` and
 
 ## Tutorial
 
-The examples use a physics paper in `paper/main.tex` with its bibliography in
-`paper/refs.bib`. Open Claude Code in the folder that contains the paper.
+The examples follow an invented paper: a new stochastic method for the dynamics of
+atoms in an optical lattice coupled to a phonon bath. It lives in `paper/main.tex`,
+with its bibliography in `paper/refs.bib` and its simulation data in `data/`. Open
+Claude Code in the folder that contains the paper.
 
 ### Step 0. Set up the paper once
 
@@ -60,11 +62,11 @@ The examples use a physics paper in `paper/main.tex` with its bibliography in
 
 Claude creates `paperlint.toml` (the settings) and `glossary.toml` (one name per
 object). It reads the paper and proposes glossary entries, for example "always
-*memory kernel*, never *memory function*". You approve them before they are saved.
+*lattice site*, never *node*". You approve them before they are saved.
 
 Then write a short `CLAUDE.md` next to the paper with what Claude cannot guess: where
-the code and the data behind each figure are, decisions you have already taken ("every
-run has μ = 0"), and content the paper must contain. The commands read it every time,
+the code and the data behind each figure are, decisions you have already taken ("all
+simulations use periodic boundary conditions"), and content the paper must contain. The commands read it every time,
 and they add your decisions to it as you make them.
 
 ### Step 1. Write a new section: `/paperlint:write`
@@ -73,20 +75,21 @@ Give the file, what to write and where, and then the ideas, as you would explain
 to a co-author. Bullet points, half sentences and equations in plain text are fine.
 
 ```
-/paperlint:write paper/main.tex new appendix after App. A, "Range of validity" --
-- NM-TWA is exact for linear systems; say why (Gaussian Wigner function, linear flow)
-- the error for spins scales as 1/N; show it with the inset of Fig. 2 (data in
-  jamir_paper/figure_2/data/nconv_*.npy)
-- the memory cutoff tau_max: convergence check in Fig. 8, 1% at tau_max = 300
-- the noise must be Stratonovich because it is physical
+/paperlint:write paper/main.tex new appendix after App. A, "Accuracy of the method" --
+- the method is exact when the lattice is non-interacting; say why
+- the error grows with the interaction U and falls with the filling; show it with
+  Fig. 4 (data in data/error_vs_U.csv)
+- the time step: convergence check in Fig. 6, below 1% at dt = 0.01
+- compare with the exact solution for 8 sites, which we did in Sec. III B
 ```
 
 What happens:
 
 1. Claude reads the whole paper, the glossary, `CLAUDE.md` and the data you named.
 2. If your ideas leave a content choice open, it asks you, once, with a recommendation.
-   For example: "Should the 1/N scaling be shown for both couplings of Fig. 2, or only
-   g = 1.0?" It does not ask about wording or notation.
+   For example: "Should the error be shown for both fillings of Fig. 4, or only for
+   half filling? I recommend both, since the text claims the error falls with the
+   filling." It does not ask about wording or notation.
 3. It shows you the plan: one topic sentence per paragraph and, for each, the figure,
    equation or number it rests on. You answer "ok" or change it. This is the only stop.
    Add `--no-confirm` to skip it.
@@ -103,7 +106,7 @@ supports, the source of every number, and a short list of open questions.
 
 ```
 /paperlint:revise paper/main.tex Method
-/paperlint:revise paper/main.tex "Derivation of the semiclassical equations"
+/paperlint:revise paper/main.tex "Derivation of the equations of motion"
 /paperlint:revise paper/main.tex 420-560
 ```
 
@@ -133,12 +136,12 @@ It stops when a round brings nothing new that must be fixed, or after three roun
 report lists the errors found first (a sign, a factor, a claim the data do not
 support), then the changes, the literature used, and the questions only you can answer.
 
-A real example: on the derivation appendix of the paper this plugin was built on, the
-first round found a sign error that turned the damping into anti-damping, and a factor
-of two in a precession frequency. The literature agent then read the spin-TWA paper the
-appendix leaned on. It found that the paper showed one of the claims only for a special
-case, and it supplied a general argument from the appendix's own equations. The authors
-answered no questions.
+What a run typically finds on a derivation appendix: a sign that turns a damping term
+into anti-damping, a missing factor of two in a frequency, a symbol that means one thing
+in the appendix and another in the main text, and a claim credited to a paper that shows
+it only for a special case. The first three are fixed on the spot. For the last, the
+literature agent reads the cited paper, quotes what it actually shows, and the text is
+changed to match.
 
 ### Step 3. Finish the paper: `/paperlint:finish`
 
@@ -165,7 +168,7 @@ want left alone.
 ### Teaching it
 
 When you correct Claude, say whether the correction is general ("never put numbers in
-the introduction") or only for this paper ("we never use a chemical potential"). General
+the introduction") or only for this paper ("we always say *filling*, never *density*"). General
 corrections become rules in `rules.md`. Decisions for this paper go into `CLAUDE.md`,
 `glossary.toml` or the ledger, and every later run follows them.
 
@@ -206,7 +209,7 @@ also runs on the changed paragraphs, and Claude fixes what it reports straight a
 | PL004 | Em dash (—) |
 | PL005 | Sentence starts with a symbol, a number or an acronym |
 | PL006 | Sentence starts with `\cref` instead of `\Cref` |
-| PL007 | Vague or informal word, such as "very", "in order to" or "recipe" |
+| PL007 | Vague, informal or stock word, such as "very", "in order to", "recipe", "Notably" or "plays a key role" |
 | PL008 | Empty opening, such as "It is clear that" or "There are" |
 | PL009 | More than four words in italics |
 | PL010 | A word your glossary says to avoid |
@@ -215,6 +218,8 @@ also runs on the changed paragraphs, and Claude fixes what it reports straight a
 | PL013 | Reference typed by hand, such as `Eq.~\ref{…}` |
 | PL014 | Things described as if they were people, as in "the model remembers" |
 | PL015 | Sentence longer than 25 words (a milder note) |
+| PL016 | More than one pointer in parentheses in a sentence, such as "(Sec. II) … (App. A)" (a note) |
+| PL017 | The "not X but Y" contrast that LLMs overuse (a note) |
 
 You can also run the checker without Claude, for example before submitting.
 
