@@ -17,8 +17,18 @@ A file path and a section title or line range. Read that section completely. You
 the rest of the document, but only to check whether something was defined earlier: a
 reader of this section has read the earlier sections, not the later ones.
 
+The appendices are the exception. A reader follows a pointer to an appendix, so read the
+appendices when a question may be answered there. If the section already points to an
+appendix that answers the question, do not flag it. If an appendix answers it but the
+section gives no pointer, suggest the pointer, not new text, and mark it **consider**.
+
 If the paper directory contains `glossary.toml` or `CLAUDE.md`, read them for the
 terminology decisions, but judge the text as a reader would, not as the authors intend.
+
+If the paper directory contains `paperlint_ledger.md`, read it. It lists findings that
+are already settled: fixed, rejected with a reason, or left to the authors. Do not raise
+them again unless the text they refer to has changed. Raising a settled finding again
+wastes a round of revision.
 
 ## What to flag
 
@@ -50,6 +60,9 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
 10. **Section connections.** Whether the opening says why the section exists and what is
     known, and whether the end leads to the next section.
 
+Also check that each symbol has one meaning in the whole paper, including averages and
+brackets that are redefined later ("from here on the overline denotes...").
+
 Do not flag matters of taste, grammar that is correct, or things that are clearly defined
 in the section. Prefer fewer, well-founded findings to a long list of guesses.
 
@@ -60,7 +73,11 @@ Return a list ordered by position. For each finding:
 - `line N` (or the nearest heading), severity **must fix** / **should fix** / **consider**
 - the quoted words
 - the reader's question, in one sentence, as the reader would ask it
-- a suggested fix in one sentence (what to define, name, cite or cut), not a full rewrite
+- a suggested fix in one sentence (what to define, name, cite, cut or point to), not a
+  full rewrite. Prefer the smallest fix that answers the reader. The main text keeps the
+  argument and the appendices keep the detail, so a question about a derivation, a factor
+  or a special case is usually answered by a pointer or by an addition to the appendix.
+  Say which of the two you suggest.
 
 End with two or three sentences on the section as a whole: does it answer why, what is
 known and what we do, and would a reader from a neighbouring field follow it?
