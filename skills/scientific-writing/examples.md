@@ -90,6 +90,26 @@ so that its average over the initial distribution equals the quantum expectation
 The appendix then adds: "This function is known as the Weyl symbol of the operator
 [refs]."
 
+## Formulas and corrections need their why (section 5)
+
+**Flagged:** "The damping is instantaneous, with the rate Γ = 2πJ(ω₀). Smith et al.
+absorb the accompanying frequency shift into ω₀." *(Authors: "what is Γ? why 2πJ? the
+last sentence is not needed")*
+
+**Accepted:** "The damping is instantaneous. Its rate is the rate Γ of the jump operator
+in Eq. (1), and equals 2πJ(ω₀), the golden-rule rate of decay into the phonons resonant
+with the atoms [refs]."
+
+**Flagged:** "For a single atom, Eq. (B5) replaces the damping term." *("why?")*
+
+**Accepted:** "For a single atom the classical damping term shifts the atom's level
+spuriously, and Eq. (B5) replaces it (App. B)." Later sections point back to this
+sentence instead of explaining again.
+
+**Rejected alternative:** four sentences on why the shift appears (the damping term
+contains the square of the occupation, the operator obeys n̂² = n̂, the classical number
+does not, so ...). *(Authors: "too much technical detail")* That mechanism is App. B's.
+
 ## Unusual property of a familiar object (section 3)
 
 **Flagged:** "The noise is then complex." *(Reviewer: "how can a noise be complex?")*
@@ -159,6 +179,23 @@ simulation in the paper sets it to zero.
 **Accepted:** the parameter is removed everywhere, after checking the simulation input
 files.
 
+## Scope of a method statement (section 5)
+
+**Flagged:** "The atoms are sampled from the discrete distribution of Ref. [7]."
+*(Authors: "not true, the dense lattices use a Gaussian and the phonon modes their Wigner
+function")* The sentence came from a rewrite of the fragment "..., and the atoms as in
+App. B", which had pointed to all the cases.
+
+**Accepted:** "App. B gives the distributions used here for the phonon modes, single
+atoms and dense lattices."
+
+**Flagged**, in step 1 of the same general method: "For an atom, the occupation becomes
+a classical number (App. B)." *(Authors: "this is a general method, not only for
+atoms")*
+
+**Accepted:** "App. B gives these functions for the phonon modes and the atoms." The
+step keeps its general statement and points to the cases, as the sampling step does.
+
 ## Procedure steps too long (section 6)
 
 **Flagged:** steps of 110 to 125 words *("too long, chop it!")*.
@@ -166,6 +203,17 @@ files.
 **Accepted:** each step gives the action, its equation and one or two sentences of why,
 in about 70 words. The definitions that made the steps long became plain descriptions,
 and the details moved to the appendix.
+
+## A step opens with what it does (section 6)
+
+**Flagged:** a step that begins "Replace the occupation operators by classical numbers
+and every operator by its Weyl symbol" and states the equations of motion of the
+isolated lattice only in its last sentence. *(Authors: "the step never says directly
+that it computes the dynamics without phonons")*
+
+**Accepted:** "Write the classical equations of motion of the lattice without the
+phonons. Replace the occupation operators by classical numbers, ... The isolated lattice
+then obeys ṅ_j = {n_j, H}." The action comes first, as in the other steps.
 
 ## Answering review questions in place (section 6)
 
@@ -235,6 +283,24 @@ What changed: sentences joined by the relation between them ("Because"), one poi
 instead of two, no "which means that" definitions in a row, no "Notably", no "not an
 additional assumption", and the claim that no approximation is made is left to the
 appendix, which shows it.
+
+**Flagged**, a paragraph patched by three rounds of review:
+> At low density, the rate equation of Ref. [12] is the memoryless limit of Eq. (6).
+> Take a flat spectral density around the lattice frequency ω₀. Here ω₀ is the
+> frequency of the mode that the phonons damp. Both kernels are then proportional to
+> δ(τ) (Table I). The damping then depends only on the same instant. The rate is Γ.
+> It equals 2πJ(ω₀).
+
+**Accepted:**
+> The rate equation of Ref. [12] is the memoryless limit of Eq. (6) at low density. The
+> limit requires a spectral density flat around ω₀, the frequency of the damped mode.
+> Both kernels are then proportional to δ(τ), so the damping depends only on the
+> occupations at the same instant (Table I). The damping rate 2πJ(ω₀) is the
+> golden-rule rate of decay into the resonant phonons [refs].
+
+What changed: the condition moved behind the claim, the instruction "Take" became "the
+limit requires", the definition of ω₀ went into the sentence that uses it, the two
+"then" sentences were joined by "so", and the rate got its meaning in the same sentence.
 
 **Flagged**, from an ecology paper:
 > Notably, predation plays a key role in the dynamics. The predator density is high. The

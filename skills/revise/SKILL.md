@@ -41,6 +41,17 @@ rest of the paper: every round reads and checks it in the context of the whole p
    - redundancy: each fact once in the paper, not only in the section; premises kept;
    - claims: numbers match their source, statements about other work are supported,
      results are stated no more strongly than the figures and data show;
+   - why: ask "what is it?" and "why?" of every sentence, as a reader who knows only the
+     earlier text. A quantity given by a formula says what it is and why it has that
+     value; a correction or replacement says what goes wrong without it. The answer
+     is one clause in the main text; its mechanism goes to the appendix;
+   - scope: every statement about a step of the method holds for every case the paper
+     uses (all systems, samplings, integrators); a general step does not single out
+     one kind of system but points to the appendix that treats each;
+   - rhythm (rules.md, section 2b): reread every paragraph of the section whole, not
+     sentence by sentence, and apply the read-aloud test. Rewrite any paragraph that
+     reads as a list, a chain of definitions or a patchwork of added sentences. This
+     audit runs in every round, because the other fixes create patchwork;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
      in the main text; the section does not grow without a reason.
 3. **Cold read.** Launch the `cold-reader` agent on the section. Pass it the paths of
@@ -64,13 +75,17 @@ rest of the paper: every round reads and checks it in the context of the whole p
    - **Rejected**: the finding is wrong. Write the reason in one sentence.
 5. **Apply** the editorial and literature fixes.
 6. **Self-check every edit** before anything else runs:
-   - reread each changed paragraph from its first sentence;
+   - reread each changed paragraph from its first sentence, as a whole, against
+     rules.md section 2b; if the edit added a sentence, rewrite the paragraph so the new
+     content sits inside the sentences that need it, instead of appending it;
    - check each changed sentence against the equations and symbols around it (signs,
      factors, which variable, which average), and against the paper map;
    - grep the whole paper for every symbol, term, label and equation number the edit
      touched, and fix the other occurrences so the paper stays consistent;
    - if an edit removed a definition, find the next use of that term and define it
      there;
+   - if an edit rewrote a pointer or a fragment as a claim, check that the claim is no
+     narrower than what it replaced (every case the pointer covered);
    - if an edit changed a derivation, follow it to the equation it produces and check
      that the result is unchanged or that every later use is updated.
    Edits of the previous round are the most common source of new findings. The
