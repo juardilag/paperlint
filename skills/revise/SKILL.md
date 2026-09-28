@@ -49,8 +49,12 @@ appending a sentence is not done until the paragraph reads whole again.
      results are stated no more strongly than the figures and data show;
    - why: ask "what is it?" and "why?" of every sentence, as a reader who knows only the
      earlier text. A quantity given by a formula says what it is and why it has that
-     value; a correction or replacement says what goes wrong without it. The answer
+     value; a correction or replacement says what goes wrong without it; a property
+     the text claims (real, positive, conserved) but the displayed formula does not
+     show, because of an i or a sign, gets its reason. The answer
      is one clause in the main text; its mechanism goes to the appendix;
+   - method applied: every equation of motion in a results section follows from the
+     general method; compare it with the method and with the code behind the figure;
    - scope: every statement about a step of the method holds for every case the paper
      uses (all systems, samplings, integrators); a general step does not single out
      one kind of system but points to the appendix that treats each;

@@ -50,7 +50,8 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    spectral density?"). Two cases are easy to miss: a quantity given by a formula without
    saying what it is or why it has that value ("the rate Γ = 2πJ(ω₀)": which rate? why
    2π?), and a correction or replacement without the error it fixes ("Eq. (B5) replaces
-   the damping term": why?).
+   the damping term": why?), and a property claimed of an expression that the formula
+   on the page does not show ("the correlation is real" next to an explicit i).
 4. **Ambiguous references.** "it", "its", "this", "that", "the same", "such", "the
    corresponding" where more than one object could be meant, or none was named.
 5. **References without context.** "the method of Ref. [12]" when the text has not said
