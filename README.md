@@ -21,6 +21,8 @@ so fewer of these problems reach you.
   conversation. It lists every place where a reader would ask "what is this?" or "why?".
 - **Reference check.** Your `.bib` entries are compared with the Crossref database, and
   wrong years, volumes or pages are reported.
+- **Literature check.** An agent finds and reads the papers behind a claim, quotes them,
+  says plainly when no source supports it, and proposes verified BibTeX and a sentence.
 
 ## Install
 
@@ -53,16 +55,30 @@ not verify.
 **3. Check a section.** Type `/paperlint:lint main.tex --section Introduction`. You get
 a list of problems with their line numbers, and Claude offers to fix them.
 
-**4. Get a fresh read.** Type `/paperlint:review main.tex Introduction`. The fresh reader
+**4. Finish a section in one command.** Type `/paperlint:revise main.tex Method`.
+Claude runs the checks, the audits and fresh reads in rounds. It fixes the editorial
+problems itself (definitions, notation, pointers, wording), sends claims about other
+papers to the literature agent, and stops when a round finds nothing new that must be
+fixed. A ledger file, `paperlint_ledger.md`, records what was fixed or rejected, so
+later rounds and later sessions do not raise it again. You get only the questions that
+need an author: what the paper claims, its scope, and anything the code must decide.
+
+**5. Get a fresh read.** Type `/paperlint:review main.tex Introduction`. The fresh reader
 reads the section and reports what a reader would not understand. Claude checks each
 point before passing it on to you.
 
-**5. Check the references.** Type `/paperlint:check-refs refs.bib`. Claude shows which
+**6. Check the references.** Type `/paperlint:check-refs refs.bib`. Claude shows which
 entries disagree with Crossref and suggests missing DOIs. Nothing changes without your
 approval. Very old papers and book chapters are often missing from Crossref, so check
 those by hand.
 
-**6. Teach it.** When you correct Claude, say whether the correction is general or only
+**7. Support the claims.** Type `/paperlint:literature main.tex 120-140`, or pass it
+the "says who?" points of a review. Claude sends an agent to read the papers, and shows
+you each claim with quotes from its sources, the claims no source supports, and new
+`.bib` entries checked on Crossref. It needs web access, and it cites arXiv equation
+numbers only after you check them against the published version.
+
+**8. Teach it.** When you correct Claude, say whether the correction is general or only
 for this paper. General corrections become new rules. Choices for this paper go into
 `glossary.toml` or into a `CLAUDE.md` file in the paper's folder, which Claude reads
 every time.
