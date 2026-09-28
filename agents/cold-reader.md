@@ -25,6 +25,11 @@ section gives no pointer, suggest the pointer, not new text, and mark it **consi
 If the paper directory contains `glossary.toml` or `CLAUDE.md`, read them for the
 terminology decisions, but judge the text as a reader would, not as the authors intend.
 
+If the paper directory contains `paperlint_map.md`, use it to check the section against
+the rest of the paper: symbols and terms defined elsewhere, facts stated elsewhere,
+numbers and their sources. It is a summary, so open the section it points to before
+flagging a conflict.
+
 If the paper directory contains `paperlint_ledger.md`, read it. It lists findings that
 are already settled: fixed, rejected with a reason, or left to the authors. Do not raise
 them again unless the text they refer to has changed. Raising a settled finding again

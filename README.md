@@ -1,87 +1,201 @@
 # paperlint
 
-paperlint helps Claude write scientific papers that are clear, precise and easy to
-follow. It is a plugin for [Claude Code](https://claude.com/claude-code), Anthropic's
-coding assistant for the terminal.
+paperlint helps Claude write and finish scientific papers that are clear, precise and
+easy to follow. It is a plugin for [Claude Code](https://claude.com/claude-code),
+Anthropic's coding assistant.
 
 Text written with an LLM often has the same problems. It uses technical terms without
-defining them, states slogans instead of facts, and refers to things the reader has
-not seen yet. paperlint gives Claude a set of writing rules and the tools to check them,
-so fewer of these problems reach you.
+defining them, states slogans instead of facts, repeats itself across sections, cites
+papers for things they do not say, and refers to things the reader has not seen yet.
+paperlint gives Claude a set of writing rules, a fresh reader, a literature agent and
+the checks to enforce them, and runs them until the text is finished.
 
-## What it does
+## Three commands
 
-- **Writing rules.** When you ask Claude to write or revise a section, it follows a
-  fixed procedure. It plans the paragraphs, writes, checks its own text, and tells you
-  what it changed.
-- **Automatic checks.** Every time Claude edits your `.tex` file, a checker reads the
-  changed paragraphs. It reports problems such as long sentences, undefined acronyms or
-  vague words, and Claude fixes them straight away.
-- **A fresh reader.** A second Claude reads one section without seeing your
-  conversation. It lists every place where a reader would ask "what is this?" or "why?".
-- **Reference check.** Your `.bib` entries are compared with the Crossref database, and
-  wrong years, volumes or pages are reported.
-- **Literature check.** An agent finds and reads the papers behind a claim, quotes them,
-  says plainly when no source supports it, and proposes verified BibTeX and a sentence.
+| Command | Use it when | What you do | What it does |
+|---|---|---|---|
+| `/paperlint:write` | You need new text: a section, an appendix, a caption, an abstract | Describe the main ideas in your own words | Plans the paragraphs, shows you the plan, writes, finds and verifies the references, then revises the draft until it is finished |
+| `/paperlint:revise` | A section exists and should be made as good as it can be | Name the section | Rounds of checks, fresh reads, literature checks and fixes, until a round finds nothing new |
+| `/paperlint:finish` | The paper is complete and should be ready to submit | Name the file | Revises every section in order, then checks the paper as one text and writes the abstract last |
+
+All three read the whole paper, not only the section in front of them, because a
+section is never independent of the rest: it uses symbols defined elsewhere, builds on
+earlier results and must not repeat them. They fix the small things on their own
+(definitions, notation, pointers, wording, missing reasons) and ask you only about
+content: what the paper claims, what it includes, and anything your code or data must
+decide.
 
 ## Install
 
-You need Claude Code and Python 3.11 or newer. In Claude Code, type
+You need Claude Code and Python 3.11 or newer. In a Claude Code terminal, type
 
 ```
 /plugin marketplace add juardilag/paperlint
 /plugin install paperlint@paperlint
 ```
 
-Then restart Claude Code. Type `/paperlint` and you should see the commands listed below.
+From a shell, or inside the VS Code extension, where `/plugin` is not available, run
 
-## Use it on your paper
+```bash
+claude plugin marketplace add juardilag/paperlint
+claude plugin install paperlint@paperlint
+```
 
-Open Claude Code in the folder that contains your paper, for example `main.tex` and
-`refs.bib`.
+Then type `/reload-plugins` in Claude Code, or restart it. Type `/paperlint` and the
+commands appear.
 
-**1. Set up the paper.** Type `/paperlint:setup`. Claude creates two small files next to
-your paper. `paperlint.toml` holds the settings, and `glossary.toml` records which name
-the paper uses for each object. Claude reads your paper and suggests glossary entries,
-for example "always say *memory kernel*, never *memory function*". You approve them
-before they are saved. The automatic checks only run in folders that have a
-`paperlint.toml`, so your other projects are not affected.
+To update later, run `claude plugin marketplace update paperlint` and
+`claude plugin update paperlint@paperlint`, then `/reload-plugins`.
 
-**2. Write or revise.** Ask in plain words, for example "Revise the introduction of
-main.tex". Claude follows the writing rules on its own. At the end it lists what it
-changed. It also lists open questions, such as a claim about another paper that it could
-not verify.
+## Tutorial
 
-**3. Check a section.** Type `/paperlint:lint main.tex --section Introduction`. You get
-a list of problems with their line numbers, and Claude offers to fix them.
+The examples use a physics paper in `paper/main.tex` with its bibliography in
+`paper/refs.bib`. Open Claude Code in the folder that contains the paper.
 
-**4. Finish a section in one command.** Type `/paperlint:revise main.tex Method`.
-Claude runs the checks, the audits and fresh reads in rounds. It fixes the editorial
-problems itself (definitions, notation, pointers, wording), sends claims about other
-papers to the literature agent, and stops when a round finds nothing new that must be
-fixed. A ledger file, `paperlint_ledger.md`, records what was fixed or rejected, so
-later rounds and later sessions do not raise it again. You get only the questions that
-need an author: what the paper claims, its scope, and anything the code must decide.
+### Step 0. Set up the paper once
 
-**5. Get a fresh read.** Type `/paperlint:review main.tex Introduction`. The fresh reader
-reads the section and reports what a reader would not understand. Claude checks each
-point before passing it on to you.
+```
+/paperlint:setup
+```
 
-**6. Check the references.** Type `/paperlint:check-refs refs.bib`. Claude shows which
-entries disagree with Crossref and suggests missing DOIs. Nothing changes without your
-approval. Very old papers and book chapters are often missing from Crossref, so check
-those by hand.
+Claude creates `paperlint.toml` (the settings) and `glossary.toml` (one name per
+object). It reads the paper and proposes glossary entries, for example "always
+*memory kernel*, never *memory function*". You approve them before they are saved.
 
-**7. Support the claims.** Type `/paperlint:literature main.tex 120-140`, or pass it
-the "says who?" points of a review. Claude sends an agent to read the papers, and shows
-you each claim with quotes from its sources, the claims no source supports, and new
-`.bib` entries checked on Crossref. It needs web access, and it cites arXiv equation
-numbers only after you check them against the published version.
+Then write a short `CLAUDE.md` next to the paper with what Claude cannot guess: where
+the code and the data behind each figure are, decisions you have already taken ("every
+run has μ = 0"), and content the paper must contain. The commands read it every time,
+and they add your decisions to it as you make them.
 
-**8. Teach it.** When you correct Claude, say whether the correction is general or only
-for this paper. General corrections become new rules. Choices for this paper go into
-`glossary.toml` or into a `CLAUDE.md` file in the paper's folder, which Claude reads
-every time.
+### Step 1. Write a new section: `/paperlint:write`
+
+Give the file, what to write and where, and then the ideas, as you would explain them
+to a co-author. Bullet points, half sentences and equations in plain text are fine.
+
+```
+/paperlint:write paper/main.tex new appendix after App. A, "Range of validity" --
+- NM-TWA is exact for linear systems; say why (Gaussian Wigner function, linear flow)
+- the error for spins scales as 1/N; show it with the inset of Fig. 2 (data in
+  jamir_paper/figure_2/data/nconv_*.npy)
+- the memory cutoff tau_max: convergence check in Fig. 8, 1% at tau_max = 300
+- the noise must be Stratonovich because it is physical
+```
+
+What happens:
+
+1. Claude reads the whole paper, the glossary, `CLAUDE.md` and the data you named.
+2. If your ideas leave a content choice open, it asks you, once, with a recommendation.
+   For example: "Should the 1/N scaling be shown for both couplings of Fig. 2, or only
+   g = 1.0?" It does not ask about wording or notation.
+3. It shows you the plan: one topic sentence per paragraph and, for each, the figure,
+   equation or number it rests on. You answer "ok" or change it. This is the only stop.
+   Add `--no-confirm` to skip it.
+4. It writes the text in the paper's own notation. Every statement about other work
+   goes to the literature agent, which reads the papers and verifies the references on
+   Crossref. Every number comes from your data, with its source.
+5. It inserts the text, adds the pointer from the introduction, and runs
+   `/paperlint:revise` on it (step 2).
+
+You get the text in the file, the plan as approved, the references with what each one
+supports, the source of every number, and a short list of open questions.
+
+### Step 2. Make a section as good as it can be: `/paperlint:revise`
+
+```
+/paperlint:revise paper/main.tex Method
+/paperlint:revise paper/main.tex "Derivation of the semiclassical equations"
+/paperlint:revise paper/main.tex 420-560
+```
+
+This is the command you will use most. It works in rounds.
+
+1. **Context.** Claude reads the whole paper and keeps a map of it in
+   `paperlint_map.md`: what each section establishes, every symbol and term with where
+   it is defined, every number with its source.
+2. **Checks.** The linter, then Claude's own audits (terms, notation across the whole
+   paper, back-references, repetition, claims), then a fresh reader, a second Claude
+   that sees only the paper and asks "what is this?", "why?" and "says who?".
+3. **Triage.** Each finding goes into one class.
+   - *Editorial* findings are fixed without asking. This covers definitions, notation,
+     pointers, wording, a missing reason, and detail that belongs in an appendix.
+   - *Literature* findings go to the literature agent, which reads the sources and
+     quotes them.
+   - *Author decisions* are collected for you. This covers claims about your results,
+     scope and structure, and anything your code must decide.
+   - *Rejected* findings are recorded with a one-line reason.
+4. **Self-check.** After fixing, Claude rereads every changed sentence against the
+   equations around it and searches the whole paper for every symbol, term and label it
+   touched, so an edit does not create a problem somewhere else.
+5. **Ledger.** Everything settled goes into `paperlint_ledger.md`. The next round, and
+   the next session, will not raise it again.
+
+It stops when a round brings nothing new that must be fixed, or after three rounds. The
+report lists the errors found first (a sign, a factor, a claim the data do not
+support), then the changes, the literature used, and the questions only you can answer.
+
+A real example: on the derivation appendix of the paper this plugin was built on, the
+first round found a sign error that turned the damping into anti-damping, and a factor
+of two in a precession frequency. The literature agent then read the spin-TWA paper the
+appendix leaned on. It found that the paper showed one of the claims only for a special
+case, and it supplied a general argument from the appendix's own equations. The authors
+answered no questions.
+
+### Step 3. Finish the paper: `/paperlint:finish`
+
+```
+/paperlint:finish paper/main.tex
+```
+
+Use it when every section is written. It runs `/paperlint:revise` on each section in
+reading order, updating the map as it goes, so each section is checked against the
+revised text before it. Then it reads the paper as one text.
+
+- The introduction promises what the results deliver, and the conclusions claim
+  nothing more.
+- Each fact appears once. The introduction and the method share no paragraph.
+- One meaning per symbol and one name per object, in figures and tables too.
+- Every number in the text and captions matches its figure, table or data file.
+- Every citation supports its sentence, and the bibliography matches Crossref.
+- The abstract is rewritten last, from the finished paper.
+
+It compiles the paper, looks at every page, and reports the state of the paper and the
+decisions left to you. Use `--from Results` to start later, or `--skip` for sections you
+want left alone.
+
+### Teaching it
+
+When you correct Claude, say whether the correction is general ("never put numbers in
+the introduction") or only for this paper ("we never use a chemical potential"). General
+corrections become rules in `rules.md`. Decisions for this paper go into `CLAUDE.md`,
+`glossary.toml` or the ledger, and every later run follows them.
+
+## Files paperlint keeps next to your paper
+
+| File | Written by | Holds |
+|---|---|---|
+| `paperlint.toml` | `/paperlint:setup` | Settings of the checker |
+| `glossary.toml` | setup, then you | One name per object, words to avoid, appendix-only terms |
+| `CLAUDE.md` | you, then the commands | Where code and data are, decisions, required content |
+| `paperlint_map.md` | the commands | What each section says, symbols, terms, numbers, labels |
+| `paperlint_ledger.md` | the commands | Findings fixed, rejected, or decided by the authors |
+
+You can read and edit all of them. Deleting the map is harmless: it is rebuilt.
+Deleting the ledger means old findings can come back.
+
+## Building blocks
+
+The three commands call these. You can also run them on their own.
+
+| Command | Does |
+|---|---|
+| `/paperlint:lint main.tex --section Introduction` | Mechanical checks only (table below) |
+| `/paperlint:review main.tex Introduction` | One fresh read and its triage, no rounds |
+| `/paperlint:literature main.tex 120-140` | Finds, reads and quotes the sources behind claims |
+| `/paperlint:check-refs refs.bib` | Compares `.bib` entries with Crossref |
+| `/paperlint:scientific-writing` | The writing procedure and rules, loaded automatically |
+
+Every time Claude edits a `.tex` file in a folder with a `paperlint.toml`, the checker
+also runs on the changed paragraphs, and Claude fixes what it reports straight away.
 
 ## What the checker reports
 
@@ -147,8 +261,7 @@ To add a rule, write the general principle in `rules.md` and one rejected/accept
 in `examples.md`. To add a check, add it to `lint.py` with a test in `tests/`.
 
 Claude Code only updates an installed plugin when its version changes. Raise `version`
-in `.claude-plugin/plugin.json` with every release, then users run
-`/plugin marketplace update paperlint` and `/plugin update paperlint@paperlint`.
+in `.claude-plugin/plugin.json` with every release.
 
 ## License
 
