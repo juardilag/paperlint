@@ -1,7 +1,7 @@
 {
   "name": "paperlint",
-  "version": "0.1.2",
-  "description": "Write and review clear, precise scientific papers with Claude Code. Includes a writing procedure, style rules, a LaTeX checker, a fresh-reader review agent, a literature agent and a bibliography checker.",
+  "version": "0.2.0",
+  "description": "Write, revise and finish scientific papers with Claude Code. Three commands (write, revise, finish) plan and draft from your ideas, check each section against the whole paper with a fresh reader, a literature agent and a LaTeX checker, and fix what they find until the text is done.",
   "author": {
     "name": "juardilag"
   },

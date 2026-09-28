@@ -1,0 +1,72 @@
+---
+name: finish
+description: Bring the whole paper to a submission-ready state. Runs the revise procedure on every section in reading order, then checks the paper as one text (the argument from start to end, notation and terms across sections, repeated facts, numbers against figures and data, captions and legends against the text, the abstract and title written last, the bibliography against Crossref), compiles and inspects the PDF, and reports what the authors still have to decide. Use when the user asks to finish, polish or prepare the whole paper for submission or for a co-author.
+argument-hint: "<file.tex> [--from <section>] [--skip <section,...>]"
+---
+
+Finish the paper as one text. Sections that were revised separately still contradict
+each other, repeat each other and drift apart in notation; this command is where that is
+fixed.
+
+## 1. Prepare
+
+1. Load the `scientific-writing` skill and read `rules.md` and `examples.md`. Read the
+   project files and the ledger.
+2. Build `paperlint_map.md` from scratch for the whole paper (see the revise skill).
+3. Run `lint.py` on the whole file and `check_refs.py` on the whole `.bib` file. Fix the
+   mechanical findings and the bibliography mismatches that are unambiguous, and keep
+   the others for the report.
+
+## 2. Revise every section
+
+Run the revise procedure (the `revise` skill) on each section in reading order:
+introduction, method, results, conclusions, then the appendices, and the captions with
+the section that first refers to each figure. Skip the abstract here. Use `--from` and
+`--skip` from `$ARGUMENTS`. A section the ledger marks as finished, and that has not
+changed since, gets one cold read instead of full rounds.
+
+Update the map after each section, so that the next section is checked against the
+revised text.
+
+## 3. Check the paper as one text
+
+After all sections, read the paper from the title to the last appendix and check:
+
+- **The argument.** The introduction promises exactly what the results deliver. Each
+  section answers why, what is known and what it does, and leads to the next. The
+  conclusions claim nothing the results do not show.
+- **Say it once.** Each fact appears in one place. The introduction and the method
+  share no paragraph. An appendix does not repeat the main text.
+- **Notation and terms.** One meaning per symbol and one name per object across the
+  whole paper, including figures, tables and appendices. Every term is defined at its
+  first use in reading order.
+- **Numbers.** Every value in the text, the captions and the tables matches its source
+  (figure, table, data file or code), with the same rounding everywhere.
+- **Figures.** Captions are self-contained, use the text's terms and define only
+  parameters that belong to their figure. Legends and axis labels use the text's
+  terminology. Every figure is referenced in order.
+- **References.** Every cross-reference resolves. Every citation supports the sentence
+  it is attached to (send doubtful ones to the `literature` agent).
+- **Abstract and title, written last.** Rewrite the abstract from the finished paper:
+  the problem, what is new, and the main results in words, with no claim the paper does
+  not support. Check that the title says what the paper does.
+
+Fix what is editorial, following the class definitions of the revise skill, and
+self-check every edit against the rest of the paper.
+
+## 4. Compile and inspect
+
+Compile, and render every page. Look at each figure, table and equation: overfull
+lines, figures that do not match their caption, labels that do not use the text's terms,
+unresolved references, and the order of floats.
+
+## Report
+
+- A short summary: the state of the paper and what is left before submission.
+- The errors found (signs, factors, numbers, wrong claims), listed first.
+- Per section: its length before and after, and the main changes.
+- The changes made at the level of the whole paper (repeated facts removed, notation
+  unified, numbers corrected, abstract rewritten, with before and after).
+- The bibliography result.
+- The author decisions, each as one question with a recommendation, ordered by how much
+  they affect the paper.

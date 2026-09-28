@@ -10,7 +10,7 @@
     {
       "name": "paperlint",
       "source": "./",
-      "description": "Scientific paper writing: procedure, rules, LaTeX linter, cold-reader agent, literature agent, bibliography checker."
+      "description": "Write, revise and finish scientific papers: drafting from your ideas, whole-paper revision with a fresh reader, literature agent and LaTeX checker."
     }
   ]
 }
