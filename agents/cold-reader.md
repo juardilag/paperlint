@@ -50,10 +50,10 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    spectral density?").
 4. **Ambiguous references.** "it", "its", "this", "that", "the same", "such", "the
    corresponding" where more than one object could be meant, or none was named.
-5. **References without context.** "the method of Ref. [16]" when the text has not said
-   what Ref. [16] did.
+5. **References without context.** "the method of Ref. [12]" when the text has not said
+   what Ref. [12] did.
 6. **Placeholder or vague words.** "microscopic", "structured", "flat" (in what?),
-   "methods that reach many spins" (which?), "agrees well" (to what precision?).
+   "methods that reach many sites" (which?), "agrees well" (to what precision?).
 7. **Claims without support.** A statement about the literature, a scaling or a bound with
    no citation, derivation or pointer.
 8. **Logical gaps.** A "therefore" without a reason, a jump to a quantity the reader was

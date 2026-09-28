@@ -57,6 +57,8 @@ CHECKS = {
     "PL013": "hand-typed cross-reference",
     "PL014": "anthropomorphic verb",
     "PL015": "sentence longer than the target length",
+    "PL016": "more than one parenthetical pointer in a sentence",
+    "PL017": "antithesis reflex ('not X but Y', ', not an X')",
 }
 
 # Each entry: regex (case-insensitive, word-bounded where it makes sense), advice.
@@ -83,11 +85,22 @@ DEFAULT_BANNED = [
     (r"\brobust(?:ly)?\b", "say against what"),
     (r"\bcrucial(?:ly)?\b", "say why it matters"),
     (r"\bin the spirit of\b", "say what is taken from the work"),
-    (r"\bidentity of the construction\b", "say the physics plainly"),
     (r"\bnowhere else\b", "say where it enters, without the slogan"),
     (r"\bthree times (?:smaller|less)\b", "give the ratio"),
     (r"\btwice the size\b", "say which size, and give the ratio"),
     (r"\bcompared to\b", "write 'compared with'"),
+    (r"\b(?:notably|importantly|interestingly|remarkably)\b",
+     "cut it; say why the point matters"),
+    (r"\bit is worth\b", "cut it"),
+    (r"\bsheds? light on\b", "say what it shows"),
+    (r"\bpaves? the way\b", "say what it makes possible"),
+    (r"\ba testament to\b", "say what it shows"),
+    (r"\bplays? an? (?:key|crucial|pivotal|central|vital) role\b", "say what it does"),
+    (r"\bpivotal\b", "cut it, or say why it matters"),
+    (r"\bintricate\b", "say what makes it complicated"),
+    (r"\bunderscor(?:e|es|ed|ing)\b", "write 'shows', or cut it"),
+    (r"\bshowcas(?:e|es|ed|ing)\b", "write 'shows'"),
+    (r"\bmay potentially\b|\bcould possibly\b", "one hedge is enough"),
 ]
 
 DEFAULT_ANTHROPOMORPHIC = [
@@ -504,6 +517,17 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 p = a + mt.start()
                 add(p, "PL004", "em dash; rewrite with a comma or a full stop",
                     excerpt_at(max(a, p - 40), p + 40))
+        refs = REF_LOWER + REF_UPPER
+        groups = re.findall(r"\([^()]*[" + refs + r"][^()]*\)", s)
+        if len(groups) > 1:
+            add(a, "PL016", f"{len(groups)} pointers in parentheses; keep one, or make "
+                "the reference the subject", excerpt_at(a, min(b, a + 80)), "info")
+        for mt in re.finditer(r"\bnot\s+(?:only\s+)?(?:an?\s+|the\s+)?[\w\-]+(?:\s+[\w\-]+){0,2}"
+                              r"\s+but\b|,\s*(?:and\s+)?not\s+(?:an?|the)\s+[\w\-]+"
+                              r"(?:\s+[\w\-]+){0,3}\s*[.!?]?$", s.rstrip(), re.I):
+            p = a + mt.start()
+            add(p, "PL017", "antithesis; keep it only if a reader expects the rejected "
+                "alternative", excerpt_at(max(a, p - 40), p + 60), "info")
         for pat, advice in cfg.banned:
             for mt in re.finditer(pat, s, re.I):
                 p = a + mt.start()
