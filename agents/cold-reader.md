@@ -66,7 +66,8 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    does or produces.
 8. **Logical gaps.** A "therefore" without a reason, a jump to a quantity the reader was
    not prepared for, a paragraph whose first sentence does not say what it is about.
-9. **LLM-sounding prose.** Slogans and aphorisms, dash asides, informal words for methods
+9. **LLM-sounding prose** (the most important check; rate a paragraph that reads as
+   generated as should fix). Slogans and aphorisms, dash asides, informal words for methods
    ("recipe", "engine"), anthropomorphism ("the bath remembers"), compressed participle
    phrases, a term followed by its own paraphrase, repetition of what an earlier section
    said. Read each paragraph aloud as a whole: flag one that reads as a list of short
