@@ -1,14 +1,17 @@
 # paperlint
 
-paperlint helps Claude write and finish scientific papers that are clear, precise and
-easy to follow. It is a plugin for [Claude Code](https://claude.com/claude-code),
+paperlint helps Claude write and finish scientific papers that read as if a scientist
+wrote them: clear, precise and easy to follow. That is its main goal. It is a plugin for [Claude Code](https://claude.com/claude-code),
 Anthropic's coding assistant.
 
 Text written with an LLM often has the same problems. It uses technical terms without
 defining them, states slogans instead of facts, repeats itself across sections, cites
 papers for things they do not say, and refers to things the reader has not seen yet.
 paperlint gives Claude a set of writing rules, a fresh reader, a literature agent and
-the checks to enforce them, and runs them until the text is finished.
+the checks to enforce them, and runs them until the text is finished. Even text
+without any of these errors can read as generated: every sentence of the same length,
+one definition after another, a paragraph patched with one sentence per review comment.
+paperlint rereads every paragraph as a whole and rewrites the ones that read that way.
 
 ## Three commands
 

@@ -7,6 +7,12 @@ argument-hint: "<file.tex> <section title or line range>"
 Bring one section to a finished state and stop. A section is never independent of the
 rest of the paper: every round reads and checks it in the context of the whole paper.
 
+**The main goal is prose that reads as written by a scientist, not generated.** Correct
+physics and defined terms are necessary, but a section is not finished while any
+paragraph reads as a list, a chain of definitions or a patchwork of fixes (rules.md,
+section 2b). Every fix is judged by that goal as well: a fix that answers a finding by
+appending a sentence is not done until the paragraph reads whole again.
+
 ## Before the first round
 
 1. **Target.** Identify the file and the section from `$ARGUMENTS`. Load the
@@ -48,10 +54,11 @@ rest of the paper: every round reads and checks it in the context of the whole p
    - scope: every statement about a step of the method holds for every case the paper
      uses (all systems, samplings, integrators); a general step does not single out
      one kind of system but points to the appendix that treats each;
-   - rhythm (rules.md, section 2b): reread every paragraph of the section whole, not
-     sentence by sentence, and apply the read-aloud test. Rewrite any paragraph that
-     reads as a list, a chain of definitions or a patchwork of added sentences. This
-     audit runs in every round, because the other fixes create patchwork;
+   - rhythm first (rules.md, section 2b), the most important audit: reread every
+     paragraph of the section whole, not sentence by sentence, and apply the read-aloud
+     test. Rewrite any paragraph that reads as a list, a chain of definitions, a
+     patchwork of added sentences, or instructions outside a procedure. This audit runs
+     in every round, and again after the fixes, because the other fixes create patchwork;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
      in the main text; the section does not grow without a reason.
 3. **Cold read.** Launch the `cold-reader` agent on the section. Pass it the paths of
@@ -95,7 +102,8 @@ rest of the paper: every round reads and checks it in the context of the whole p
 ## When to stop
 
 Stop after a round in which the cold read and the audits bring no new finding of
-severity must fix or should fix. A new finding is one that is not in the ledger and
+severity must fix or should fix, and every paragraph of the section passes the
+read-aloud test. A paragraph that reads as generated is a should-fix finding. A new finding is one that is not in the ledger and
 does not repeat a rejected one. Stop also after three rounds, and say so. Do not start
 another round for consider-level findings only; fix the editorial ones in passing.
 
@@ -105,6 +113,7 @@ end the loop.
 ## Report
 
 - The section length before and after. If it grew, say why.
+- The paragraphs rewritten for rhythm, each with what made it read as generated.
 - What was changed, grouped by class, with the before and after for anything an author
   had flagged. Name every change outside the section made for consistency.
 - Errors found (a sign, a factor, a wrong claim), listed first and separately.
