@@ -120,6 +120,11 @@ why it is real")*
 correlation real. Its spectrum, πJ(|ω|)coth(|ω|/2T), is non-negative." The reason is one
 clause, and the spectrum is written in a form whose sign the reader can see.
 
+**Later flagged by a co-author:** the same passage grown to four sentences, with a case
+for the complex noise and a pointer for non-negativity, was struck out of the method
+step. A reason longer than a clause, or split into cases, goes to the appendix; and a
+unified definition of the noise (a co-author's paper) made the case split unnecessary.
+
 ## Unusual property of a familiar object (section 3)
 
 **Flagged:** "The noise is then complex." *(Reviewer: "how can a noise be complex?")*
@@ -250,6 +255,30 @@ applies it." *(vague; it hid the most interesting test)*
 
 **Rejected alternative:** dropping the transition because the next section opens with
 its own overview ("the reader needs the connection between the sections").
+
+**Also flagged:** the same transition grown with the zero-point part of the noise, the
+generality of the coupling and the roadmap of the tests *("out of place", "this
+transition paragraph has to be rewritten; add a subsection, e.g. Remarks")*. The
+remarks moved to their own paragraph; the transition kept the four short parts.
+
+## Method explained top-down (section 6)
+
+**Flagged:** a five-step method that computes the kernels in step 2, the noise in step 3
+and shows the equation of motion only in step 4 *("the logical chain is to display the
+equation first, and then describe each term")*.
+
+**Accepted:** the method opens with the Langevin equation of the atoms, then explains
+its three terms (the dynamics without phonons, the noise, the memory integral), each
+with its equation and reason, and ends with the procedure as a short list.
+
+## Contribution framed as someone else's plan (section 3)
+
+**Flagged:** "Smith et al. outlined this extension in an appendix of Ref. [12], and we
+carry it out." *(Smith, a co-author: "this can give the referee the impression that the
+work is incremental")*
+
+**Accepted:** the introduction says what Ref. [12] does (a memoryless bath) and what the
+paper adds (the memory kernel and the coloured noise); the method sentence is cut.
 
 ## Captions (section 7)
 

@@ -23,7 +23,11 @@ Run the revise procedure (the `revise` skill) on each section in reading order:
 introduction, method, results, conclusions, then the appendices, and the captions with
 the section that first refers to each figure. Skip the abstract here. Use `--from` and
 `--skip` from `$ARGUMENTS`. A section the ledger marks as finished, and that has not
-changed since, gets one cold read instead of full rounds.
+changed since, gets one round instead of full rounds: `lint.py`, your rhythm verdict of
+every paragraph, and a cold read with the rhythm verdict. The rules may have changed
+since the section was finished (a new plugin version), so a finished section is not
+exempt from them. If that round finds a should-fix finding, run the full revise
+procedure on the section.
 
 Update the map after each section, so that the next section is checked against the
 revised text.
@@ -35,13 +39,28 @@ After all sections, read the paper from the title to the last appendix and check
 - **The argument.** The introduction promises exactly what the results deliver. Each
   section answers why, what is known and what it does, and leads to the next. The
   conclusions claim nothing the results do not show.
+- **Claims across the paper.** Every restriction and every general statement of the method
+  is checked against every example and against the introduction and the abstract that
+  repeat it (a false "at zero temperature" in the method is usually also in the
+  introduction). Credit to earlier work is stated once, in the introduction, with what
+  the paper adds.
 - **Say it once.** Each fact appears in one place. The introduction and the method
   share no paragraph. An appendix does not repeat the main text.
 - **Notation and terms.** One meaning per symbol and one name per object across the
   whole paper, including figures, tables and appendices. Every term is defined at its
   first use in reading order.
 - **Numbers.** Every value in the text, the captions and the tables matches its source
-  (figure, table, data file or code), with the same rounding everywhere.
+  (figure, table, data file or code), with the same rounding everywhere. Values quoted
+  for a figure are recomputed from its data over the plotted window, statements about
+  an inset are checked against what it draws, and every exception a summary states
+  points to the panel that shows it.
+- **Rhythm across the paper** (rules.md, section 2b), the most important check. Read
+  every section opening and closing in a row: they must not share one template (every
+  section opening "We test ...", every closing "Neither test ..."), and each transition
+  must follow from the section before. Run `lint.py` on the whole file and read every
+  PL018, PL019 and PL020 note, since repetition and enumeration also build up across
+  paragraphs. Give the rhythm verdict again to every paragraph changed in this step,
+  and redraft, rather than patch, the ones that fail.
 - **Figures.** Captions are self-contained, use the text's terms and define only
   parameters that belong to their figure. Legends and axis labels use the text's
   terminology. Every figure is referenced in order.
@@ -49,7 +68,8 @@ After all sections, read the paper from the title to the last appendix and check
   it is attached to (send doubtful ones to the `literature` agent).
 - **Abstract and title, written last.** Rewrite the abstract from the finished paper:
   the problem, what is new, and the main results in words, with no claim the paper does
-  not support. Check that the title says what the paper does.
+  not support. Draft it fresh from a note of what it must say, give it the rhythm
+  verdict and a cold read, and check that the title says what the paper does.
 
 Fix what is editorial, following the class definitions of the revise skill, and
 self-check every edit against the rest of the paper.
@@ -64,7 +84,8 @@ unresolved references, and the order of floats.
 
 - A short summary: the state of the paper and what is left before submission.
 - The errors found (signs, factors, numbers, wrong claims), listed first.
-- Per section: its length before and after, and the main changes.
+- Per section: its length before and after, the main changes, and any paragraph that
+  still fails the rhythm verdict.
 - The changes made at the level of the whole paper (repeated facts removed, notation
   unified, numbers corrected, abstract rewritten, with before and after).
 - The bibliography result.
