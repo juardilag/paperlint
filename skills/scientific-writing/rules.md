@@ -26,10 +26,28 @@ ideas in a concise readable way, not wasting space or time".
 - **Length follows the ideas, not the questions.** For every sentence ask: would the
   reader miss it if it were cut? If not, cut it. For every paragraph ask: what is its
   one idea, and does every sentence serve it?
-- **Every section has a word budget.** `[length]` in `paperlint.toml` sets it per
-  section (default: introduction 1000 words); PL021 reports a section over budget and
-  PL022 a paragraph over `max_paragraph_words` (default 150). A section over budget is
-  cut to it before anything else is polished, keeping every idea.
+- **Concision and the budget are different things.** Concision is a property of every
+  sentence: it earns its place and says its idea once, in the fewest clear words. It
+  applies to every section and is judged by reading. The budget is the length the
+  section needs for what it must say. It is not a number fixed in advance or shared
+  between papers: it is derived, section by section, from the section's own content.
+- **Derive the budget from what the section must say.** Before revising or writing a
+  section, write its idea inventory in `paperlint_map.md`:
+  1. List every idea the section must convey: its role in the paper (why, what is
+     known, what we do), what later sections use from it, and what `CLAUDE.md` requires.
+     One line per idea, in plain words. An idea the paper does not need is struck from
+     the list, not written shorter.
+  2. Give each idea the words it needs, judged from what it is: a claim with its
+     reason, a step of an argument, a piece of context with its references, an
+     equation with its meaning, a definition clause for a term the argument turns on.
+     The central idea gets the space it needs to be understood; a supporting fact gets
+     a clause.
+  3. The sum is the budget of the section. `lint.py --section "<title>" --words` gives
+     the current prose length. Text beyond the budget is text the reader would not
+     miss, and is cut, keeping every idea of the inventory.
+  A section under its budget can still be verbose, so the concision audit runs on every
+  sentence either way. PL022 marks a paragraph over `max_paragraph_words` as a place to
+  look, not as a verdict.
 - **A fix pays for itself.** A correction rewrites the sentence it corrects; it does not
   add one. A reason, a qualification or a definition goes into an existing sentence as
   a clause, or displaces something the reader would not miss. A revision does not end

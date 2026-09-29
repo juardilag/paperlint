@@ -19,10 +19,8 @@ reference_style = "cleveref"  # "cleveref": flag hand-typed Eq.~\ref{...}; "any"
 max_word_repeats = 2          # a modifier used more often in one paragraph is reported (PL018)
 max_paragraph_words = 150     # longer paragraphs are reported (PL022)
 
-[length]                      # word budget per section, by title (PL021); set from your journal
-introduction = 1000
-# method = 1300
-# conclusions = 500
+# Section lengths are not set here: each command derives a section's budget from what the
+# section must say (its idea inventory in paperlint_map.md).
 
 [words]
 known_acronyms = []           # acronyms that need no definition in your field, e.g. ["DNA"]

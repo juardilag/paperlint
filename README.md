@@ -15,8 +15,9 @@ one definition after another, a paragraph patched with one sentence per review c
 paperlint rereads every paragraph as a whole and rewrites the ones that read that way.
 Generated text is also too long: it answers every question in place, qualifies every
 claim and previews every section, until an introduction runs to twice its length.
-paperlint gives each section a word budget and cuts every sentence the reader would not
-miss. Concision and rhythm are its two most important checks.
+paperlint cuts every sentence the reader would not miss, in every section. It derives
+each section's length from what the section must say: it lists the ideas, gives each the
+words it needs, and cuts the text to that. Concision and rhythm are its two most important checks.
 The opposite failure is just as common after a review: every term defined, every formula
 put into words, every question answered in place, until the text reads as a lecture for
 students. paperlint writes for the reader you name in `paperlint.toml` (for example "PRA:
@@ -178,8 +179,8 @@ This is the command you will use most. It works in rounds.
    the next session, will not raise it again.
 
 It stops when a round brings nothing new that must be fixed, every paragraph passes the
-rhythm verdict and the section is within its word budget, or after three rounds (with
-one more cutting pass if the section is still too long). The report gives the length before and after,
+rhythm verdict and the section fits the budget derived from its idea inventory, or after three rounds (with
+one more cutting pass if it is still too long). The report gives the length before and after,
 lists the errors found first (a sign, a factor, a claim the data do not
 support), then the changes, the literature used, and the questions only you can answer.
 
@@ -293,8 +294,9 @@ also runs on the changed paragraphs, and Claude fixes what it reports straight a
 | PL018 | The same modifier three times in a paragraph, as in "exactly … exactly … exact" (a note) |
 | PL019 | A paragraph built as a list, "The first … The second …" (a note for two, a warning for three) |
 | PL020 | An object acting as an agent, as in "The model tests the kernel" (a note) |
-| PL021 | A section longer than its word budget, set in `[length]` (introduction: 1000 words by default) |
 | PL022 | A paragraph longer than 150 words (a note) |
+
+`lint.py --section "Introduction" --words` prints the prose length of a section.
 
 You can also run the checker without Claude, for example before submitting.
 
@@ -322,10 +324,6 @@ known_acronyms = ["DNA", "GPU"]   # acronyms your readers know without a definit
 
 [checks]
 disable = ["PL014"]
-
-[length]                          # word budget per section, matched by title
-introduction = 900
-conclusions = 500
 ```
 
 The file created by `/paperlint:setup` lists every setting with a short explanation.

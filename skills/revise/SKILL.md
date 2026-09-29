@@ -43,10 +43,12 @@ appending a sentence is not done until the paragraph reads whole again.
    sections, which you also do.
 4. **Code and data.** If `CLAUDE.md` names the code or data behind the results, locate
    them. A claim about what a run did is checked there, not guessed.
-5. Record the word count of the section and its budget (`[length]` in
-   `paperlint.toml`, PL021). If the section is over budget, the run must bring it to
-   the budget; if it is under, it must not end longer than it started, except for new
-   content the authors asked for.
+5. Write the idea inventory of the section and derive its budget (rules.md, section
+   0): every idea it must convey, the words each needs, and their sum. Record both in
+   `paperlint_map.md`, with the current length from `lint.py --section "<title>"
+   --words`. If the section is longer than its budget, the run must bring it to the
+   budget, keeping every idea; it must never end longer than it started, except for
+   new content the authors asked for.
 
 ## Each round
 
@@ -108,10 +110,12 @@ appending a sentence is not done until the paragraph reads whole again.
    - scope: every statement about a step of the method holds for every case the paper
      uses (all systems, samplings, integrators); a general step does not single out
      one kind of system but points to the appendix that treats each;
-   - concision (rules.md, section 0), with rhythm the most important audit: for every
-     sentence, would the reader miss it if cut; for every paragraph, its one idea;
+   - concision (rules.md, section 0), with rhythm the most important audit, on every
+     section whether or not it has a budget or is under it: for every sentence, would
+     the reader miss it if cut; for every paragraph, its one idea;
      qualifications and numbers moved to the section that shows them; the cut test
-     (a fifth shorter without losing an idea). PL021 and PL022 mark where to start;
+     (a fifth shorter without losing an idea), and the section against the budget of its
+     idea inventory. PL022 marks long paragraphs as a place to start;
    - rhythm first (rules.md, section 2b), the most important audit: reread every
      paragraph of the section whole, not sentence by sentence, and apply the read-aloud
      test. Rewrite any paragraph that reads as a list, a chain of definitions, a
@@ -188,7 +192,8 @@ appending a sentence is not done until the paragraph reads whole again.
 Stop after a round in which the cold read and the audits bring no new finding of
 severity must fix or should fix, every paragraph of the section passes the rhythm
 verdict (rules.md, section 2b) in both your audit and the cold read, and the section is
-within its word budget (no PL021). A paragraph that
+within the budget of its idea inventory. Being within budget is necessary, not
+sufficient: the concision audit must also find no sentence the reader would not miss. A paragraph that
 reads as generated is a should-fix finding. A new finding is one that is not in the
 ledger and does not repeat a rejected one. Stop also after three rounds, and say so.
 Do not start another round for consider-level findings only; fix the editorial ones in
