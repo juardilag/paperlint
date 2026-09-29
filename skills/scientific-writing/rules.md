@@ -295,6 +295,12 @@ Back-references
   - In "The convolution adds up its past values", "its" read as the convolution. It became
     "the past occupations n(t′)".
   - In "θ(τ) makes it vanish, and its decay time…", the nearest noun was θ, not the kernel.
+- **No possessive pronoun that hangs a property on an equation or a list of works.**
+  "Their damping depends only on the state ..., and their noise is white" (their = the
+  Langevin equations of three cited papers) was disliked by an author, as was the
+  parallel "Its damping ..., and its noise ...". Say where the property lives: "In these
+  equations the damping depends ...", "The damping then depends ...". A possessive is
+  fine for a physical owner ("the spectral density of the bath", "its temperature").
 - Name the object when two candidates are in play ("its spectral density" with two baths).
 - Don't use names that collide with better-known ones ("the standard model" for a
   physics model reads as the Standard Model). Name the model.
