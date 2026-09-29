@@ -128,7 +128,9 @@ appending a sentence is not done until the paragraph reads whole again.
      current text, and keep whichever version reads better. A fresh draft forgets the
      decisions already taken on that paragraph, so check it against the ledger and
      `CLAUDE.md` before keeping it (a redrafted opening once brought back a framing a
-     co-author had struck out). Patching an opening
+     co-author had struck out). Concretely, after a redraft search the ledger for every
+     citation key and every claim in the new text: a cut that rebuilt a sentence once
+     put a proposal paper back on "was observed", an error fixed two rounds before. Patching an opening
      sentence by sentence keeps its list structure. This audit runs in every round, and
      again after the fixes, because the other fixes create patchwork;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
