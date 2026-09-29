@@ -80,6 +80,8 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 - Vary sentence length and join related sentences with because, so, but, although.
 - No chained one-sentence definitions, at most one parenthetical pointer per sentence.
 - State conditions once, not in every sentence. One hedge per uncertain claim.
+- No "The first ... The second ..." paragraphs, no objects as agents ("the model
+  tests"), no modifier three times in a paragraph. Draft openings fresh, don't patch.
 - No "not X but Y" reflex, no triples for rhythm, no "Notably"/"Importantly" openers,
   no stock phrases, no paragraph that ends by restating its first sentence.
 

@@ -56,8 +56,11 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    corresponding" where more than one object could be meant, or none was named.
 5. **References without context.** "the method of Ref. [12]" when the text has not said
    what Ref. [12] did.
-6. **Placeholder or vague words.** "microscopic", "structured", "flat" (in what?),
-   "methods that reach many sites" (which?), "agrees well" (to what precision?).
+6. **Placeholder, vague or imprecise words.** "microscopic", "structured", "flat" (in
+   what?), "methods that reach many sites" (which?), "agrees well" (to what precision?).
+   Also a name that is loose for the context, where the field has a precise one: "ladder
+   operators" for the annihilation and creation operators of a field mode in second
+   quantization, "noise" for a force that is not random, "exact" for a numerical result.
 7. **Claims without support.** A statement about the literature, a scaling or a bound with
    no citation, derivation or pointer. A general statement about the method that names
    one case ("spins are sampled as in Ref. [7]") when other sections of the paper use
@@ -84,6 +87,32 @@ brackets that are redefined later ("from here on the overline denotes...").
 Do not flag matters of taste, grammar that is correct, or things that are clearly defined
 in the section. Prefer fewer, well-founded findings to a long list of guesses.
 
+## Rhythm verdict (every paragraph, no default pass)
+
+Machine-written prose is the main risk, and it is easy to wave through: a paragraph with
+correct physics and defined terms still reads as generated if it is a sequence of facts.
+Judge each paragraph against these questions, and answer each one:
+
+- **Order.** Does each sentence follow from the one before, joined by the relation
+  between them (because, so, but, although), or are the sentences facts in a row that
+  could be reordered without loss?
+- **Enumeration.** Is the paragraph built as a list ("In the first ... The second test
+  ...", "First ... Second ...") where the text could instead say how the items relate?
+- **Agent.** Does an object act like a person ("The model tests", "The data confirm")?
+- **Repetition.** Is a modifier or a claim word repeated ("exactly ... exactly ...
+  exact")? Is the same noun phrase used twice where a pronoun or a restructure would do?
+- **Why.** Does an opening paragraph say why the section does what it does, or only what
+  it does? Does a closing paragraph end on the new point rather than restate?
+- **Pointers.** Are references hung at sentence ends as parentheses ("... (Sec. III A).")
+  where they carry nothing, or several in a row?
+
+For every paragraph, quote its weakest sentence and say what makes it the weakest, even
+when you judge the paragraph acceptable. A paragraph passes only if you can say why its
+weakest sentence is still a scientist's sentence. Apply the strictest reading to the
+opening and the closing paragraph of the section: they are what a reader meets first and
+last, and a rewrite from scratch is often better than a patch. Rate a paragraph that
+fails any of the questions above as **should fix**, and name the question it fails.
+
 ## Output
 
 Return a list ordered by position. For each finding:
@@ -96,6 +125,9 @@ Return a list ordered by position. For each finding:
   argument and the appendices keep the detail, so a question about a derivation, a factor
   or a special case is usually answered by a pointer or by an addition to the appendix.
   Say which of the two you suggest.
+
+Then give the rhythm verdict: one line per paragraph with its first words, pass or
+should fix, the weakest sentence quoted, and the question it fails, if any.
 
 End with two or three sentences on the section as a whole: does it answer why, what is
 known and what we do, and would a reader from a neighbouring field follow it?

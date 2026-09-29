@@ -24,7 +24,7 @@ class Fixtures(unittest.TestCase):
         found = {f.code for f in lint.lint_text(src, "bad.tex", cfg)}
         expected = {"PL001", "PL002", "PL003", "PL004", "PL005", "PL006", "PL007",
                     "PL008", "PL009", "PL010", "PL011", "PL012", "PL013", "PL014",
-                    "PL016", "PL017"}
+                    "PL016", "PL017", "PL018", "PL019", "PL020"}
         self.assertEqual(expected - found, set())
 
     def test_good_fixture_is_clean(self):
@@ -51,6 +51,40 @@ class Sentences(unittest.TestCase):
         body = ("The kernel is\n\\begin{equation}\na+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q+r+s+t+u+v+w+x\n"
                 "\\end{equation}\nfor all times.")
         self.assertNotIn("PL001", codes(body))
+
+
+class Texture(unittest.TestCase):
+    def test_repeated_modifier(self):
+        body = ("The bath is integrated out exactly. The model is then solved exactly "
+                "for eight sites. This gives an exact reference for the kernel.")
+        self.assertIn("PL018", codes(body))
+
+    def test_repeated_noun_is_fine(self):
+        body = ("The cavity loses photons. The cavity field decays. The cavity mode "
+                "is harmonic and the cavity bath is flat.")
+        self.assertNotIn("PL018", codes(body))
+
+    def test_repetition_counts_per_paragraph(self):
+        body = "The bath is exact.\n\nThe kernel is exact.\n\nThe noise is exact."
+        self.assertNotIn("PL018", codes(body))
+
+    def test_enumeration(self):
+        body = ("We compare two results. The first result is an exact solution. "
+                "The second result is an analytic exponent.")
+        self.assertIn("PL019", codes(body))
+
+    def test_single_ordinal_is_fine(self):
+        self.assertNotIn("PL019", codes("The first result is an exact solution of the model."))
+
+    def test_inanimate_agent(self):
+        self.assertIn("PL020", codes("The Dicke model tests the memory kernel."))
+        self.assertIn("PL020", codes("The simulation confirms that the kernel is causal."))
+
+    def test_figure_shows_is_fine(self):
+        self.assertNotIn("PL020", codes("This figure shows the kernel and the noise."))
+
+    def test_section_as_agent_is_fine(self):
+        self.assertNotIn("PL020", codes("Section III tests the memory kernel."))
 
 
 class Openers(unittest.TestCase):
