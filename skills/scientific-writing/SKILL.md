@@ -104,7 +104,8 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 **Be specific and correct** (§5)
 - Flat in what? Which methods? Tie each claim to the equation that realises it.
 - Justify odd factors and structural choices in an equation when it appears.
-- Claim only what holds in general. Read papers before describing them.
+- Claim only what holds in general. State the paper's model choices as choices ("we
+  add a sub-Ohmic bath"), not as facts about a regime ("at large N the bath is ..."). Read papers before describing them.
 
 **Structure** (§6, §9)
 - Every section: why, what is known, what we do. Topic sentence first in each paragraph.

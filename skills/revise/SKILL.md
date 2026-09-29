@@ -21,7 +21,13 @@ appending a sentence is not done until the paragraph reads whole again.
 2. **Project files.** Read `paperlint.toml`, `glossary.toml`, `CLAUDE.md` and the ledger
    `paperlint_ledger.md` in the paper directory (create the ledger if missing). The
    ledger lists findings already settled: fixed, rejected with the reason, or decided
-   by the authors. Author decisions are never reopened.
+   by the authors. Author decisions are not reopened by the command, with two
+   exceptions: a correctness question (a claim that may be false) is never settled by a
+   decision on wording, and a later comment by a co-author that contradicts a recorded
+   decision is reported to the user as a conflict. Record who decided and when, so
+   conflicts between co-authors can be seen. Review comments in a PDF (highlights,
+   strike-outs, sticky notes) are read from the annotations themselves, with the text
+   each one marks, not from the rendered page.
 3. **Paper map.** Read the whole paper once and write or update `paperlint_map.md` in
    the paper directory:
    - per section, one line on what it establishes and which results it uses;
@@ -52,7 +58,9 @@ appending a sentence is not done until the paragraph reads whole again.
    - back-references: every this, that, it, the same points to one object just named;
    - redundancy: each fact once in the paper, not only in the section; premises kept;
    - claims: numbers match their source, statements about other work are supported,
-     results are stated no more strongly than the figures and data show. Recompute every
+     results are stated no more strongly than the figures and data show, and the
+     paper's own choices (a bath, a parameter, a coupling) are stated as choices, not as
+     facts about a regime ("for this test we add ...", not "at large N the bath is ..."). Recompute every
      number quoted for a figure from its data over the plotted window, and check every
      statement about an inset against what the inset draws (read the plotting code); an
      exception stated in a summary points to the panel that shows it;
@@ -64,16 +72,30 @@ appending a sentence is not done until the paragraph reads whole again.
      is one clause in the main text; its mechanism goes to the appendix;
    - method applied: every equation of motion in a results section follows from the
      general method; compare it with the method and with the code behind the figure;
+   - structure (method sections): the central equation comes first and each of its
+     terms is explained after it; the procedure follows. The step that carries the main
+     idea and the recovery of the known method get the space they need; technical detail
+     stays short (rules.md, section 6);
+   - generality: the method is stated in the most general form its derivation supports,
+     with where it holds approximately beyond the exact case (rules.md, section 5);
+   - examples: list the examples the paper treats, and test every general statement of
+     the method on each one; a statement with an exception says so;
+   - restrictions: every "only", "at zero temperature", "for weak coupling" the text
+     states has a reason in the text or the appendix; one that has none is checked
+     against the derivation, the code and the literature, and is a correctness finding
+     if it cannot be confirmed;
+   - framing: credit to other work says what it did and what this paper adds, and no
+     sentence presents the paper as carrying out someone else's plan;
    - scope: every statement about a step of the method holds for every case the paper
      uses (all systems, samplings, integrators); a general step does not single out
      one kind of system but points to the appendix that treats each;
    - rhythm first (rules.md, section 2b), the most important audit: reread every
      paragraph of the section whole, not sentence by sentence, and apply the read-aloud
      test. Rewrite any paragraph that reads as a list, a chain of definitions, a
-     patchwork of added sentences, or instructions outside a procedure. Use the
-     questions of the cold reader's rhythm verdict (order, enumeration, agent,
-     repetition, why, pointers) and write down the weakest sentence of each paragraph;
-     "reads fine" is not a verdict. For the opening and the closing paragraph of the
+     patchwork of added sentences, or instructions outside a procedure. Give each
+     paragraph the rhythm verdict of rules.md, section 2b (order, enumeration, agent,
+     repetition, why, pointers) and write down its weakest sentence; "reads fine" is
+     not a verdict. For the opening and the closing paragraph of the
      section, first write down in two or three plain sentences what the paragraph must
      tell the reader and why, then draft it fresh from that note without looking at the
      current text, and keep whichever version reads better. Patching an opening
@@ -100,6 +122,9 @@ appending a sentence is not done until the paragraph reads whole again.
      the paper claims about its own results, the scope and the structure of the paper,
      adding or removing a result, a figure or a section, anything the code or the data
      must decide, and anything the authors already decided (`CLAUDE.md`, the ledger).
+     A correctness finding is never put in this class to avoid checking it: check it
+     first (derivation, code, `literature` agent), and send only the decision that
+     remains to the authors.
    - **Rejected**: the finding is wrong. Write the reason in one sentence.
 5. **Apply** the editorial and literature fixes.
 6. **Self-check every edit** before anything else runs:
@@ -123,10 +148,18 @@ appending a sentence is not done until the paragraph reads whole again.
 ## When to stop
 
 Stop after a round in which the cold read and the audits bring no new finding of
-severity must fix or should fix, and every paragraph of the section passes the
-read-aloud test. A paragraph that reads as generated is a should-fix finding. A new finding is one that is not in the ledger and
-does not repeat a rejected one. Stop also after three rounds, and say so. Do not start
-another round for consider-level findings only; fix the editorial ones in passing.
+severity must fix or should fix, and every paragraph of the section passes the rhythm
+verdict (rules.md, section 2b) in both your audit and the cold read. A paragraph that
+reads as generated is a should-fix finding. A new finding is one that is not in the
+ledger and does not repeat a rejected one. Stop also after three rounds, and say so.
+Do not start another round for consider-level findings only; fix the editorial ones in
+passing.
+
+Rhythm is the exception to the three-round limit, because it is the main goal. If a
+paragraph still fails the rhythm verdict after the last round, do one more pass on
+those paragraphs alone: redraft each from a note of what it must say, rerun `lint.py`,
+self-check the edit, and give the rewritten paragraphs a cold read with the rhythm
+verdict only. Report any paragraph that still fails.
 
 A cold reader always finds something. The ledger, the self-check and this rule are what
 end the loop.
@@ -134,6 +167,8 @@ end the loop.
 ## Report
 
 - The section length before and after. If it grew, say why.
+- The rhythm verdict of the final text: one line per paragraph with its first words,
+  pass or fail, and its weakest sentence.
 - The paragraphs rewritten for rhythm, each with what made it read as generated.
 - What was changed, grouped by class, with the before and after for anything an author
   had flagged. Name every change outside the section made for consistency.

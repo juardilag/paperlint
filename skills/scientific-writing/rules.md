@@ -139,6 +139,24 @@ The test: read the paragraph aloud. If it sounds like a list, a press release or
 lecture on terminology, rewrite it until it sounds like one scientist explaining a
 result to another.
 
+**The rhythm verdict.** Every command that writes or changes text (write, revise,
+finish) and the cold reader judge each paragraph with the same six questions, and
+record its weakest sentence. "Reads fine" is not a verdict.
+1. *Order.* Does each sentence follow from the one before, joined by the relation
+   between them, or could the sentences be reordered without loss?
+2. *Enumeration.* Is it built as a list ("The first ... The second ...") where the text
+   could say how the items relate?
+3. *Agent.* Does an object act like a person ("the model tests")?
+4. *Repetition.* Is a modifier or a claim word repeated, or a noun phrase where a
+   pronoun or a restructure would do?
+5. *Why.* Does an opening say why, and does a closing end on the new point?
+6. *Pointers.* Are references hung at sentence ends where they carry nothing?
+
+A paragraph that fails any question is a should-fix finding. The opening and the closing
+of a section get the strictest reading and are drafted fresh from a note of what they
+must say, then compared with the current version (see "Openings and closings are
+drafted, not patched" above).
+
 ## 3. The reader has no context
 Terms
 - **Standard vocabulary is not exempt.** At its first use in the document, every
@@ -173,6 +191,12 @@ References
 - Introduce every reference by what it did (authors, system, result) before leaning on
   it. "The rate equation of Ref. [12]" means nothing to someone who hasn't read [12].
 - For every step of a method, cite where it was done first.
+- **Credit precisely, and do not frame the paper as someone else's plan.** Say what the
+  earlier work did, and next to it what this paper adds. "Ref. [12] outlined this
+  extension in an appendix, and we carry it out" was flagged by the author of Ref. [12]
+  himself: "this can give the referee the impression that the work is incremental".
+  Credit belongs in the introduction, where the contribution is stated; the method
+  describes the method.
 - Cite again at the first mention in each section, even if the introduction cited it.
   Readers jump straight to a section.
 
@@ -242,6 +266,34 @@ Back-references
   in Eqs. (3) and (4)).
 - **Claim only what holds in general.** Don't state a scaling or a bound (e.g. "the error
   is suppressed as 1/N") unless it is true for the case at hand.
+- **Don't claim less than holds either.** State the method in the most general form its
+  derivation supports, even when every example is a special case, and say where it
+  still holds approximately beyond the exact case. Flagged: a coupling written for one
+  operator, A Σ_k g_k c_k, when the derivation holds for Σ_{n,k} g_{nk} A_n c_k; and "the
+  bath can be integrated out exactly because it is harmonic" with no word that a
+  non-harmonic bath gives the same equations at weak coupling.
+- **Check every general statement of the method against every example in the paper.**
+  List the examples, and test the sentence on each. "The fluctuation–dissipation
+  relation of the thermal bath gives the noise kernel" was flagged because the paper's
+  own integrated-out cavity does not obey that relation. A statement with an exception
+  says so, or is limited to the cases it covers.
+- **An unexplained restriction is verified, not accepted.** When a reader asks "why only
+  at zero temperature?" and nobody can give the reason, check the claim against the
+  derivation and the literature before keeping it. In one paper the restriction was
+  kept "without the reason" as an author decision, and a co-author later wrote "that's
+  false": the Markovian limit needs no assumption on the temperature. A correctness
+  question is never closed by a decision on wording.
+- **Unify before splitting into cases.** Before writing a step twice (a real noise and a
+  complex noise, sampling the initial state and sampling the noise), look for a
+  formulation that covers both, in the literature and in the co-authors' own papers.
+  Two random inputs of one trajectory are sampled in one operation.
+- **A choice of the model is stated as a choice, not as a fact about a regime.** "At
+  large N the memory comes from a sub-Ohmic bath on the atoms" reads as if every large
+  system had that bath, when the authors added it for one test. Write what was done:
+  "For the second test we add a sub-Ohmic bath on the atoms". The same holds for
+  parameters ("at strong coupling the bath is Ohmic" when the runs chose an Ohmic bath)
+  and for any sentence whose subject is a regime (large N, low temperature, strong
+  coupling) and whose content is the paper's setup.
 - **A statement about the method covers every case the paper uses.** If the paper uses
   several variants of a step (several initial distributions, integrators, bath models),
   a sentence that names one either says it is an example ("for a spin, for example, ...")
@@ -265,7 +317,9 @@ Back-references
   holds, or write the expression in a form that shows it. "Its correlation is real",
   next to −(i/2)Σ^K, was flagged because the reader sees the i. The fix names the
   reason (Σ^K is purely imaginary) and gives the spectrum in explicitly real form,
-  πJ(|ω|)coth(|ω|/2T).
+  πJ(|ω|)coth(|ω|/2T). The reason is one clause at most; if it needs a derivation, or
+  splits into cases, it goes to the appendix with a pointer. A co-author struck out a
+  four-sentence justification of this kind from a method step.
 - **A quantity given by a formula says what it is and why it has that value.** "The
   decay rate Γ = 2πJ(ω₀)" leaves two questions: which rate (link it to where the reader
   met it, e.g. the jump operator of the master equation), and why 2πJ(ω₀) (the
@@ -289,7 +343,11 @@ Back-references
   "stationary" is the right one. Use the same verb for the same operation, and a
   different verb for a different operation (e.g. "integrated out" for an exact removal,
   "eliminated" for an approximate reduction).
-- Schematic figure panels: say whether the shapes are generic or specific to a model.
+- Schematic figure panels: say whether the shapes are generic or specific to a model. A
+  schematic caption carries no model formula (a struck-out "J ∝ ω^{1/2}e^{-ω/ω_c}" in a
+  sketch), and panels that pair two quantities show them in the same representation
+  (a kernel in time next to a spectrum in frequency was "weird"). Labels name the
+  operation precisely ("initial sampling", not "sample").
 - **Claims about other papers.** Read the paper before describing it, and keep the tone
   non-adversarial. If it can't be read, list the claim as an open question (procedure,
   step 4 in SKILL.md). Check author lists against arXiv or Crossref before questioning them.
@@ -344,7 +402,25 @@ Back-references
   in the results section that shows them.
 - Overviews stay generic. "Section III B tests X" is enough at that level; the numbers and
   mechanisms belong in the subsection itself.
-- **Keep procedure steps short.** A reviewer wrote "too long, chop it!". Each step gives
+- **Explain top-down: the central equation first, then its terms.** A method section shows
+  the equation the reader will use (the equation of motion, the estimator, the model)
+  and then explains each of its terms, and only then gives the procedure that computes
+  them. A co-author flagged a method that built the equation step by step: "the logical
+  chain is to display Eq. (6) first, and then describe each term". The numbered
+  procedure is the order of computing, not of understanding.
+- **Length follows importance, not a budget.** The step that carries the main idea of the
+  method, and the recovery of the known method as a limit, get the space they need to
+  be understood, with the reasoning written out. Technical detail, conventions and
+  special cases stay short or go to the appendix. A method trimmed to equal-length steps
+  was flagged twice by the same reader: "this step has to be expanded and explained
+  more clearly" (the central step) and "explain the reduction to Lindblad in more
+  detail, because it helps the reader understand our approach".
+- **Introduce each object where it is used, not in passing.** A key quantity (a spectral
+  density, the system operators) gets its own sentence at the point where the argument
+  needs it. "Its effect is then fixed by T and the spectral density J(ω)=..." was
+  flagged as "out of place and too fast", and three hatted symbols introduced in two
+  sentences as "wasn't it Â above?".
+- **Keep technical procedure steps short.** A reviewer wrote "too long, chop it!". Each step gives
   the action, its equation, and one or two sentences of why, in about 70 words or fewer.
   The first sentence of a step states what the step does or produces, as an instruction
   ("Compute the memory kernel", "Write the equations of motion of the closed system").
@@ -414,12 +490,17 @@ Paragraphs and flow
 - **Close each major section with a summary and a transition. Never drop the transition.**
   The summary states what the section established. The transition says why the next
   section follows: what question the reader should now have, and how the next section
-  answers it. Build the closing paragraph in this order:
+  answers it. Keep it short, and in this order:
   1. Summary, one sentence (e.g. the inputs the method needs).
-  2. What is new compared with the closest prior work.
-  3. For each new ingredient, the question it raises and the specific test that answers
-     it, with the reason the test is meaningful, tied to an equation.
+  2. What is new compared with the closest prior work, if not said already.
+  3. For each new ingredient, the question it raises and the test that answers it, in
+     one sentence each.
   4. The step after the tests (application), with a pointer.
+  Physics remarks, validity conditions, generality and subtleties do not belong in the
+  transition. They go in their own paragraph or a short "Remarks" subsection before it.
+  A transition that also carried the zero-point part of the noise, the coupling
+  generality and the roadmap was flagged: "this transition paragraph has to be
+  rewritten. Many sentences should be put in a separate paragraph".
 - Name the tests. "Tests the method against known results" was rejected as vague,
   because it hid the most interesting test. See examples.md, "Closing a section", for the
   accepted version.

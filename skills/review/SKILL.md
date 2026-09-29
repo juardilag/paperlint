@@ -29,6 +29,10 @@ Review a section as a reader with no context would.
    a standard convention) do not need the authors. Only content decisions do. See
    `/paperlint:revise`, which applies this policy and runs rounds until the section is
    done.
+   The cold reader's rhythm verdict (rules.md, section 2b) is triaged like any other
+   finding: check each failed paragraph yourself, and give your own verdict of every
+   paragraph, with its weakest sentence, so a paragraph it passed by mistake is caught.
+   A rhythm fix redrafts the paragraph; it does not append to it.
 5. Show the user the confirmed findings, grouped by severity, each with the quoted words,
    the proposed fix and where it goes (main text, appendix, or no change). Ask before
    editing, unless the user asked you to fix them.

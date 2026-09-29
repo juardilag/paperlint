@@ -34,7 +34,14 @@ paper, or references you can find. If the brief settles everything, ask nothing.
 
 ## 3. Plan
 
-Write the topic sentence of every paragraph and read them in a row. They must answer,
+Write the topic sentence of every paragraph and read them in a row. Each topic
+sentence states a claim, not a list item: the plan does not contain "The first test
+... The second test ..." (rules.md, section 2b). For the opening and the closing
+paragraph, also write two or three plain sentences on what the paragraph must tell the
+reader and why; draft those paragraphs from that note. For a method section, the plan
+opens with the central equation and explains its terms before the procedure, gives the
+step that carries the main idea its full explanation, and states the most general form
+the derivation supports (rules.md, sections 5 and 6). They must answer,
 in order, why the section exists, what is known, and what it does, and the last one
 must lead to the next section. For each paragraph, list the equations, figures,
 references and numbers it uses and where each comes from. Put detail that the argument
@@ -49,14 +56,23 @@ is cheap to change and a draft is not.
 
 - Write each paragraph from its topic sentence, following the checklist of the
   scientific-writing skill: plain words first, every term defined at first use in the
-  paper, notation introduced with its concept, each fact once, the reason for every
-  factor and choice, claims no stronger than the data.
+  paper and named as the field names it, notation introduced with its concept, each
+  fact once, the reason for every factor and choice, claims no stronger than the data.
+- Write for rhythm from the start (rules.md, section 2b): sentences joined by the
+  relation between them, varied in length and opening, the authors or the physics as
+  the subject (not "the model tests"), each modifier once, at most one pointer per
+  sentence. A draft that has to be fixed for rhythm later keeps its structure.
 - Use the notation and the terms of the paper map and the glossary. A new symbol or term
   is added to the glossary only if the author agrees.
 - For every statement about other work, and for every step that needs a source, launch
   the `literature` agent (one per topic, in parallel). Cite only what it confirms, add
   the verified entries to the `.bib` file, and present as new what no source states.
 - Take every number from the code, the data or the figure it describes, and say which.
+  A number quoted for a figure is computed over the plotted window and runs, and a
+  statement about an inset must be visible in that inset.
+- Before handing the draft to revise, run `lint.py` on it and give every paragraph the
+  rhythm verdict yourself, with its weakest sentence. Redraft the paragraphs that fail,
+  in particular the opening and the closing.
 - Insert the text at the place the author named, with a label, and add the references
   to it from the sections that need them (for example the roadmap of the introduction).
 
@@ -73,5 +89,6 @@ including figures and their captions.
 - The plan as approved, and any place the draft departs from it, with the reason.
 - The references added, each with what it supports, and the claims presented as new.
 - Every number in the text with its source.
-- The revise report (changes, rejected findings, author decisions).
+- The revise report (changes, rejected findings, author decisions), including the
+  rhythm verdict of every paragraph of the new text.
 - Open questions for the author, each with a recommendation.

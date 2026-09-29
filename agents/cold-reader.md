@@ -67,7 +67,9 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    other cases: grep the paper for them. In a general method, also flag a step that
    singles out one kind of system ("for a spin, ...") when the paper treats several.
    In a numbered procedure, flag a step whose first sentence does not say what the step
-   does or produces.
+   does or produces. Flag a modelling choice written as a general fact about a regime
+   ("at large N the memory comes from a sub-Ohmic bath" when the paper added that bath
+   for one test): the reader takes it as physics, not as the setup.
 8. **Logical gaps.** A "therefore" without a reason, a jump to a quantity the reader was
    not prepared for, a paragraph whose first sentence does not say what it is about.
 9. **LLM-sounding prose** (the most important check; rate a paragraph that reads as
@@ -78,7 +80,15 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    sentences, a chain of definitions, a patchwork of appended clarifications ("Here X
    is ...", "It equals ...", "then ... then"), or that gives instructions ("Take ...")
    outside a numbered procedure (rules.md, section 2b).
-10. **Section connections.** Whether the opening says why the section exists and what is
+10. **Structure and generality (method sections).** Flag a method that builds its main
+    equation step by step instead of showing it first and explaining its terms; a central
+    step that is too thin to follow while minor steps are detailed; an object introduced
+    in passing before it is needed; a formulation narrower than its derivation supports
+    (one coupling operator where many are allowed, "exact" with no word on the
+    approximate case); a general statement that one of the paper's own examples breaks;
+    a restriction ("only at zero temperature") given without a reason; and credit phrased
+    so that the paper reads as carrying out someone else's plan.
+11. **Section connections.** Whether the opening says why the section exists and what is
     known, and whether the end leads to the next section.
 
 Also check that each symbol has one meaning in the whole paper, including averages and
