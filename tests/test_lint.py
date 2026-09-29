@@ -204,14 +204,9 @@ class Glossary(unittest.TestCase):
 
 
 class Length(unittest.TestCase):
-    def test_section_budget(self):
-        cfg = lint.Config(section_words={"introduction": 20})
-        body = "\\section{Introduction}\n" + "The atoms move. " * 12 + "\n\\section{Method}\nShort."
-        fs = [f.code for f in lint.lint_text(DOC % body, "t.tex", cfg)]
-        self.assertIn("PL021", fs)
-        cfg.section_words = {"introduction": 100}
-        fs = [f.code for f in lint.lint_text(DOC % body, "t.tex", cfg)]
-        self.assertNotIn("PL021", fs)
+    def test_prose_words(self):
+        src = "\\section{A}\nThe atoms move $x$ fast.\n\\begin{equation}a=b\\end{equation}\n"
+        self.assertEqual(lint.prose_words(src, 2, 3), 5)  # inline math counts as one word
 
     def test_paragraph_limit(self):
         cfg = lint.Config(max_paragraph_words=10)

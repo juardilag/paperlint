@@ -62,9 +62,10 @@ is cheap to change and a draft is not.
   read aloud, every limitation with its consequence, no preview of later sections
   outside the introduction, notation introduced with its concept, each
   fact once, the reason for every factor and choice, claims no stronger than the data.
-- Write to the word budget from the start (rules.md, section 0): plan the paragraphs
-  so the section fits `[length]` in `paperlint.toml`, one idea per paragraph, each idea
-  once, qualifications where the result is shown. Then apply the cut test.
+- Write to the budget from the start (rules.md, section 0): the plan is the idea
+  inventory, each idea with the words it needs, and their sum is the budget of the new
+  text. One idea per paragraph, each idea once, qualifications where the result is
+  shown. Then apply the cut test.
 - Write for rhythm from the start (rules.md, section 2b): sentences joined by the
   relation between them, varied in length and opening, the authors or the physics as
   the subject (not "the model tests"), each modifier once, at most one pointer per

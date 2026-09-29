@@ -473,8 +473,8 @@ or time")*
 **Accepted approach:** each fix rewrites the sentence it corrects instead of adding one;
 the caveats ("at large N, within the statistical error, while the order parameter still
 relaxes") move to the results section and the introduction keeps the finding in one
-clause; the survey names representative methods; the section is cut to its budget
-(1000 words) with every idea kept.
+clause; the survey names representative methods; the section is cut to the budget
+derived from its idea inventory, with every idea kept.
 
 **Flagged:** "The quantum fluctuation--dissipation relation ties the fluctuations of an
 observable in equilibrium to its response, and it distinguishes quantum from classical

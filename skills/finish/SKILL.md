@@ -53,8 +53,9 @@ After all sections, read the paper from the title to the last appendix and check
   sections find (only the introduction does that), and each paragraph spending its
   words on the physics it is for. Typography (hats, bold) is checked across every
   equation.
-- **Length.** Every section within its budget (PL021 on the whole file), and the
-  paper as short as its ideas allow (rules.md, section 0). Recaps and previews between
+- **Length.** Every section within the budget of its idea inventory (rules.md,
+  section 0), and the paper as short as its ideas allow. Check the inventories
+  against each other: an idea in two inventories is said in one section only. Recaps and previews between
   sections are cut to a clause; caveats sit in the section that shows the result.
 - **Say it once.** Each fact appears in one place. The introduction and the method
   share no paragraph. An appendix does not repeat the main text.

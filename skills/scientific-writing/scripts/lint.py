@@ -62,7 +62,6 @@ CHECKS = {
     "PL018": "the same content word three or more times in one paragraph",
     "PL019": "paragraph built as an enumeration (The first ... The second ...)",
     "PL020": "inanimate agent (a model, figure or equation 'tests', 'shows', ...)",
-    "PL021": "section longer than its word budget",
     "PL022": "paragraph longer than the paragraph limit",
 }
 
@@ -237,8 +236,6 @@ class Config:
     emph_max_words: int = 4
     max_word_repeats: int = 2          # PL018 fires above this, per paragraph
     max_paragraph_words: int = 150     # PL022 fires above this
-    # PL021: section title (case-insensitive substring) -> word budget
-    section_words: dict[str, int] = field(default_factory=lambda: {"introduction": 1000})
     repeat_ok: set[str] = field(default_factory=set)
     reference_style: str = "cleveref"   # "cleveref" or "any"
     known_acronyms: set[str] = field(default_factory=set)
@@ -276,9 +273,6 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
                 "reference_style", "max_word_repeats", "max_paragraph_words"):
         if key in style:
             setattr(cfg, key, style[key])
-    length = data.get("length", {})
-    if length:
-        cfg.section_words = {k.lower(): int(v) for k, v in length.items()}
     cfg.known_acronyms |= set(words.get("known_acronyms", []))
     for pat in words.get("allow", []):
         cfg.banned = [(p, a) for p, a in cfg.banned if p != pat
@@ -668,24 +662,6 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 "cut what the reader would not miss, or split it at its second idea",
                 excerpt_at(pa, min(pb, pa + 80)), "info")
 
-    heads = [(mt.start(), mt.group(1), mt.group(2)) for mt in
-             re.finditer(r"\\(section|subsection|subsubsection)\*?\{([^}]*)\}", src)]
-    level = {"section": 1, "subsection": 2, "subsubsection": 3}
-    stop = [mt.start() for mt in re.finditer(r"\\appendix\b|\\end\{document\}|"
-                                              r"\\bibliography\{", src)]
-    for idx, (pos, kind, title) in enumerate(heads):
-        budget = next((v for k, v in cfg.section_words.items() if k in title.lower()), None)
-        if budget is None:
-            continue
-        end = next((p2 for p2, k2, _ in heads[idx + 1:] if level[k2] <= level[kind]),
-                   len(src))
-        end = min([end] + [p for p in stop if p > pos])
-        nw = len(WORD_RE.findall(masked[pos:end].replace(DISPLAY, " ")))
-        if nw > budget:
-            add(pos, "PL021", f"section '{title}' has {nw} words (budget {budget}); "
-                "cut until it fits, keeping every idea (rules.md, section 0)",
-                title)
-
     for ea, eb in mk.emph_spans:
         nw = len(WORD_RE.findall(masked[ea:eb]))
         if nw > cfg.emph_max_words:
@@ -748,6 +724,13 @@ def section_range(src: str, title: str) -> tuple[int, int] | None:
     return None
 
 
+def prose_words(src: str, lo: int = 1, hi: int = 10 ** 9) -> int:
+    """Words of running prose (no LaTeX, no displayed equations) in lines lo..hi."""
+    masked = Masker(src).run()
+    lines = masked.split("\n")
+    return len(WORD_RE.findall("\n".join(lines[lo - 1:hi]).replace(DISPLAY, " ")))
+
+
 def format_findings(findings: list[Finding], limit: int | None = None) -> str:
     lines = []
     shown = findings if limit is None else findings[:limit]
@@ -776,6 +759,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--section", help="only the section whose title contains this text")
     ap.add_argument("--lines", help="only findings in this line range, e.g. 120-180")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--words", action="store_true",
+                    help="print the prose word count of the selection and exit")
     ap.add_argument("--no-info", action="store_true", help="hide info-level findings")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--strict", action="store_true", help="exit 1 if there are findings")
@@ -809,7 +794,12 @@ def main(argv: list[str] | None = None) -> int:
         if args.lines:
             a, _, b = args.lines.partition("-")
             lo, hi = max(lo, int(a)), min(hi, int(b or a))
+        if args.words:
+            print(f"{path}: {prose_words(src, lo, hi)} words of prose")
+            continue
         findings += [f for f in fs if lo <= f.line <= hi]
+    if args.words:
+        return 0
     if args.no_info:
         findings = [f for f in findings if f.severity != "info"]
 
