@@ -72,8 +72,9 @@ appending a sentence is not done until the paragraph reads whole again.
      the text claims (real, positive, conserved) but the displayed formula does not
      show, because of an i or a sign, gets its reason. The answer
      is one clause in the main text; its mechanism goes to the appendix;
-   - weight (rules.md, sections 2 and 3): cut every sentence that defines what the
-     audience knows, restates a displayed formula in words, or coins a name the paper
+   - weight (rules.md, sections 2 and 3): keep, or add, a clause with the meaning of every
+     term the argument turns on, at its first use in the paper; cut every sentence that
+     defines what the audience knows, restates a displayed formula in words, or coins a name the paper
      uses less than twice; every paragraph opens with the physics it is for;
    - consequences (rules.md, section 5): every limitation says whether it invalidates
      the results and on which timescale or regime the method holds; every statement

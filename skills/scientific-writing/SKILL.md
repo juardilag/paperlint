@@ -95,7 +95,8 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 - Write for a researcher of the journal's field (`audience` in `paperlint.toml`), not a
   student. Every technical term gets a reference at first use, even standard ones, and a
   definition only where that reader needs it, as a clause of the sentence that uses the
-  term, never a definition sentence of its own. Spell out every acronym.
+  term, never a definition sentence of its own. A term the argument turns on (white vs.
+  coloured noise) always gets its meaning in a clause at first use. Spell out every acronym.
 - Coin a name only if the paper uses it several times. Cite the classic literature of
   the class of equations you adopt. Same typography (hats, bold) in every equation.
 - If a term needs more than a clause, describe the object in plain words and keep the

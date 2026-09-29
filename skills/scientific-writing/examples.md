@@ -79,8 +79,16 @@ the past values of A, each weighted by the memory kernel at the time difference.
 *(Co-author: "waaay too pedantic. The point is to explain the physical meaning of
 mathematical formulas, not to put them in words.")*
 
-**Accepted, a reference for every term and a clause only where the reader needs it,
-inside the sentence that uses the term:**
+**Flagged after that fix went too far:** "their noise is white" and "its noise is
+coloured", with references but no meaning, in a paper whose point is the contrast between
+the two. *(Author: "we must try not to assume anything of the reader ... this is
+important, find a balance")*
+
+**Accepted, a reference for every term, a clause for every term the argument turns on,
+and nothing more, inside the sentence that uses the term:**
+- "Their damping depends only on the state at the same instant, and their noise is
+  white, uncorrelated between different times." ... "its noise is coloured, correlated
+  over that time [ref]." 
 - "The standard description is a master equation for the atoms alone [refs], from which
   the phonons have been eliminated."
 - "Ref. [12] derived from it a Langevin equation [refs] whose damping and white noise
