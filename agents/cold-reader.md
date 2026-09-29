@@ -74,7 +74,10 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    does or produces. Flag a modelling choice written as a general fact about a regime
    ("at large N the memory comes from a sub-Ohmic bath" when the paper added that bath
    for one test): the reader takes it as physics, not as the setup.
-8. **Logical gaps.** A "therefore" without a reason, a jump to a quantity the reader was
+8. **Logical gaps.** A "because" whose reason is only the definition of its conclusion
+   ("because the noise multiplies a function of the state, it is multiplicative"); a
+   word that resolves a problem the text never raised ("unambiguous", "consistent",
+   "well defined": about what?). A "therefore" without a reason, a jump to a quantity the reader was
    not prepared for, a paragraph whose first sentence does not say what it is about.
 9. **LLM-sounding prose** (the most important check; rate a paragraph that reads as
    generated as should fix). Slogans and aphorisms, dash asides, informal words for methods

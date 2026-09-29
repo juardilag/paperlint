@@ -152,6 +152,10 @@ appending a sentence is not done until the paragraph reads whole again.
      content sits inside the sentences that need it, instead of appending it;
    - check each changed sentence against the equations and symbols around it (signs,
      factors, which variable, which average), and against the paper map;
+   - read each changed sentence as the reader, who has not seen the finding: a fix
+     written in the reviewer's shorthand ("unambiguous", "consistent") refers to a
+     problem the text never states, and a "because" that restates a definition explains
+     nothing (rules.md, section 4). Rewrite it in the paper's own terms;
    - grep the whole paper for every symbol, term, label and equation number the edit
      touched, and fix the other occurrences so the paper stays consistent;
    - if an edit removed a definition, find the next use of that term and define it
