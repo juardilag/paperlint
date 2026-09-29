@@ -12,6 +12,50 @@ push LLM prose toward plain English. A paper can switch the mechanical ones off 
 `paperlint.toml`, and its `CLAUDE.md` can override the others. Journal style always wins
 where it conflicts.
 
+## 0. Say it in as few words as the ideas need
+This rule and the rhythm rules of section 2b come first, because they are what most
+separates generated text from a scientist's. An LLM writes more than was asked: it
+answers every question in place, qualifies every claim, glosses every term, recalls
+what came before and previews what comes next. Each addition is defensible and the sum
+is a text that is dense and long. A scientist communicates every idea once, in the
+fewest words that keep it clear, and leaves the reader's time alone. An author read an
+introduction that had grown from 1519 to 1764 words while every fix in it was correct
+and wrote: "the text is too dense, is too large ... a human seeks to communicate all the
+ideas in a concise readable way, not wasting space or time".
+
+- **Length follows the ideas, not the questions.** For every sentence ask: would the
+  reader miss it if it were cut? If not, cut it. For every paragraph ask: what is its
+  one idea, and does every sentence serve it?
+- **Every section has a word budget.** `[length]` in `paperlint.toml` sets it per
+  section (default: introduction 1000 words); PL021 reports a section over budget and
+  PL022 a paragraph over `max_paragraph_words` (default 150). A section over budget is
+  cut to it before anything else is polished, keeping every idea.
+- **A fix pays for itself.** A correction rewrites the sentence it corrects; it does not
+  add one. A reason, a qualification or a definition goes into an existing sentence as
+  a clause, or displaces something the reader would not miss. A revision does not end
+  longer than it started unless the authors asked for new content.
+- **Precision without bulk: qualify a claim where it is shown.** The introduction and
+  the summaries state a finding in one clause; its conditions, numbers and caveats
+  live in the section that shows it. "Relaxes to a state that obeys the relation" in
+  the introduction, "at large N, within the statistical error, while the order
+  parameter still relaxes" in the results. A referee's "overstated" is answered by a
+  more exact word, not by a longer sentence.
+- **Where generated text grows, and what to do instead:**
+  - a survey that lists every method or paper: name the representative ones and the
+    property they share;
+  - a term glossed that the argument does not turn on: cite it (section 3, "The
+    balance");
+  - "X. X is Y." two sentences where one does: "X, which is Y";
+  - a recap of the previous section or a preview of the next: one clause of transition;
+  - stacked conditions and hedges: state each condition once, where it first applies;
+  - an example after a clear statement: keep it only if the statement is not clear
+    without it.
+- **The cut test.** After drafting or revising, cut the text by a fifth without losing an
+  idea. If that is possible, the draft was too long; keep the cut version.
+- **Priority.** Correctness comes first, but correct and short: fix a wrong claim by
+  rewording it. After correctness, concision and the rhythm of section 2b outrank the
+  completeness of qualifications and glosses.
+
 ## 1. The core problem with LLM-speak
 LLM writing is informal and overly technical at the same time. The syntax is odd, the
 names for things are obscure, and many nontrivial points are taken for granted. It reads
@@ -155,6 +199,10 @@ They are harder to see than a banned word, so check for them when rereading a pa
   aloud. It reads as a lecture, and it hides the physics the paragraph is for. The cure
   is to cut, not to rephrase.
 
+- **Density.** Every clause carries a qualification, a gloss or a pointer, so the reader
+  must hold five things at once. Cut to the one idea of the sentence, and move the
+  qualifications to where they are shown (section 0).
+
 The test: read the paragraph aloud. If it sounds like a list, a press release or a
 lecture on terminology, rewrite it until it sounds like one scientist explaining a
 result to another.
@@ -172,7 +220,8 @@ record its weakest sentence. "Reads fine" is not a verdict.
 5. *Why.* Does an opening say why, and does a closing end on the new point?
 6. *Pointers.* Are references hung at sentence ends where they carry nothing?
 7. *Weight.* Does a sentence tell the journal's reader what they already know, or
-   restate a displayed formula in words? Cut it.
+   restate a displayed formula in words? Would the reader miss it if it were cut? Is
+   the paragraph dense with qualifications that belong where the result is shown? Cut.
 
 A paragraph that fails any question is a should-fix finding. The opening and the closing
 of a section get the strictest reading and are drafted fresh from a note of what they

@@ -62,6 +62,8 @@ CHECKS = {
     "PL018": "the same content word three or more times in one paragraph",
     "PL019": "paragraph built as an enumeration (The first ... The second ...)",
     "PL020": "inanimate agent (a model, figure or equation 'tests', 'shows', ...)",
+    "PL021": "section longer than its word budget",
+    "PL022": "paragraph longer than the paragraph limit",
 }
 
 # Each entry: regex (case-insensitive, word-bounded where it makes sense), advice.
@@ -234,6 +236,9 @@ class Config:
     ban_em_dash: bool = True
     emph_max_words: int = 4
     max_word_repeats: int = 2          # PL018 fires above this, per paragraph
+    max_paragraph_words: int = 150     # PL022 fires above this
+    # PL021: section title (case-insensitive substring) -> word budget
+    section_words: dict[str, int] = field(default_factory=lambda: {"introduction": 1000})
     repeat_ok: set[str] = field(default_factory=set)
     reference_style: str = "cleveref"   # "cleveref" or "any"
     known_acronyms: set[str] = field(default_factory=set)
@@ -268,9 +273,12 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
     cfg.files = list(paper.get("files", []))
     for key in ("max_sentence_words", "hard_sentence_words", "ban_colons",
                 "ban_semicolons", "ban_em_dash", "emph_max_words",
-                "reference_style", "max_word_repeats"):
+                "reference_style", "max_word_repeats", "max_paragraph_words"):
         if key in style:
             setattr(cfg, key, style[key])
+    length = data.get("length", {})
+    if length:
+        cfg.section_words = {k.lower(): int(v) for k, v in length.items()}
     cfg.known_acronyms |= set(words.get("known_acronyms", []))
     for pat in words.get("allow", []):
         cfg.banned = [(p, a) for p, a in cfg.banned if p != pat
@@ -651,6 +659,32 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 add(p, "PL020", f"'{re.sub(r'\s+', ' ', mt.group(0))}': an object is "
                     "not an agent; make the authors or the physics the subject",
                     excerpt_at(p, min(b, p + 80)), "info")
+
+    for para in paragraphs:
+        pa, pb = para[0][0], para[-1][1]
+        nw = len(WORD_RE.findall(masked[pa:pb].replace(DISPLAY, " ")))
+        if nw > cfg.max_paragraph_words:
+            add(pa, "PL022", f"paragraph of {nw} words (limit {cfg.max_paragraph_words}); "
+                "cut what the reader would not miss, or split it at its second idea",
+                excerpt_at(pa, min(pb, pa + 80)), "info")
+
+    heads = [(mt.start(), mt.group(1), mt.group(2)) for mt in
+             re.finditer(r"\\(section|subsection|subsubsection)\*?\{([^}]*)\}", src)]
+    level = {"section": 1, "subsection": 2, "subsubsection": 3}
+    stop = [mt.start() for mt in re.finditer(r"\\appendix\b|\\end\{document\}|"
+                                              r"\\bibliography\{", src)]
+    for idx, (pos, kind, title) in enumerate(heads):
+        budget = next((v for k, v in cfg.section_words.items() if k in title.lower()), None)
+        if budget is None:
+            continue
+        end = next((p2 for p2, k2, _ in heads[idx + 1:] if level[k2] <= level[kind]),
+                   len(src))
+        end = min([end] + [p for p in stop if p > pos])
+        nw = len(WORD_RE.findall(masked[pos:end].replace(DISPLAY, " ")))
+        if nw > budget:
+            add(pos, "PL021", f"section '{title}' has {nw} words (budget {budget}); "
+                "cut until it fits, keeping every idea (rules.md, section 0)",
+                title)
 
     for ea, eb in mk.emph_spans:
         nw = len(WORD_RE.findall(masked[ea:eb]))

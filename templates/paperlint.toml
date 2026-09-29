@@ -17,6 +17,12 @@ ban_em_dash = true            # PL004 (en dashes in ranges and names are always 
 emph_max_words = 4            # longer \emph{...} spans are reported (PL009)
 reference_style = "cleveref"  # "cleveref": flag hand-typed Eq.~\ref{...}; "any": allow them
 max_word_repeats = 2          # a modifier used more often in one paragraph is reported (PL018)
+max_paragraph_words = 150     # longer paragraphs are reported (PL022)
+
+[length]                      # word budget per section, by title (PL021); set from your journal
+introduction = 1000
+# method = 1300
+# conclusions = 500
 
 [words]
 known_acronyms = []           # acronyms that need no definition in your field, e.g. ["DNA"]

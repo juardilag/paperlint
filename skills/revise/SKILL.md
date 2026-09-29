@@ -8,7 +8,9 @@ Bring one section to a finished state and stop. A section is never independent o
 rest of the paper: every round reads and checks it in the context of the whole paper.
 
 **The main goal is prose that reads as written by a scientist, not generated**, for a
-researcher of the journal's field (`audience` in `paperlint.toml`), not for a student. Correct
+researcher of the journal's field (`audience` in `paperlint.toml`), not for a student,
+and as short as its ideas allow (rules.md, section 0). Concision and rhythm are the two
+audits that matter most. Correct
 physics and defined terms are necessary, but a section is not finished while any
 paragraph reads as a list, a chain of definitions or a patchwork of fixes (rules.md,
 section 2b). Every fix is judged by that goal as well: a fix that answers a finding by
@@ -41,7 +43,10 @@ appending a sentence is not done until the paragraph reads whole again.
    sections, which you also do.
 4. **Code and data.** If `CLAUDE.md` names the code or data behind the results, locate
    them. A claim about what a run did is checked there, not guessed.
-5. Record the word count of the section.
+5. Record the word count of the section and its budget (`[length]` in
+   `paperlint.toml`, PL021). If the section is over budget, the run must bring it to
+   the budget; if it is under, it must not end longer than it started, except for new
+   content the authors asked for.
 
 ## Each round
 
@@ -103,6 +108,10 @@ appending a sentence is not done until the paragraph reads whole again.
    - scope: every statement about a step of the method holds for every case the paper
      uses (all systems, samplings, integrators); a general step does not single out
      one kind of system but points to the appendix that treats each;
+   - concision (rules.md, section 0), with rhythm the most important audit: for every
+     sentence, would the reader miss it if cut; for every paragraph, its one idea;
+     qualifications and numbers moved to the section that shows them; the cut test
+     (a fifth shorter without losing an idea). PL021 and PL022 mark where to start;
    - rhythm first (rules.md, section 2b), the most important audit: reread every
      paragraph of the section whole, not sentence by sentence, and apply the read-aloud
      test. Rewrite any paragraph that reads as a list, a chain of definitions, a
@@ -148,8 +157,10 @@ appending a sentence is not done until the paragraph reads whole again.
      remains to the authors.
    - **Rejected**: the finding is wrong. Write the reason in one sentence.
 5. **Apply** the editorial and literature fixes. Length budget: a round that adds text
-   cuts at least as much elsewhere in the section, unless it fixes a wrong claim or a
-   missing consequence. Cut pedantic sentences first.
+   cuts at least as much elsewhere in the section. A wrong claim is fixed by rewording
+   it, not by adding a sentence, and a qualification a reviewer asks for goes where the
+   result is shown, not into the introduction or a summary. Cut pedantic sentences
+   first.
 6. **Self-check every edit** before anything else runs:
    - reread each changed paragraph from its first sentence, as a whole, against
      rules.md section 2b; if the edit added a sentence, rewrite the paragraph so the new
@@ -175,14 +186,18 @@ appending a sentence is not done until the paragraph reads whole again.
 ## When to stop
 
 Stop after a round in which the cold read and the audits bring no new finding of
-severity must fix or should fix, and every paragraph of the section passes the rhythm
-verdict (rules.md, section 2b) in both your audit and the cold read. A paragraph that
+severity must fix or should fix, every paragraph of the section passes the rhythm
+verdict (rules.md, section 2b) in both your audit and the cold read, and the section is
+within its word budget (no PL021). A paragraph that
 reads as generated is a should-fix finding. A new finding is one that is not in the
 ledger and does not repeat a rejected one. Stop also after three rounds, and say so.
 Do not start another round for consider-level findings only; fix the editorial ones in
 passing.
 
-Rhythm is the exception to the three-round limit, because it is the main goal. If a
+Rhythm and length are the exceptions to the three-round limit, because they are the
+main goal. If the section is still over budget after the last round, do one more pass
+that only cuts: every sentence the reader would not miss, every qualification that
+belongs elsewhere, keeping every idea, then rerun `lint.py` and self-check. If a
 paragraph still fails the rhythm verdict after the last round, do one more pass on
 those paragraphs alone: redraft each from a note of what it must say, rerun `lint.py`,
 self-check the edit, and give the rewritten paragraphs a cold read with the rhythm

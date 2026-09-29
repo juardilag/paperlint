@@ -203,6 +203,22 @@ class Glossary(unittest.TestCase):
         self.assertEqual([f.line for f in fs if f.code == "PL010"], [2])
 
 
+class Length(unittest.TestCase):
+    def test_section_budget(self):
+        cfg = lint.Config(section_words={"introduction": 20})
+        body = "\\section{Introduction}\n" + "The atoms move. " * 12 + "\n\\section{Method}\nShort."
+        fs = [f.code for f in lint.lint_text(DOC % body, "t.tex", cfg)]
+        self.assertIn("PL021", fs)
+        cfg.section_words = {"introduction": 100}
+        fs = [f.code for f in lint.lint_text(DOC % body, "t.tex", cfg)]
+        self.assertNotIn("PL021", fs)
+
+    def test_paragraph_limit(self):
+        cfg = lint.Config(max_paragraph_words=10)
+        self.assertIn("PL022", codes("The atoms move. " * 5, cfg))
+        self.assertNotIn("PL022", codes("The atoms move.", cfg))
+
+
 class Sections(unittest.TestCase):
     def test_section_range(self):
         src = "\\section{Intro}\na\n\\subsection{Sub}\nb\n\\section{Method}\nc\n"

@@ -38,15 +38,19 @@ them to check it.
    clause that gives the meaning of a term the argument turns on ("white, uncorrelated
    between different times"): that is required, not pedantic. Pedantry is a sentence or a
    textbook explanation, or a clause for a term used only in passing.
-6. **Wrong emphasis.** A paragraph that spends its space on conventions and definitions
+6. **Length and density.** Text a referee would call long-winded: a survey of every
+   method where two represent them, a qualification in the introduction that belongs
+   in the results, a recap or a preview. When you find a claim overstated, ask for a
+   more exact word, not a longer sentence, and say where the caveat belongs.
+7. **Wrong emphasis.** A paragraph that spends its space on conventions and definitions
    while the physical idea it is for gets one clause, or that previews what later
    sections show (outside the introduction).
-7. **Circular or unanchored statements.** A "because" that gives the definition as the
+8. **Circular or unanchored statements.** A "because" that gives the definition as the
    reason, or a word such as "unambiguous" or "consistent" that answers an issue the text
    never states. Write your own findings so that a fix can be made in the paper's terms:
    when you name an issue ("the Itô/Stratonovich ambiguity"), say what it is in one
    clause, so the fix does not copy your shorthand into the paper.
-8. **Inconsistent typography.** Operators with and without hats, vectors bold and not.
+9. **Inconsistent typography.** Operators with and without hats, vectors bold and not.
 
 Do not flag what is undefined for an outsider (the cold reader does that), matters of
 taste, or style the rules allow. Prefer a short list of findings a referee would really
