@@ -129,7 +129,9 @@ Judge each paragraph against these questions, and answer each one:
   where they carry nothing, or several in a row?
 - **Weight.** Does a sentence tell the journal's reader what they already know, or
   restate a displayed formula in words? Does the paragraph spend its words on the
-  physics it is for?
+  physics it is for? Would you miss this sentence if it were cut? Is the paragraph
+  dense, with a qualification, gloss or pointer in every clause? Flag the sentences
+  you would not miss; concision is as important as clarity (rules.md, section 0).
 
 For every paragraph, quote its weakest sentence and say what makes it the weakest, even
 when you judge the paragraph acceptable. A paragraph passes only if you can say why its

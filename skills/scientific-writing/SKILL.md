@@ -72,6 +72,13 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 
 ## Checklist (details and examples in rules.md)
 
+**As short as the ideas allow** (rules.md §0, with §2b the most important)
+- Would the reader miss this sentence? If not, cut it. One idea per paragraph.
+- Each section within its word budget (`[length]`, PL021); paragraphs under 150 words.
+- A fix rewrites the sentence it corrects; it does not add one. Caveats go where the
+  result is shown, not in the introduction.
+- Cut test: a fifth shorter without losing an idea means the draft was too long.
+
 **Sound like a scientist** (rules.md §2)
 - No slogans or aphorisms. Say what happens, with the equation.
 - No informal words for methods ("recipe", "trick", "engine", "buys", "prices").

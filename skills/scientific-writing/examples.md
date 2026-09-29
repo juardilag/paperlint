@@ -461,3 +461,26 @@ is absent" without the ambiguity.
 state of the system. In the white-noise limit the equation must then specify at which
 point of a time step the bracket is evaluated. The finite correlation time of a physical
 bath selects the midpoint, the Stratonovich rule [refs]."
+
+## Too long although every fix was right (section 0)
+
+**Flagged:** an introduction revised from 1519 to 1764 words. Every change fixed a real
+problem: an overstated claim got its conditions, a term its gloss, a list of methods its
+missing entries, a result its caveat. *(Author: "the text is too dense, is too large ...
+a human seeks to communicate all the ideas in a concise readable way, not wasting space
+or time")*
+
+**Accepted approach:** each fix rewrites the sentence it corrects instead of adding one;
+the caveats ("at large N, within the statistical error, while the order parameter still
+relaxes") move to the results section and the introduction keeps the finding in one
+clause; the survey names representative methods; the section is cut to its budget
+(1000 words) with every idea kept.
+
+**Flagged:** "The quantum fluctuation--dissipation relation ties the fluctuations of an
+observable in equilibrium to its response, and it distinguishes quantum from classical
+statistics. ... the Dicke model relaxes ... At large N the fluctuations obey it within
+the statistical error, even while the order parameter of the ordered phase is still
+relaxing." (61 words in an introduction)
+
+**Accepted:** "... relaxes to a state whose fluctuations obey the quantum
+fluctuation--dissipation relation [refs] (Sec. III B)." (the conditions are in III B)
