@@ -287,6 +287,20 @@ Back-references
     twice. Write "a thermal phonon bath affects the atoms only through its temperature T
     and its spectral density J(ω)".
   - Don't define a term circularly ("the response function, the response of the bath").
+  - **A "because" gives a reason, not the definition.** "Because the noise multiplies a
+    function of the system variables, it is multiplicative" states the definition of
+    multiplicative noise as its cause; an author asked "this makes no sense". Say what
+    follows from the fact instead ("the noise is multiplied by a function of the state,
+    so in the white-noise limit the equation must say where in a time step that function
+    is evaluated").
+- **A word that resolves a problem needs the problem in the text.** "Unambiguous",
+  "consistent", "well defined", "regular", "no longer an issue" answer a question. If the
+  text never raised that question, the reader cannot tell what the word means ("is
+  unambiguous: what is that?"). This usually happens when a fix copies a reviewer's
+  shorthand: the referee wrote "for coloured noise the Itô/Stratonovich ambiguity is
+  absent", and the fix wrote "is unambiguous" without the ambiguity. Answer a finding in
+  the paper's own terms: state the issue in one clause, then its resolution, or leave
+  both out.
   - Don't pair a term with its own paraphrase ("the damping is local in time, set by the
     variables at the same instant"). If the plain version is clear, use only that.
   - Don't assert something and then derive it again two sentences later (the noise is

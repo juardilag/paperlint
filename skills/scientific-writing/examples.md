@@ -439,3 +439,17 @@ nomenclature? Does it help?")*
 
 **Accepted:** "The coupling operators may be Hermitian, such as a spin component, or not,
 such as a lowering operator." The two cases are named only in the table that lists them.
+
+## Circular "because" and a word without its problem (section 4)
+
+**Flagged:** "Because the noise multiplies the bracket {φ,A}, a function of the system
+variables, it is multiplicative. With coloured noise every trajectory solves an ordinary
+differential equation, so Eq. (6) is unambiguous." *(Author: "this makes no sense.
+'is unambiguous' also makes no sense. What is that?")* The first sentence gives the
+definition as the reason; the second copied a referee's "the Itô/Stratonovich ambiguity
+is absent" without the ambiguity.
+
+**Accepted:** "The noise enters multiplied by the bracket {φ,A}, which depends on the
+state of the system. In the white-noise limit the equation must then specify at which
+point of a time step the bracket is evaluated. The finite correlation time of a physical
+bath selects the midpoint, the Stratonovich rule [refs]."

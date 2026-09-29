@@ -38,7 +38,12 @@ them to check it.
 6. **Wrong emphasis.** A paragraph that spends its space on conventions and definitions
    while the physical idea it is for gets one clause, or that previews what later
    sections show (outside the introduction).
-7. **Inconsistent typography.** Operators with and without hats, vectors bold and not.
+7. **Circular or unanchored statements.** A "because" that gives the definition as the
+   reason, or a word such as "unambiguous" or "consistent" that answers an issue the text
+   never states. Write your own findings so that a fix can be made in the paper's terms:
+   when you name an issue ("the Itô/Stratonovich ambiguity"), say what it is in one
+   clause, so the fix does not copy your shorthand into the paper.
+8. **Inconsistent typography.** Operators with and without hats, vectors bold and not.
 
 Do not flag what is undefined for an outsider (the cold reader does that), matters of
 taste, or style the rules allow. Prefer a short list of findings a referee would really
