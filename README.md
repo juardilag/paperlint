@@ -223,6 +223,9 @@ also runs on the changed paragraphs, and Claude fixes what it reports straight a
 | PL015 | Sentence longer than 25 words (a milder note) |
 | PL016 | More than one pointer in parentheses in a sentence, such as "(Sec. II) … (App. A)" (a note) |
 | PL017 | The "not X but Y" contrast that LLMs overuse (a note) |
+| PL018 | The same modifier three times in a paragraph, as in "exactly … exactly … exact" (a note) |
+| PL019 | A paragraph built as a list, "The first … The second …" (a note for two, a warning for three) |
+| PL020 | An object acting as an agent, as in "The model tests the kernel" (a note) |
 
 You can also run the checker without Claude, for example before submitting.
 

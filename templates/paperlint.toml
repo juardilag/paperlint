@@ -14,6 +14,7 @@ ban_semicolons = true         # PL003
 ban_em_dash = true            # PL004 (en dashes in ranges and names are always fine)
 emph_max_words = 4            # longer \emph{...} spans are reported (PL009)
 reference_style = "cleveref"  # "cleveref": flag hand-typed Eq.~\ref{...}; "any": allow them
+max_word_repeats = 2          # a modifier used more often in one paragraph is reported (PL018)
 
 [words]
 known_acronyms = []           # acronyms that need no definition in your field, e.g. ["DNA"]
@@ -23,6 +24,7 @@ ban = [                       # extra phrases to ban in this paper
   # { pattern = "\\bstate-of-the-art\\b", advice = "say what it improves on" },
 ]
 anthropomorphic = []          # extra verbs to flag as anthropomorphic
+repeat_ok = []                # modifiers this paper may repeat, e.g. ["finite"] (PL018)
 
 [checks]
 disable = []                  # check codes to switch off, e.g. ["PL014"]

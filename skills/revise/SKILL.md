@@ -38,15 +38,24 @@ appending a sentence is not done until the paragraph reads whole again.
 
 ## Each round
 
-1. **Mechanical.** Run `lint.py` on the section and fix everything it reports.
+1. **Mechanical.** Run `lint.py` on the section and fix everything it reports. The
+   texture checks PL018 (a repeated modifier), PL019 (an enumeration) and PL020 (an
+   object as agent) are info-level because they can be false positives, but each one
+   is read and either fixed or dismissed with a reason; they mark the paragraphs the
+   rhythm audit starts from.
 2. **Audits**, done by you, against the section and the paper map:
-   - terms: each defined at its first use in the whole paper, with a reference;
+   - terms: each defined at its first use in the whole paper, with a reference, and
+     each the precise name the field uses for the object (the annihilation and creation
+     operators of a mode, not its "ladder operators");
    - notation: one meaning per symbol in the whole paper, including averages and
      brackets; the same symbol as in the other sections for the same object;
    - back-references: every this, that, it, the same points to one object just named;
    - redundancy: each fact once in the paper, not only in the section; premises kept;
    - claims: numbers match their source, statements about other work are supported,
-     results are stated no more strongly than the figures and data show;
+     results are stated no more strongly than the figures and data show. Recompute every
+     number quoted for a figure from its data over the plotted window, and check every
+     statement about an inset against what the inset draws (read the plotting code); an
+     exception stated in a summary points to the panel that shows it;
    - why: ask "what is it?" and "why?" of every sentence, as a reader who knows only the
      earlier text. A quantity given by a formula says what it is and why it has that
      value; a correction or replacement says what goes wrong without it; a property
@@ -61,13 +70,21 @@ appending a sentence is not done until the paragraph reads whole again.
    - rhythm first (rules.md, section 2b), the most important audit: reread every
      paragraph of the section whole, not sentence by sentence, and apply the read-aloud
      test. Rewrite any paragraph that reads as a list, a chain of definitions, a
-     patchwork of added sentences, or instructions outside a procedure. This audit runs
-     in every round, and again after the fixes, because the other fixes create patchwork;
+     patchwork of added sentences, or instructions outside a procedure. Use the
+     questions of the cold reader's rhythm verdict (order, enumeration, agent,
+     repetition, why, pointers) and write down the weakest sentence of each paragraph;
+     "reads fine" is not a verdict. For the opening and the closing paragraph of the
+     section, first write down in two or three plain sentences what the paragraph must
+     tell the reader and why, then draft it fresh from that note without looking at the
+     current text, and keep whichever version reads better. Patching an opening
+     sentence by sentence keeps its list structure. This audit runs in every round, and
+     again after the fixes, because the other fixes create patchwork;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
      in the main text; the section does not grow without a reason.
 3. **Cold read.** Launch the `cold-reader` agent on the section. Pass it the paths of
    the ledger and the paper map, and tell it not to raise settled findings again unless
-   the text changed.
+   the text changed. Its rhythm verdict does not replace your own: a paragraph that
+   either of you fails is a should-fix finding.
 4. **Triage.** Check every finding against the text. Put each one in one class:
    - **Editorial**: fix it now, without asking. This covers undefined terms and
      symbols, inconsistent notation, missing pointers, ambiguous references, wording,

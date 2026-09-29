@@ -59,6 +59,9 @@ CHECKS = {
     "PL015": "sentence longer than the target length",
     "PL016": "more than one parenthetical pointer in a sentence",
     "PL017": "antithesis reflex ('not X but Y', ', not an X')",
+    "PL018": "the same content word three or more times in one paragraph",
+    "PL019": "paragraph built as an enumeration (The first ... The second ...)",
+    "PL020": "inanimate agent (a model, figure or equation 'tests', 'shows', ...)",
 }
 
 # Each entry: regex (case-insensitive, word-bounded where it makes sense), advice.
@@ -108,6 +111,54 @@ DEFAULT_ANTHROPOMORPHIC = [
     "sees", "saw", "inherit", "inherits", "inherited",
     "knows", "wants", "decides", "tells", "feels", "chooses",
 ]
+
+# Function words of five letters or more, which PL018 does not count.
+STOPWORDS = set("""
+about above after again against along already also although among another around
+because become becomes been before being below between beyond both cannot could
+does doing down during each either every first found from further given gives
+having here however into itself just large later least less like made make makes
+many might more most much must near neither never note often only other others
+over same second shall should shown shows since small some still such than that
+their them themselves then there therefore these they third this those though
+three through thus together toward towards under until upon used uses using very
+well were what when where whereas whether which while whose will with within
+without would yields
+""".split())
+
+# Modifiers whose repetition in a paragraph reads as generated (PL018). Nouns are
+# not counted: a paragraph about a cavity may name the cavity five times.
+MODIFIERS = set("""
+exact accurate analytic analytical arbitrary available clear complete correct
+different direct distinct effective explicit finite full general independent
+known large main natural numerical physical precise proper real same simple
+single small specific standard strong structured true typical weak whole
+""".split())
+
+# Ordinal openers that make a paragraph read as a list (PL019).
+ORDINAL_OPENER = re.compile(
+    r"(?:(?:In|For|With)\s+the\s+)?(?:The\s+)?(first|second|third|fourth|last)\b"
+    r"(?:\s+\w+){0,2}?[\s,]", re.I)
+
+# Inanimate subjects that are given the verbs of a person (PL020). Sections and
+# appendices are allowed as agents ("Section III tests X").
+AGENT_NOUNS = (r"model|figure|panel|table|equation|system|result|results|data|"
+               r"simulation|simulations|curve|curves|inset|plot|approximation")
+AGENT_VERBS = (r"tests|test|examines|studies|explores|investigates|addresses|reveals|"
+               r"demonstrates|proves|considers|discusses|confirms|establishes|"
+               r"highlights|captures|probes|answers|asks")
+AGENT_RE = re.compile(
+    r"\b(?:The|This|That|These|Our|Each|Its)\s+(?:[\w\-]+\s+){0,3}?(?:" + AGENT_NOUNS +
+    r")(?:\s+[~\w\-\u24c2]+){0,2}?\s+(?:" + AGENT_VERBS + r")\b")
+
+
+def _stem(word: str) -> str:
+    w = word.lower().strip("'\u2019-")
+    for suf in ("ically", "ally", "ly", "ies", "es", "ed", "ing", "s"):
+        if w.endswith(suf) and len(w) - len(suf) >= 4:
+            return w[: -len(suf)] + ("y" if suf == "ies" else "")
+    return w
+
 
 # Unit symbols with two or more capitals, which PL011 must not treat as acronyms.
 DEFAULT_KNOWN = {
@@ -182,6 +233,8 @@ class Config:
     ban_semicolons: bool = True
     ban_em_dash: bool = True
     emph_max_words: int = 4
+    max_word_repeats: int = 2          # PL018 fires above this, per paragraph
+    repeat_ok: set[str] = field(default_factory=set)
     reference_style: str = "cleveref"   # "cleveref" or "any"
     known_acronyms: set[str] = field(default_factory=set)
     banned: list[tuple[str, str]] = field(default_factory=list)
@@ -215,7 +268,7 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
     cfg.files = list(paper.get("files", []))
     for key in ("max_sentence_words", "hard_sentence_words", "ban_colons",
                 "ban_semicolons", "ban_em_dash", "emph_max_words",
-                "reference_style"):
+                "reference_style", "max_word_repeats"):
         if key in style:
             setattr(cfg, key, style[key])
     cfg.known_acronyms |= set(words.get("known_acronyms", []))
@@ -228,6 +281,7 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
         else:
             cfg.banned.append((item["pattern"], item.get("advice", "avoid")))
     cfg.anthropomorphic += list(words.get("anthropomorphic", []))
+    cfg.repeat_ok |= {_stem(w) for w in words.get("repeat_ok", [])}
     cfg.disabled = set(checks.get("disable", []))
     gpath = paper.get("glossary")
     if gpath:
@@ -240,6 +294,8 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
                         "pattern": bad, "use": term.get("name", ""),
                         "scope": term.get("avoid_in", "all"),
                         "note": term.get("note", "")})
+                # a named object may recur; its words do not count for PL018
+                cfg.repeat_ok |= {_stem(w) for w in WORD_RE.findall(term.get("name", ""))}
                 if term.get("appendix_only"):
                     cfg.forbidden_terms.append({
                         "pattern": term["name"], "use": term.get("main_text", ""),
@@ -460,7 +516,8 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
     def excerpt_at(a: int, b: int) -> str:
         return re.sub(r"\s+", " ", src[a:b])
 
-    for a, b in split_sentences(masked):
+    spans = split_sentences(masked)
+    for a, b in spans:
         s = masked[a:b]
         words = WORD_RE.findall(s.replace(DISPLAY, " "))
         nwords = len(words)
@@ -551,6 +608,49 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 where = " in the main text" if term["scope"] == "main" else ""
                 add(p, "PL010", f"'{mt.group(0)}' is not used{where}{use}{note}",
                     excerpt_at(max(a, p - 40), p + 40))
+
+    # Paragraph-level texture: PL018 repetition, PL019 enumeration, PL020 agents.
+    paragraphs: list[list[tuple[int, int]]] = []
+    prev = None
+    for a, b in spans:
+        gap = masked[prev:a] if prev is not None else "x" + PARA
+        if prev is None or PARA in gap or re.search(r"\n[ \t]*\n", gap):
+            paragraphs.append([])
+        paragraphs[-1].append((a, b))
+        prev = b
+    for para in paragraphs:
+        pa, pb = para[0][0], para[-1][1]
+        counts: dict[str, list[int]] = {}
+        for mt in WORD_RE.finditer(masked[pa:pb]):
+            w = mt.group(0)
+            if len(w) < 4 or not w.isalpha() or w.lower() in STOPWORDS:
+                continue
+            st = _stem(w)
+            if st in cfg.repeat_ok or st in STOPWORDS:
+                continue
+            if st not in MODIFIERS and not (w.lower().endswith("ly") and len(w) >= 5):
+                continue
+            if w.lower().endswith("ly") and len(w) >= 5:
+                st = _stem(w)
+            counts.setdefault(st, []).append(pa + mt.start())
+        for st, pos in counts.items():
+            if len(pos) > cfg.max_word_repeats:
+                add(pos[0], "PL018", f"'{st}' {len(pos)} times in one paragraph; say it once, "
+                    "where it matters, or vary the claim",
+                    excerpt_at(pos[0], min(pb, pos[0] + 80)), "info")
+        ords = [a for a, b in para if ORDINAL_OPENER.match(masked[a:b].lstrip())]
+        if len(ords) >= 2:
+            add(ords[0], "PL019", f"{len(ords)} sentences open with an ordinal; say how "
+                "the items relate instead of numbering them",
+                excerpt_at(ords[0], min(pb, ords[0] + 80)),
+                "warning" if len(ords) >= 3 else "info")
+        for a, b in para:
+            mt = AGENT_RE.search(masked[a:b])
+            if mt:
+                p = a + mt.start()
+                add(p, "PL020", f"'{re.sub(r'\s+', ' ', mt.group(0))}': an object is "
+                    "not an agent; make the authors or the physics the subject",
+                    excerpt_at(p, min(b, p + 80)), "info")
 
     for ea, eb in mk.emph_spans:
         nw = len(WORD_RE.findall(masked[ea:eb]))

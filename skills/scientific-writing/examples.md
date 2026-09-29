@@ -319,3 +319,30 @@ limit requires", the definition of ω₀ went into the sentence that uses it, th
 **Accepted:**
 > Where predators are dense the prey density falls by half within one season (Fig. 3),
 > which is the top-down control that the model predicts for this food web.
+
+**Flagged**, the opening of a results section that passed the cold reader three times
+*(authors: "not human-like writing")*:
+> The lattice model tests the memory kernel in two independent ways. In the first, the
+> phonons are integrated out exactly, because they are harmonic. The atoms then feel a
+> force that depends on their past. With phonon loss as the only dissipation, the model
+> can be solved exactly for eight sites, which gives an exact reference (Sec. IV A). The
+> second test uses the critical exponent at the melting transition. With a second bath on
+> the atoms, the critical exponent depends on the low-frequency shape of its spectral
+> density (Sec. IV B).
+
+**Accepted:**
+> We test the memory kernel on the lattice model, where two known results constrain it
+> from different sides. The phonons are harmonic and couple linearly to the atoms, so they
+> can be integrated out like the bath of Sec. II, and for eight sites the full model can
+> still be solved numerically (Sec. IV A). The second result concerns the melting
+> transition. When a second bath acts on the atoms, the density diverges there with an
+> exponent set by the low-frequency shape of its spectral density. Reproducing this
+> exponent, known analytically for an infinite lattice, tests the kernel at arbitrarily
+> low frequencies and at sizes that no exact method reaches (Sec. IV B).
+
+What changed: the authors are the agent instead of the model ("We test", not "The model
+tests"); the enumeration "In the first ... The second test" became one claim about why
+the two results are useful; "exact" appears once instead of three times; the paragraph
+says why the exponent is a test (low frequencies, large sizes), which the flagged version
+never did. The rewrite was drafted fresh from a note of what the paragraph must say, not
+patched sentence by sentence.

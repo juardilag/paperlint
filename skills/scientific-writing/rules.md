@@ -97,6 +97,19 @@ They are harder to see than a banned word, so check for them when rereading a pa
   assumption", "not A but B", "rather than". LLMs use this contrast by default. Keep it
   only where a reader would really expect the rejected alternative, and at most once in
   a section.
+- **Numbered paragraphs.** "In the first ... The second test ...", "First ... Second
+  ..." turn an argument into a list. Say how the items relate ("two known results
+  constrain it from different sides"), and let each item follow from that claim. An
+  enumeration is fine where the items really are a sequence (the steps of a procedure).
+- **Objects as agents.** "The model tests the kernel", "the data confirm", "the
+  simulation explores". The authors test, the data show. Write "We test the kernel on the
+  model". Sections, figures and appendices that "show" or "derive" are accepted usage.
+- **Repeated modifiers.** "integrated out exactly ... solved exactly ... an exact
+  reference". A modifier said three times in a paragraph loses its meaning; say it once,
+  where it matters.
+- **Openings and closings are drafted, not patched.** Patching an opening sentence by
+  sentence keeps its structure, including a list structure. Write down what the paragraph
+  must tell the reader and why, then draft it fresh and compare.
 - **Lists of three.** "clear, precise and robust", "why, what and how". A triple is a
   rhythm, not an argument. Name the items that matter, however many there are.
 - **Signposting and transitions that carry nothing.** "Notably", "Importantly",
@@ -138,6 +151,9 @@ Terms
   outside physics: likelihood, random effect, cross-validation, knockdown.
 - The definition goes where the term first appears (usually the introduction), not later.
 - Spell out every acronym at first use, including common ones (QED, GPU).
+- **Use the precise name the field uses.** In second quantization a and a† are the
+  annihilation and creation operators of a mode, not its "ladder operators". A loose or
+  borrowed name reads as written by someone outside the field.
 - **Prefer a plain description to a term that needs defining.** If a term needs more
   than one clause to define in the main text, describe the object in plain words instead
   and keep the term for the appendix (see 6). Examples: "the kernel describes how the
@@ -278,6 +294,15 @@ Back-references
   non-adversarial. If it can't be read, list the claim as an open question (procedure,
   step 4 in SKILL.md). Check author lists against arXiv or Crossref before questioning them.
 - **Numbers.** Every value quoted must match the section, table or appendix it comes from.
+- **Numbers come from what the figure shows.** A deviation quoted for a figure is
+  computed over the plotted window and runs, not over a longer run or another table.
+  A statement about an inset ("falls as 1/N until the sampling floor") must be visible
+  in that inset. Check it in the data and the plotting code, not in the caption.
+- **Every exception or failure the text states has a source and a cause.** A summary
+  such as "except for a single spin at twice the critical coupling" points to the
+  panel that shows it, and the paragraph that reports it gives the reason in one
+  clause, with the evidence in the appendix. Authors asked "is this in the plots?"
+  of an exception stated without either.
 - **Improvement factors need a baseline.** "Reduces the deviation by a factor of 4.2"
   must say compared with what, and which measure (largest deviation, rms). Recompute it
   from the data when possible.
