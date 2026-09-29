@@ -68,6 +68,12 @@ ideas in a concise readable way, not wasting space or time".
   - stacked conditions and hedges: state each condition once, where it first applies;
   - an example after a clear statement: keep it only if the statement is not clear
     without it.
+- **A cut keeps the claim.** Shortening a sentence, or merging two, must leave its
+  claim unchanged. The words that go first are the ones that carry the precision:
+  "has the form of" becomes "gives", "its initial state enters only through the
+  noise" becomes "the bath enters only through the noise", "can relax" becomes
+  "relaxes". Each of these was produced by a cut and flagged as false. After a cut,
+  read the old and the new sentence side by side and check subject, verb and hedge.
 - **The cut test.** After drafting or revising, cut the text by a fifth without losing an
   idea. If that is possible, the draft was too long; keep the cut version.
 - **Priority.** Correctness comes first, but correct and short: fix a wrong claim by
