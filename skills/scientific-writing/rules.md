@@ -240,7 +240,12 @@ References
   extension in an appendix, and we carry it out" was flagged by the author of Ref. [12]
   himself: "this can give the referee the impression that the work is incremental".
   Credit belongs in the introduction, where the contribution is stated; the method
-  describes the method.
+  describes the method. The same author also flagged the opening sentence of the method,
+  "Hosseinabadi et al. derived from the Lindblad equation a Langevin equation ...": a
+  section that opens with another group's result as its starting point reads as an
+  extension of their work. Open with the physics (what the known approach cannot
+  describe, and why), cite the earlier work inside that sentence, and name it only where
+  the text uses its result (a limit that recovers it).
 - Cite again at the first mention in each section, even if the introduction cited it.
   Readers jump straight to a section.
 

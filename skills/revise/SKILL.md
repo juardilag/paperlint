@@ -111,7 +111,10 @@ appending a sentence is not done until the paragraph reads whole again.
      not a verdict. For the opening and the closing paragraph of the
      section, first write down in two or three plain sentences what the paragraph must
      tell the reader and why, then draft it fresh from that note without looking at the
-     current text, and keep whichever version reads better. Patching an opening
+     current text, and keep whichever version reads better. A fresh draft forgets the
+     decisions already taken on that paragraph, so check it against the ledger and
+     `CLAUDE.md` before keeping it (a redrafted opening once brought back a framing a
+     co-author had struck out). Patching an opening
      sentence by sentence keeps its list structure. This audit runs in every round, and
      again after the fixes, because the other fixes create patchwork;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
