@@ -42,7 +42,10 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
 1. **Undefined terms.** A technical term used without a reference at its first use in the
    document, even a standard one, or without a one-clause definition when a researcher
    of the journal's field (`audience` in `paperlint.toml`) may not know it. Ask for the
-   clause inside the sentence that uses the term, never a sentence of its own. Before
+   clause inside the sentence that uses the term, never a sentence of its own. A term the
+   argument of the paragraph turns on (white vs. coloured noise, Markovian, the quantity
+   being tested) needs its meaning in a clause at first use even if the audience knows
+   it; flag it when missing (rules.md, section 3, "The balance"). Before
    flagging, grep the earlier part of the document for it. If it is defined far earlier,
    flag it only as a possible reminder.
 2. **Undefined or overloaded symbols.** A symbol used before it is introduced in the text,

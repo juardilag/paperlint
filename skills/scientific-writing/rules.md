@@ -199,6 +199,22 @@ Terms
   audience needs it, the clause. Both reviewers are satisfied that way: the one who
   asked "what is white noise? reference?" and the one who found the definitions
   pedantic.
+- **The balance: a term the argument turns on gets its meaning, whoever the reader is.**
+  The audience decides the terms used in passing, not the ones the paper's point rests
+  on. If the contrast the section draws is between two terms (white and coloured noise,
+  Markovian and non-Markovian, local and collective coupling), each gets a clause with
+  its meaning at first use, even for experts: "the noise is white, uncorrelated between
+  different times", "coloured, correlated over the memory time". A few words cost
+  nothing, and without them a reader outside the subfield misses the point of the
+  paper. After an audience rule removed such clauses, an author objected: "we must try
+  not to assume anything of the reader; we can't explain everything, but this is
+  important". The test for each term:
+  1. Does the argument of the paragraph depend on what the term means? Then give the
+     meaning in a clause, at first use in the paper.
+  2. Is it standard vocabulary used in passing? Then a reference is enough, unless the
+     audience may not know it.
+  3. Either way, never a definition sentence of its own, and never a textbook
+     explanation: a clause of five to ten words, fused into the sentence.
 - The definition goes where the term first appears (usually the introduction), not later.
 - Spell out every acronym at first use, including common ones (QED, GPU).
 - **Use the precise name the field uses.** In second quantization a and a† are the

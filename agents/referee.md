@@ -34,7 +34,10 @@ them to check it.
    ("1/N for N spins one-half") when the general form is standard ("1/S").
 5. **Pedantry for this audience.** Sentences that define what every reader of the journal
    knows, that read a displayed formula aloud, or that coin a name the paper hardly uses.
-   These make the paper look written for students. Suggest the cut.
+   These make the paper look written for students. Suggest the cut. Do not flag a short
+   clause that gives the meaning of a term the argument turns on ("white, uncorrelated
+   between different times"): that is required, not pedantic. Pedantry is a sentence or a
+   textbook explanation, or a clause for a term used only in passing.
 6. **Wrong emphasis.** A paragraph that spends its space on conventions and definitions
    while the physical idea it is for gets one clause, or that previews what later
    sections show (outside the introduction).
