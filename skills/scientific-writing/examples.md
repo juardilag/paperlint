@@ -67,18 +67,27 @@ folding rate increases"
 **Accepted:** "our procedure", "the step that makes the calculation faster", "the two
 formulations", "this measures the cost of the approximation".
 
-## Standard vocabulary still needs defining (section 3)
+## Terms defined for the audience (section 3)
 
 **Flagged:** "master equation", "white noise", "Langevin equation", "convolution", all
 used without definition or reference. *(Reviewer: "what is white noise? reference?")*
 
-**Accepted, each inside the sentence that first uses it:**
-- "The standard description is a master equation, an equation of motion for the density
-  matrix of the atoms alone, from which the phonons have been eliminated [refs]."
-- "Each atom obeys a Langevin equation [refs], in which the deterministic motion is
-  supplemented by a damping term and a random force, the noise."
-- "The damping becomes a convolution, (K ∗ n)(t) = ∫dt′ K(t−t′) n(t′), which adds up the
-  past occupations n(t′), each weighted by the memory kernel K at the time difference."
+**Also flagged, later:** the fix for it, a method opening made of definition sentences.
+"A Langevin equation is an equation of motion that contains, besides the deterministic
+dynamics, a damping term and a random force, the noise." and "The convolution adds up
+the past values of A, each weighted by the memory kernel at the time difference."
+*(Co-author: "waaay too pedantic. The point is to explain the physical meaning of
+mathematical formulas, not to put them in words.")*
+
+**Accepted, a reference for every term and a clause only where the reader needs it,
+inside the sentence that uses the term:**
+- "The standard description is a master equation for the atoms alone [refs], from which
+  the phonons have been eliminated."
+- "Ref. [12] derived from it a Langevin equation [refs] whose damping and white noise
+  are both set by the jump operators, so it cannot describe phonons with memory."
+- "Integrating out the phonons makes the damping depend on the past occupations over the
+  phonon correlation time, and the noise coloured [ref]." The convolution itself is left
+  to the displayed equation.
 
 ## Plain description instead of jargon (section 3)
 
@@ -256,6 +265,19 @@ applies it." *(vague; it hid the most interesting test)*
 **Rejected alternative:** dropping the transition because the next section opens with
 its own overview ("the reader needs the connection between the sections").
 
+**Flagged later by a second co-author:** the section-by-section version ("Sec. IV A
+compares it with an exact solution ... Sec. IV B tests that") *("this thing of
+repeating the content of the sections, which is usually a thing for the intro, doesn't
+sound right to me")*, and the claim that the two tests are separate without the reason
+*("bizarre statement")*.
+
+**Accepted after both:**
+> The method needs the lattice Hamiltonian, the coupling to the phonons, their spectral
+> density and their temperature. What it adds to a rate equation is a memory kernel
+> and a coloured noise. Section IV tests the kernel on a large lattice, where the noise
+> is suppressed, and the noise on a small one, where it dominates, before applying both
+> to a driven lattice.
+
 **Also flagged:** the same transition grown with the zero-point part of the noise, the
 generality of the coupling and the roadmap of the tests *("out of place", "this
 transition paragraph has to be rewritten; add a subsection, e.g. Remarks")*. The
@@ -375,3 +397,45 @@ the two results are useful; "exact" appears once instead of three times; the par
 says why the exponent is a test (low frequencies, large sizes), which the flagged version
 never did. The rewrite was drafted fresh from a note of what the paragraph must say, not
 patched sentence by sentence.
+
+## Formulas read aloud (section 2)
+
+**Flagged:** "Its first term is the classical dynamics of the system. The second is the
+force exerted by the bath." and "The step function θ(τ) enforces causality." next to the
+displayed equations. *(Co-author: "You shouldn't put formulas into words.")*
+
+**Accepted:** cut both; keep the sentence the equation cannot say, "The force at time t
+depends on the whole past of the atoms, over the correlation time of the phonons."
+
+## Counterfactual instead of the consequence (section 2)
+
+**Flagged:** "The noise kernel carries the zero-point fluctuations of the bath through
+the term 1 of coth(ω/2T), which remains at T = 0. With the classical noise, 2T/ω in
+place of coth(ω/2T), the trajectories would relax to classical statistics. Section IV B
+tests whether they reach the quantum ones."
+
+**Accepted (the co-author's version):** "The noise carries the zero-point fluctuations
+of the bath through the coth factor of Eq. (4). So, although the equations of motion
+are classical, the method relaxes the system to the quantum thermal state, which
+Sec. IV B shows through the fluctuation–dissipation relation."
+
+## A limitation without its consequence (section 5)
+
+**Flagged:** "Their size is set by the semiclassical parameter, of order 1/N for a
+collective spin of N spins one-half. The corrections accumulate at long times and grow
+with the strength of interactions." *(Co-author: "Of order 1/S for a spin of length S."
+and "Draw a conclusion: does it invalidate the dynamics? What are the timescales in
+which we expect the method to work?")*
+
+**Accepted:** the general parameter first (1/S for a spin of length S, 1/N for the
+collective spins used here), then the conclusion: until which time, in units the reader
+can check, the dropped corrections stay small, and where the paper tests it.
+
+## A name that does not pay (section 3)
+
+**Flagged:** "We call this the quadrature coupling, because the Hermitian operator
+couples to a quadrature of the bath modes." *(Co-author: "Do we care about this
+nomenclature? Does it help?")*
+
+**Accepted:** "The coupling operators may be Hermitian, such as a spin component, or not,
+such as a lowering operator." The two cases are named only in the table that lists them.

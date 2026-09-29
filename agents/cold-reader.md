@@ -39,10 +39,12 @@ wastes a round of revision.
 
 For each problem, quote the exact words and say what a reader would ask. Look for:
 
-1. **Undefined terms.** A technical term used without a one-clause definition at its first
-   use in the document, even a standard one (e.g. "master equation", "white noise",
-   "convolution"). Before flagging, grep the earlier part of the document for it. If it
-   is defined far earlier, flag it only as a possible reminder.
+1. **Undefined terms.** A technical term used without a reference at its first use in the
+   document, even a standard one, or without a one-clause definition when a researcher
+   of the journal's field (`audience` in `paperlint.toml`) may not know it. Ask for the
+   clause inside the sentence that uses the term, never a sentence of its own. Before
+   flagging, grep the earlier part of the document for it. If it is defined far earlier,
+   flag it only as a possible reminder.
 2. **Undefined or overloaded symbols.** A symbol used before it is introduced in the text,
    introduced only in a figure caption, or used with two meanings.
 3. **Missing why.** A step, a factor, an equation feature or a choice of model that is
@@ -52,6 +54,8 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    2π?), and a correction or replacement without the error it fixes ("Eq. (B5) replaces
    the damping term": why?), and a property claimed of an expression that the formula
    on the page does not show ("the correlation is real" next to an explicit i).
+   Flag a missing why only if a referee of the journal's field would ask it. A why that
+   only a student would ask makes the text pedantic when it is answered.
 4. **Ambiguous references.** "it", "its", "this", "that", "the same", "such", "the
    corresponding" where more than one object could be meant, or none was named.
 5. **References without context.** "the method of Ref. [12]" when the text has not said
@@ -76,7 +80,9 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
    generated as should fix). Slogans and aphorisms, dash asides, informal words for methods
    ("recipe", "engine"), anthropomorphism ("the bath remembers"), compressed participle
    phrases, a term followed by its own paraphrase, repetition of what an earlier section
-   said. Read each paragraph aloud as a whole: flag one that reads as a list of short
+   said, a sentence that reads a displayed formula aloud ("its first term is ... the
+   second is ..."), a definition sentence for what every reader of the journal knows.
+   Read each paragraph aloud as a whole: flag one that reads as a list of short
    sentences, a chain of definitions, a patchwork of appended clarifications ("Here X
    is ...", "It equals ...", "then ... then"), or that gives instructions ("Take ...")
    outside a numbered procedure (rules.md, section 2b).
@@ -115,6 +121,9 @@ Judge each paragraph against these questions, and answer each one:
   it does? Does a closing paragraph end on the new point rather than restate?
 - **Pointers.** Are references hung at sentence ends as parentheses ("... (Sec. III A).")
   where they carry nothing, or several in a row?
+- **Weight.** Does a sentence tell the journal's reader what they already know, or
+  restate a displayed formula in words? Does the paragraph spend its words on the
+  physics it is for?
 
 For every paragraph, quote its weakest sentence and say what makes it the weakest, even
 when you judge the paragraph acceptable. A paragraph passes only if you can say why its
