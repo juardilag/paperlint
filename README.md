@@ -12,6 +12,10 @@ the checks to enforce them, and runs them until the text is finished. Even text
 without any of these errors can read as generated: every sentence of the same length,
 one definition after another, a paragraph patched with one sentence per review comment.
 paperlint rereads every paragraph as a whole and rewrites the ones that read that way.
+The opposite failure is just as common after a review: every term defined, every formula
+put into words, every question answered in place, until the text reads as a lecture. A
+second reader, the referee agent, reads as an expert of the field and flags doubtful
+claims and pedantry for the audience you name in `paperlint.toml`.
 
 ## Three commands
 
@@ -120,7 +124,9 @@ This is the command you will use most. It works in rounds.
    it is defined, every number with its source.
 2. **Checks.** The linter, then Claude's own audits (terms, notation across the whole
    paper, back-references, repetition, claims), then a fresh reader, a second Claude
-   that sees only the paper and asks "what is this?", "why?" and "says who?".
+   that sees only the paper and asks "what is this?", "why?" and "says who?", and a
+   referee, a third Claude that reads as an expert of the field and asks "is this
+   true?" and "does the reader need this?".
 3. **Triage.** Each finding goes into one class.
    - *Editorial* findings are fixed without asking. This covers definitions, notation,
      pointers, wording, a missing reason, and detail that belongs in an appendix.

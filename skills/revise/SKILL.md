@@ -7,7 +7,8 @@ argument-hint: "<file.tex> <section title or line range>"
 Bring one section to a finished state and stop. A section is never independent of the
 rest of the paper: every round reads and checks it in the context of the whole paper.
 
-**The main goal is prose that reads as written by a scientist, not generated.** Correct
+**The main goal is prose that reads as written by a scientist, not generated**, for a
+researcher of the journal's field (`audience` in `paperlint.toml`), not for a student. Correct
 physics and defined terms are necessary, but a section is not finished while any
 paragraph reads as a list, a chain of definitions or a patchwork of fixes (rules.md,
 section 2b). Every fix is judged by that goal as well: a fix that answers a finding by
@@ -64,12 +65,24 @@ appending a sentence is not done until the paragraph reads whole again.
      number quoted for a figure from its data over the plotted window, and check every
      statement about an inset against what the inset draws (read the plotting code); an
      exception stated in a summary points to the panel that shows it;
-   - why: ask "what is it?" and "why?" of every sentence, as a reader who knows only the
-     earlier text. A quantity given by a formula says what it is and why it has that
-     value; a correction or replacement says what goes wrong without it; a property
+   - why: ask "what is it?" and "why?" of every sentence, as a researcher of the
+     journal's field who knows only the earlier text, and answer only the questions such
+     a reader would ask. A quantity given by a formula says what it is physically and
+     why it has that value, without reading the formula aloud; a correction or replacement says what goes wrong without it; a property
      the text claims (real, positive, conserved) but the displayed formula does not
      show, because of an i or a sign, gets its reason. The answer
      is one clause in the main text; its mechanism goes to the appendix;
+   - weight (rules.md, sections 2 and 3): cut every sentence that defines what the
+     audience knows, restates a displayed formula in words, or coins a name the paper
+     uses less than twice; every paragraph opens with the physics it is for;
+   - consequences (rules.md, section 5): every limitation says whether it invalidates
+     the results and on which timescale or regime the method holds; every statement
+     that a test isolates something gives the reason; every scaling is given in general
+     before the paper's instance; a consequence is stated directly, not as a
+     counterfactual; the closing does not preview what later sections find;
+   - conventions and lineage: a stochastic equation states Itô or Stratonovich next to
+     it; a known class of equations cites its classic literature; typography (hats,
+     bold) is the same in every equation of the paper;
    - method applied: every equation of motion in a results section follows from the
      general method; compare it with the method and with the code behind the figure;
    - structure (method sections): the central equation comes first and each of its
@@ -103,9 +116,13 @@ appending a sentence is not done until the paragraph reads whole again.
      again after the fixes, because the other fixes create patchwork;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
      in the main text; the section does not grow without a reason.
-3. **Cold read.** Launch the `cold-reader` agent on the section. Pass it the paths of
-   the ledger and the paper map, and tell it not to raise settled findings again unless
-   the text changed. Its rhythm verdict does not replace your own: a paragraph that
+3. **Cold read and referee read.** Launch the `cold-reader` and the `referee` agents on
+   the section, in parallel. Pass both the paths of the ledger and the paper map, and
+   tell them not to raise settled findings again unless the text changed. The cold
+   reader finds what an outsider cannot follow; the referee finds what an expert doubts
+   or finds pedantic. When the two conflict (the cold reader asks for a definition the
+   referee calls pedantic), the audience in `paperlint.toml` decides: a reference is
+   always given, a clause only if that audience needs it. Its rhythm verdict does not replace your own: a paragraph that
    either of you fails is a should-fix finding.
 4. **Triage.** Check every finding against the text. Put each one in one class:
    - **Editorial**: fix it now, without asking. This covers undefined terms and
@@ -126,7 +143,9 @@ appending a sentence is not done until the paragraph reads whole again.
      first (derivation, code, `literature` agent), and send only the decision that
      remains to the authors.
    - **Rejected**: the finding is wrong. Write the reason in one sentence.
-5. **Apply** the editorial and literature fixes.
+5. **Apply** the editorial and literature fixes. Length budget: a round that adds text
+   cuts at least as much elsewhere in the section, unless it fixes a wrong claim or a
+   missing consequence. Cut pedantic sentences first.
 6. **Self-check every edit** before anything else runs:
    - reread each changed paragraph from its first sentence, as a whole, against
      rules.md section 2b; if the edit added a sentence, rewrite the paragraph so the new
@@ -166,7 +185,7 @@ end the loop.
 
 ## Report
 
-- The section length before and after. If it grew, say why.
+- The section length before and after. If it grew, say why, and what was cut.
 - The rhythm verdict of the final text: one line per paragraph with its first words,
   pass or fail, and its weakest sentence.
 - The paragraphs rewritten for rhythm, each with what made it read as generated.

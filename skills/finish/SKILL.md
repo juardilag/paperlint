@@ -24,7 +24,8 @@ introduction, method, results, conclusions, then the appendices, and the caption
 the section that first refers to each figure. Skip the abstract here. Use `--from` and
 `--skip` from `$ARGUMENTS`. A section the ledger marks as finished, and that has not
 changed since, gets one round instead of full rounds: `lint.py`, your rhythm verdict of
-every paragraph, and a cold read with the rhythm verdict. The rules may have changed
+every paragraph, and a cold read and a referee read (the `referee` agent) with the
+rhythm verdict. The rules may have changed
 since the section was finished (a new plugin version), so a finished section is not
 exempt from them. If that round finds a should-fix finding, run the full revise
 procedure on the section.
@@ -44,6 +45,14 @@ After all sections, read the paper from the title to the last appendix and check
   repeat it (a false "at zero temperature" in the method is usually also in the
   introduction). Credit to earlier work is stated once, in the introduction, with what
   the paper adds.
+- **Expert reading and weight.** Launch the `referee` agent on each main section (in
+  parallel) for claims a referee of the field would doubt, limitations without their
+  consequence, missing conventions and lineage, and pedantry for the audience. The
+  paper should read as written for researchers of the journal's field: no definition
+  sentences for what they know, no formula read aloud, no section previewing what later
+  sections find (only the introduction does that), and each paragraph spending its
+  words on the physics it is for. Typography (hats, bold) is checked across every
+  equation.
 - **Say it once.** Each fact appears in one place. The introduction and the method
   share no paragraph. An appendix does not repeat the main text.
 - **Notation and terms.** One meaning per symbol and one name per object across the

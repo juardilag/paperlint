@@ -5,6 +5,8 @@
 files = ["main.tex"]          # files linted when you run lint.py with no arguments
 bib = ["refs.bib"]            # bibliography files for check_refs.py
 glossary = "glossary.toml"    # this paper's terminology decisions (see glossary.toml)
+audience = ""                 # who reads the paper, e.g. "PRA: quantum optics and many-body theory".
+                              # Terms this reader knows get a reference, not a definition.
 
 [style]
 max_sentence_words = 25       # sentences above this are reported as info (PL015)

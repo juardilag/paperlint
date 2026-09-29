@@ -70,6 +70,21 @@ Reviewers flag these as "no human would say it like that":
 - **Anthropomorphism.** Atoms don't "inherit" or "see", baths don't "remember", cells
   don't "decide", drives don't "move" things, and a coupling doesn't "fix" anything. Describe the physics that
   actually happens.
+- **Explain what a formula means; do not read it aloud.** A displayed equation already
+  says which symbols are multiplied, integrated or summed. A sentence that repeats it in
+  words ("the convolution adds up the past values of A, each weighted by the kernel at
+  the time difference", "its first term is the classical dynamics, the second the
+  force", "the step function enforces causality") is pedantic. A co-author wrote "the
+  point is to explain the physical meaning of mathematical formulas, not to put them in
+  words". Keep only what the equation does not show: what the quantity is physically,
+  why it has this form, and what follows from it ("the damping at time t depends on the
+  whole past of the system, over the memory time of the bath").
+- **State a consequence directly, not as a counterfactual.** "With the classical noise,
+  2T/ω in place of coth, the trajectories would relax to classical statistics" makes the
+  reader invert the sentence. Write what the method does: "The coth factor carries the
+  zero-point fluctuations of the bath, so the trajectories, although classical, relax
+  to the quantum thermal state." One counterfactual is fine where the alternative is a
+  method the reader knows.
 
 ## 2b. Rhythm and texture: what makes prose read as machine-written
 A text can pass every rule above and still read as generated. These patterns cause it.
@@ -135,12 +150,17 @@ They are harder to see than a banned word, so check for them when rereading a pa
   per claim, and only when the claim is uncertain. Results the paper shows are stated
   plainly.
 
+- **Pedantry.** Sentences spent on what the reader of the journal already knows (what a
+  Langevin equation is, what a step function does), or on reading a displayed formula
+  aloud. It reads as a lecture, and it hides the physics the paragraph is for. The cure
+  is to cut, not to rephrase.
+
 The test: read the paragraph aloud. If it sounds like a list, a press release or a
 lecture on terminology, rewrite it until it sounds like one scientist explaining a
 result to another.
 
 **The rhythm verdict.** Every command that writes or changes text (write, revise,
-finish) and the cold reader judge each paragraph with the same six questions, and
+finish) and the cold reader judge each paragraph with the same seven questions, and
 record its weakest sentence. "Reads fine" is not a verdict.
 1. *Order.* Does each sentence follow from the one before, joined by the relation
    between them, or could the sentences be reordered without loss?
@@ -151,6 +171,8 @@ record its weakest sentence. "Reads fine" is not a verdict.
    pronoun or a restructure would do?
 5. *Why.* Does an opening say why, and does a closing end on the new point?
 6. *Pointers.* Are references hung at sentence ends where they carry nothing?
+7. *Weight.* Does a sentence tell the journal's reader what they already know, or
+   restate a displayed formula in words? Cut it.
 
 A paragraph that fails any question is a should-fix finding. The opening and the closing
 of a section get the strictest reading and are drafted fresh from a note of what they
@@ -159,14 +181,24 @@ drafted, not patched" above).
 
 ## 3. The reader has no context
 Terms
-- **Standard vocabulary is not exempt.** At its first use in the document, every
-  technical term gets a one-clause definition and a reference, even terms every expert
-  knows. Cite the original work where possible, otherwise a standard textbook.
-  Examples reviewers flag: master equation, rate equation, Langevin equation, white
-  noise, coloured noise, convolution, Markovian, Wigner function, Poisson bracket,
-  fluctuation–dissipation relation, order parameter, critical exponent, "integrating
-  out", multiplicative noise, mean-field approximation, and named models. The same holds
-  outside physics: likelihood, random effect, cross-validation, knockdown.
+- **Define for the audience, inside the sentence that uses the term.** The reader is a
+  researcher in the journal's field (`audience` in `paperlint.toml`), not a student.
+  Every technical term gets a reference at its first use in the document, even a
+  standard one; cite the original work where possible, otherwise a standard textbook.
+  A definition is added only where that reader may not know the term, or where the
+  paper uses it in its own sense, and it is a clause folded into the sentence that uses
+  the term, saying what the object does in this paper ("a Langevin equation [refs], in
+  which the jump operators set both the damping and the noise"). It is never a
+  sentence of its own ("A Langevin equation is an equation of motion that contains,
+  besides the deterministic dynamics, a damping term and a random force"): a co-author
+  called a method opening built of such sentences "waaay too pedantic". Terms that
+  readers of a neighbouring subfield have asked about (master equation, white and
+  coloured noise, Wigner function, Poisson bracket, fluctuation–dissipation relation,
+  multiplicative noise, "integrating out", named models; likelihood, random effect,
+  cross-validation, knockdown outside physics) get the reference and, where the
+  audience needs it, the clause. Both reviewers are satisfied that way: the one who
+  asked "what is white noise? reference?" and the one who found the definitions
+  pedantic.
 - The definition goes where the term first appears (usually the introduction), not later.
 - Spell out every acronym at first use, including common ones (QED, GPU).
 - **Use the precise name the field uses.** In second quantization a and a† are the
@@ -186,11 +218,23 @@ Terms
 - Jargon ("a cumulant closure", "symmetrised correlators", "a counter-term") needs a
   one-line explanation. If it doesn't matter to the argument, drop it.
 - If the document never uses something, don't mention it in the main text.
+- **Coin a name only if it pays for itself.** A name the paper invents ("we call this the
+  quadrature coupling") must be used several times later and be easier to read than
+  what it stands for. Otherwise describe the object where it appears ("a Hermitian
+  coupling operator") and move on. A co-author asked of such a name "do we care about
+  this nomenclature? Does it help?". The same holds for a named case that only one
+  table uses: name it in the table.
 
 References
 - Introduce every reference by what it did (authors, system, result) before leaning on
   it. "The rate equation of Ref. [12]" means nothing to someone who hasn't read [12].
 - For every step of a method, cite where it was done first.
+- **Cite the lineage of the formalism you adopt.** If the method takes the form of a
+  known class of equations (a generalized Langevin equation, a Kalman filter, a mixed
+  model), cite the classic literature of that class, not only the paper the equation was
+  taken from. A co-author flagged a non-Markovian Langevin equation that cited only the
+  quantum source: "you'd need to cite the extensive literature on classical,
+  non-Markovian Langevin equations".
 - **Credit precisely, and do not frame the paper as someone else's plan.** Say what the
   earlier work did, and next to it what this paper adds. "Ref. [12] outlined this
   extension in an appendix, and we carry it out" was flagged by the author of Ref. [12]
@@ -211,6 +255,9 @@ Symbols and notation
   flagged). The exception is parameters that belong only to one figure, which its caption
   defines. When a figure shows a symbol, check that the text defines it before the figure
   is referenced.
+- **Typography is uniform.** If operators carry hats, every operator does, including H
+  and H_S; if vectors are bold, every vector is. Check each equation, not only the one
+  being edited. The reader takes a missing hat for a different object.
 - Don't reuse a symbol for two things in the same section (e.g. θ for a step function and
   a phase). This includes averages and brackets. "The overline denotes the average over
   noise realisations" followed later by "from here on the overline denotes the average
@@ -264,6 +311,26 @@ Back-references
 - **Tie each claim to the equation that realises it.** "We keep the bath at a microscopic
   level" must point to where that happens (the kernels computed from the spectral density
   in Eqs. (3) and (4)).
+- **General case first, then the paper's instance.** A scaling, a condition or a
+  parameter is stated for the general case ("of order 1/S for a spin of length S"), then
+  for the case the paper uses ("1/N for a collective spin of N spins one-half"). Giving
+  only the instance hides the physics and reads as a fact about the example.
+- **A limitation comes with its consequence.** A sentence that states an approximation,
+  a dropped term or a growing error must also say whether it invalidates the results,
+  and in which regime or on which timescale the method holds, with a pointer to where
+  the paper tests it. "The corrections accumulate at long times and grow with the
+  strength of interactions" drew "draw a conclusion from this statement: does it
+  invalidate the dynamics? What are the timescales in which we expect the method to
+  work?". A limitation left without its conclusion is a must-fix finding.
+- **Say why a test isolates what it tests.** "Sec. III A tests the memory kernel and
+  Sec. III B the noise" needs the physics that separates them ("for a large spin the
+  noise is suppressed, so this test probes the memory kernel alone"). Without the
+  reason a co-author called it a "bizarre statement" and doubted it.
+- **Every claim must survive a reader who knows the field.** A cold reader from a
+  neighbouring field catches what is undefined; it does not catch what is wrong. Read
+  each physics statement as a referee of the subfield would ("I doubt this statement"),
+  and check the doubtful ones against the derivation, the code or the literature
+  (the `referee` agent). A wrong or questionable claim is worse than a pedantic one.
 - **Claim only what holds in general.** Don't state a scaling or a bound (e.g. "the error
   is suppressed as 1/N") unless it is true for the case at hand.
 - **Don't claim less than holds either.** State the method in the most general form its
@@ -320,7 +387,8 @@ Back-references
   πJ(|ω|)coth(|ω|/2T). The reason is one clause at most; if it needs a derivation, or
   splits into cases, it goes to the appendix with a pointer. A co-author struck out a
   four-sentence justification of this kind from a method step.
-- **A quantity given by a formula says what it is and why it has that value.** "The
+- **A quantity given by a formula says what it is and why it has that value**, in physical
+  terms, not by reading the formula (section 2). "The
   decay rate Γ = 2πJ(ω₀)" leaves two questions: which rate (link it to where the reader
   met it, e.g. the jump operator of the master equation), and why 2πJ(ω₀) (the
   golden-rule rate of decay into the resonant bath modes, with a reference).
@@ -338,7 +406,9 @@ Back-references
 - **Standard conventions are stated, not left to the reader.** A stochastic equation
   with multiplicative noise says which calculus it uses (physical noise with a finite
   correlation time gives the Stratonovich interpretation in the white-noise limit, by the
-  Wong–Zakai theorem). Such conventions are editorial fixes, not author decisions.
+  Wong–Zakai theorem). The statement goes next to the equation that has the noise, in
+  the main text, not only in the appendix: a co-author flagged its absence from the
+  method. Such conventions are editorial fixes, not author decisions.
 - **Use technical terms correctly and consistently.** Check that a word like
   "stationary" is the right one. Use the same verb for the same operation, and a
   different verb for a different operation (e.g. "integrated out" for an exact removal,
@@ -414,7 +484,11 @@ Back-references
   special cases stay short or go to the appendix. A method trimmed to equal-length steps
   was flagged twice by the same reader: "this step has to be expanded and explained
   more clearly" (the central step) and "explain the reduction to Lindblad in more
-  detail, because it helps the reader understand our approach".
+  detail, because it helps the reader understand our approach". The space goes to the
+  physical reasoning, not to definitions or to formulas read aloud. A later reader of
+  the same expanded method found it "extremely pedantic and focusing on the wrong stuff
+  at the wrong time": each paragraph should open with the physics it is for, and a
+  revision that expands one part cuts another.
 - **Introduce each object where it is used, not in passing.** A key quantity (a spectral
   density, the system operators) gets its own sentence at the point where the argument
   needs it. "Its effect is then fixed by T and the spectral density J(ω)=..." was
@@ -434,7 +508,9 @@ Back-references
   validity conditions and special cases in the appendix, with a pointer. A revision
   after a review should not leave the method longer than before. In one paper, answering
   every question in place turned a five-step method into a page of qualifications, and
-  the authors had to move it all back to the appendix.
+  the authors had to move it all back to the appendix. Before answering a "why?" at all,
+  ask whether a referee of the journal's field would ask it. If not, reject the finding:
+  answering it makes the text pedantic.
 - **Specialist terminology stays in the appendices.** When the main text can describe an
   object in plain words, it does. The appendix gives the technical name and links the
   two. Example: "a function O_W of these variables" in the method, and "the Weyl symbol,
@@ -493,8 +569,11 @@ Paragraphs and flow
   answers it. Keep it short, and in this order:
   1. Summary, one sentence (e.g. the inputs the method needs).
   2. What is new compared with the closest prior work, if not said already.
-  3. For each new ingredient, the question it raises and the test that answers it, in
-     one sentence each.
+  3. The question the next section answers, and, for each new ingredient, why the test
+     that follows isolates it, in one sentence together. Not what the tests find, not
+     how they are done, and not a section-by-section list: repeating the content of
+     later sections belongs in the introduction, and a co-author flagged it ("this thing
+     of repeating the content of the sections doesn't sound right to me").
   4. The step after the tests (application), with a pointer.
   Physics remarks, validity conditions, generality and subtleties do not belong in the
   transition. They go in their own paragraph or a short "Remarks" subsection before it.

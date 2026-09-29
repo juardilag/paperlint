@@ -55,8 +55,12 @@ is cheap to change and a draft is not.
 ## 4. Draft
 
 - Write each paragraph from its topic sentence, following the checklist of the
-  scientific-writing skill: plain words first, every term defined at first use in the
-  paper and named as the field names it, notation introduced with its concept, each
+  scientific-writing skill: plain words first, written for a researcher of the
+  journal's field (`audience` in `paperlint.toml`), every term cited at first use and
+  defined, in a clause of the sentence that uses it, only where that reader needs it,
+  named as the field names it, formulas explained by their physical meaning and never
+  read aloud, every limitation with its consequence, no preview of later sections
+  outside the introduction, notation introduced with its concept, each
   fact once, the reason for every factor and choice, claims no stronger than the data.
 - Write for rhythm from the start (rules.md, section 2b): sentences joined by the
   relation between them, varied in length and opening, the authors or the physics as
@@ -79,7 +83,7 @@ is cheap to change and a draft is not.
 ## 5. Finish
 
 Run the full revise procedure (the `revise` skill) on the new text: rounds of lint,
-audits, cold reads, literature and self-checks, with the ledger, until a round brings
+audits, cold and referee reads, literature and self-checks, with the ledger, until a round brings
 nothing new or three rounds have run. Then compile and look at the rendered pages,
 including figures and their captions.
 

@@ -20,7 +20,9 @@ Files in this skill's directory:
 - `scripts/init_project.py`: creates `paperlint.toml` and `glossary.toml` for a paper.
 
 The `cold-reader` agent of this plugin reads a finished section with no context and lists
-every place where a reader would ask "what is this?", "which one?" or "why?".
+every place where a reader would ask "what is this?", "which one?" or "why?". The
+`referee` agent reads it as an expert of the subfield and lists what is wrong, doubtful
+or pedantic for that audience.
 
 ## Project files
 
@@ -54,8 +56,10 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
    - **Redundancy**: each fact once, then check that no premise was cut.
    - **Claims**: numbers match their source, improvement factors state their baseline,
      statements about other papers were read, not assumed. List unread ones as questions.
-   - **Cold read**: launch the `cold-reader` agent on the section and fix what it finds,
-     or say why a finding is wrong.
+   - **Cold read and referee read**: launch the `cold-reader` and `referee` agents on the
+     section and fix what they find, or say why a finding is wrong.
+   - **Weight**: cut sentences that tell the audience what it knows or read a formula
+     aloud; each paragraph opens with the physics it is for.
 5. **After any local edit**, reread the whole paragraph from its first sentence, rerun the
    back-reference and redundancy checks on it, and search the document for any term a
    deleted sentence defined. (The PostToolUse hook of this plugin lints edited paragraphs
@@ -75,6 +79,8 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 - No placeholder words ("a microscopic model", "the corresponding equation"). Name it.
 - Contrast with prior work explicitly: what they have, what we have, and the limit that
   recovers theirs. Known element first, new element last.
+- Explain what a formula means physically; never read a displayed formula aloud ("its
+  first term is ..."). State consequences directly, not as counterfactuals.
 
 **Sound like a person, not a generator** (§2b)
 - Vary sentence length and join related sentences with because, so, but, although.
@@ -86,8 +92,12 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
   no stock phrases, no paragraph that ends by restating its first sentence.
 
 **The reader has no context** (§3)
-- Every technical term gets a one-clause definition and a reference at first use, even
-  standard ones (master equation, white noise, convolution). Spell out every acronym.
+- Write for a researcher of the journal's field (`audience` in `paperlint.toml`), not a
+  student. Every technical term gets a reference at first use, even standard ones, and a
+  definition only where that reader needs it, as a clause of the sentence that uses the
+  term, never a definition sentence of its own. Spell out every acronym.
+- Coin a name only if the paper uses it several times. Cite the classic literature of
+  the class of equations you adopt. Same typography (hats, bold) in every equation.
 - If a term needs more than a clause, describe the object in plain words and keep the
   term for the appendix.
 - Introduce each reference by what it did before relying on it. Cite again at the first
@@ -106,10 +116,15 @@ conflict. If they don't exist, offer to run `scripts/init_project.py`.
 - Justify odd factors and structural choices in an equation when it appears.
 - Claim only what holds in general. State the paper's model choices as choices ("we
   add a sub-Ohmic bath"), not as facts about a regime ("at large N the bath is ..."). Read papers before describing them.
+- General case first (1/S for a spin of length S), then the paper's instance (1/N).
+- Every limitation says whether it invalidates the results and on which timescale the
+  method holds. A claim that a test isolates something gives the reason.
+- Every physics claim must survive a referee of the subfield (the `referee` agent).
 
 **Structure** (§6, §9)
 - Every section: why, what is known, what we do. Topic sentence first in each paragraph.
 - Close each section with a summary and a transition that names the next question.
+  Don't preview what later sections find; only the introduction does that.
 - The method contains everything the results use; it says what and why, not how well.
 - Procedure steps about 70 words. Detail goes to the appendix; important results don't.
 - Appendices follow the same rules and open with why they exist.
