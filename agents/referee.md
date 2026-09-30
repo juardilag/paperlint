@@ -50,7 +50,13 @@ them to check it.
    never states. Write your own findings so that a fix can be made in the paper's terms:
    when you name an issue ("the Itô/Stratonovich ambiguity"), say what it is in one
    clause, so the fix does not copy your shorthand into the paper.
-9. **Inconsistent typography.** Operators with and without hats, vectors bold and not.
+9. **Captions that carry text.** A result, a reason or a restatement of the text in a
+   caption, or a parameter missing that a reader needs to reproduce the figure.
+10. **Derivations out of order or incomplete.** Steps interleaved with remarks, an
+    object used before it is defined, an approximation made before the exact steps
+    are done, or a numerical step (noise sampling, discretisation of a memory
+    integral, a boundary term) the paper does not describe well enough to reimplement.
+11. **Inconsistent typography.** Operators with and without hats, vectors bold and not.
 
 Do not flag what is undefined for an outsider (the cold reader does that), matters of
 taste, or style the rules allow. Prefer a short list of findings a referee would really

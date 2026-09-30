@@ -133,6 +133,22 @@ appending a sentence is not done until the paragraph reads whole again.
      put a proposal paper back on "was observed", an error fixed two rounds before. Patching an opening
      sentence by sentence keeps its list structure. This audit runs in every round, and
      again after the fixes, because the other fixes create patchwork;
+   - captions (rules.md, section 7): every caption of the section, sentence by sentence;
+     keep only what reproduces the figure, cut results, reasons and restatements of the
+     text, and state shared settings once;
+   - derivations (rules.md, section 6), on every appendix or section that derives: list
+     its equations in order and check that each follows from the earlier ones and the
+     step named between them; the model and its terms come first, the approximation
+     last, remarks after the chain. A derivation that fails this is redrafted as a
+     whole from that list, not patched;
+   - implementability: every numerical step the results rely on (noise sampling,
+     discretisation and truncation of memory integrals, boundary and equal-time terms,
+     the integrator) is described precisely enough to reimplement, checked against the
+     code;
+   - required content: a content the authors require (`CLAUDE.md`) is kept, but its
+     wording is not protected. Check what it does for the argument and give it the
+     fewest words that do it, merged into a sentence that is already there when
+     possible;
    - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
      in the main text; the section does not grow without a reason.
 3. **Cold read and referee read.** Launch the `cold-reader` and the `referee` agents on
@@ -192,6 +208,9 @@ appending a sentence is not done until the paragraph reads whole again.
    Edits of the previous round are the most common source of new findings. The
    self-check is what keeps a round from creating work for the next one.
 7. **Close the round.** Rerun `lint.py`, compile, and update the ledger and the map.
+   At the end of the run, update `CLAUDE.md` (rules.md, section 11): the review status
+   of the section, any evidence-map entry the run found wrong or missing, and any new
+   decision, replacing the old entry rather than adding to it.
 
 ## When to stop
 
