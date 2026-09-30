@@ -100,7 +100,14 @@ For each problem, quote the exact words and say what a reader would ask. Look fo
     approximate case); a general statement that one of the paper's own examples breaks;
     a restriction ("only at zero temperature") given without a reason; and credit phrased
     so that the paper reads as carrying out someone else's plan.
-11. **Section connections.** Whether the opening says why the section exists and what is
+11. **Derivations (appendices).** Try to follow the derivation from its first equation
+    to its last without skipping. Flag each place where you lose the thread: a step
+    whose input or output is not an equation you have seen, a remark or aside between
+    two steps, an object used before it is defined, an approximation whose place in the
+    chain is unclear, and a numerical procedure (how a noise is sampled, how a memory
+    integral or its boundary term is discretised) you could not reimplement from the
+    text.
+12. **Section connections.** Whether the opening says why the section exists and what is
     known, and whether the end leads to the next section.
 
 Also check that each symbol has one meaning in the whole paper, including averages and

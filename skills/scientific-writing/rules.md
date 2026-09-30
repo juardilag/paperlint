@@ -640,9 +640,43 @@ Back-references
   ("the approximation enters here and nowhere else"), no dash
   asides, no italic sentences.
 
+- **A derivation is one chain, in the order it is done.** Start from the model (the
+  Hamiltonian, the action), say what each term is, then take one step per paragraph or
+  subsection in logical order: change of formalism, change of variables, the exact
+  steps (integrating out, a decoupling transformation), and the approximation last.
+  Each step states what it starts from, what it does, and what it produces, as an
+  equation that the next step uses. Say where the approximation enters and that nothing
+  before it is approximate. Remarks, interpretations and comparisons with other work go
+  after the chain or in the main text, not between its steps. A reviewer called an
+  appendix whose steps were interleaved with remarks, forward references and asides on
+  other coupling types "scattered and impossible to follow". The test: list the equations
+  of the derivation in order, and each must follow from the ones before it and the step
+  named between them.
+- **Every step the numerics perform is described so that it can be implemented.** A
+  derivation that ends in an equation is not complete while the paper does not say how
+  that equation is solved: how a coloured noise is sampled, how a memory integral is
+  discretised and truncated, the integrator and its interpretation. A term that needs
+  separate treatment (the equal-time or boundary term of a convolution, a subtracted
+  static part, a correction applied to one term only) is stated explicitly, in
+  discretised form when the continuous form leaves its treatment ambiguous. Check the
+  code for every such step, and write down what it does.
+- **A technical object is defined before it is used, in its own place.** A section built
+  on an object (a star product, a phase-space kernel) defines it first, with its
+  properties, then applies it. It is not introduced piece by piece inside the
+  argument that needs it.
+
 ## 7. Captions and titles
 - Captions are minimal but self-sufficient: a reader must be able to reproduce the figure
   from the caption alone. Parameters go in the caption; the explanation goes in the text.
+- **A caption holds only what reproduces the figure**: what is plotted against what, the
+  model and every parameter, the sampling (trajectories, time step, cutoffs), the
+  reference and what each line, marker and band is. Nothing else: no result ("agrees
+  well"), no reason or mechanism, no restatement of the text, no definition the text gave
+  (a symbol is defined in the text, the caption only uses it), and no statement of what
+  the eye already sees. Say a shared setting once, before the panels, and list per panel
+  only what differs. A caption of a few sentences is the norm; one that grows past a
+  paragraph is carrying text that belongs elsewhere. Short is not fragmentary: the
+  full-sentence rule below still holds.
 - **Write captions in full sentences.** Don't chain verbless fragments ("Grey, individual
   trajectories. Shaded, their spread. Heavy line, their mean."). Put a list of line styles
   in one sentence with commas: "Grey lines show individual trajectories, the shaded band
@@ -783,3 +817,38 @@ Revision order
   overlapping with an overview.
 - Keep examples current. If an example sentence is later rewritten, replace it with the
   accepted version.
+
+## 11. The project file `CLAUDE.md`
+`CLAUDE.md` holds what a reader of the paper and its code cannot infer, and that no other
+project file can express. Every command reads it, so every line costs attention on every
+run.
+
+What belongs:
+- **Decisions**, each with who took it, when, and why: "Don't use term X for object Y
+  (co-author A, date: reviewers read it as Z)". A decision without its reason is flagged,
+  because nobody can later tell whether it still applies.
+- **Content the authors require** in the paper, and where it goes.
+- **The evidence map**: for each figure and table, the script that produces it, the data
+  it reads, the command that regenerates it, and where heavy runs are executed.
+- **Build**: how to compile, and any setting a command must not change.
+- **Review status**: which sections are revised and with which version of the rules, and
+  the open author items, each as one line pointing to the ledger.
+
+What does not belong, and where it goes instead:
+- terminology, avoided synonyms and symbols go to `glossary.toml`;
+- findings already fixed or rejected go to `paperlint_ledger.md`;
+- lint settings and the audience go to `paperlint.toml`;
+- the map of sections, symbols and numbers goes to `paperlint_map.md`;
+- anything the paper, the code or the git history already states is left out.
+
+Form:
+- One entry per line or short bullet, written as an instruction that can be checked
+  ("Never write A for B", "Figure N is produced by script S from data D"), not as
+  narrative.
+- Refer to objects by label (`fig:x`, `sec:y`, `eq:z`), not by number, because numbers
+  change when the paper is reordered.
+- Keep the file short. When an entry changes, replace it rather than adding a second one,
+  and delete entries that no longer apply. Two entries that contradict each other are
+  resolved with the authors, and the one kept names who decided.
+- A later co-author comment that contradicts an entry is reported to the user as a
+  conflict, not applied silently in either direction.
