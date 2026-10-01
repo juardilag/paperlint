@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""paperlint: mechanical style checks for LaTeX manuscripts.
+"""paperlint: mechanical checks for LaTeX manuscripts.
 
-The checks are the parts of the scientific-writing rules that a program can apply
-without judgement: sentence length, punctuation, sentence openings, banned phrases,
-acronyms used before they are defined, terms the paper has decided not to use, and
-hand-typed cross-references. Everything that needs judgement (is this term defined?
-does this paragraph argue?) is left to the writer and to the cold-reader agent.
+By default only ERRORS are reported: acronyms used before they are defined, terms the
+paper has decided not to use, hand-typed cross-references, and a lower-case reference
+macro at the start of a sentence. The style checks (sentence length, punctuation,
+openers, banned phrases, texture) are off by default, because applied as rules they
+make prose read as generated; switch them on with `--style` or `[checks] style = true`,
+or one by one with `[checks] enable = [...]`, and treat what they report as notes.
 
 The LaTeX source is "masked" rather than parsed: math, comments, citations and
 commands are replaced by blanks or by one-character placeholders of the same
@@ -17,6 +18,7 @@ Usage:
     lint.py main.tex --section Introduction
     lint.py main.tex --lines 120-180      # only findings in this line range
     lint.py main.tex --json               # machine-readable output
+    lint.py main.tex --style              # also the style notes
     lint.py --list-checks
 
 Configuration is read from the nearest paperlint.toml (see templates/).
@@ -40,6 +42,9 @@ DISPLAY = "\u039e"     # display math, not counted as a word
 REF_LOWER = "\u24e1"   # \cref{...} and similar lower-case reference macros
 REF_UPPER = "\u24c7"   # \Cref{...}
 PARA = "\u00b6"        # paragraph or item break
+
+# Reported by default. Everything else in CHECKS is a style note, off by default.
+ERROR_CHECKS = {"PL006", "PL010", "PL011", "PL013"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
@@ -242,6 +247,8 @@ class Config:
     banned: list[tuple[str, str]] = field(default_factory=list)
     anthropomorphic: list[str] = field(default_factory=list)
     disabled: set[str] = field(default_factory=set)
+    style: bool = False                 # run every style check
+    enabled: set[str] = field(default_factory=set)   # style checks run one by one
     forbidden_terms: list[dict] = field(default_factory=list)
     root: Path = Path(".")
 
@@ -285,6 +292,8 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
     cfg.anthropomorphic += list(words.get("anthropomorphic", []))
     cfg.repeat_ok |= {_stem(w) for w in words.get("repeat_ok", [])}
     cfg.disabled = set(checks.get("disable", []))
+    cfg.style = bool(checks.get("style", False))
+    cfg.enabled = set(checks.get("enable", []))
     gpath = paper.get("glossary")
     if gpath:
         gfile = (cfg.root / gpath)
@@ -511,6 +520,8 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
 
     def add(pos: int, code: str, msg: str, excerpt: str = "", sev="warning"):
         if code in cfg.disabled:
+            return
+        if code not in ERROR_CHECKS and not cfg.style and code not in cfg.enabled:
             return
         ln, col = _line_col(src, pos)
         out.append(Finding(fname, ln, col, code, msg, excerpt.strip()[:120], sev))
@@ -753,7 +764,7 @@ def format_findings(findings: list[Finding], limit: int | None = None) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description="Mechanical style checks for LaTeX papers.")
+    ap = argparse.ArgumentParser(description="Mechanical checks for LaTeX papers.")
     ap.add_argument("files", nargs="*", type=Path)
     ap.add_argument("--config", type=Path)
     ap.add_argument("--section", help="only the section whose title contains this text")
@@ -765,15 +776,18 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--limit", type=int)
     ap.add_argument("--strict", action="store_true", help="exit 1 if there are findings")
     ap.add_argument("--list-checks", action="store_true")
+    ap.add_argument("--style", action="store_true",
+                    help="also run the style checks (notes, off by default)")
     args = ap.parse_args(argv)
 
     if args.list_checks:
         for k, v in CHECKS.items():
-            print(f"{k}  {v}")
+            print(f"{k}  {'error' if k in ERROR_CHECKS else 'style'}  {v}")
         return 0
 
     start = args.files[0] if args.files else Path.cwd()
     cfg = load_config(start.resolve(), args.config)
+    cfg.style = cfg.style or args.style
     files = args.files or [cfg.root / f for f in cfg.files]
     if not files:
         print("no input files (pass a .tex file or list files in paperlint.toml)",

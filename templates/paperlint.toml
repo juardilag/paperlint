@@ -8,6 +8,8 @@ glossary = "glossary.toml"    # this paper's terminology decisions (see glossary
 audience = ""                 # who reads the paper, e.g. "PRA: quantum optics and many-body theory".
                               # Terms this reader knows get a reference, not a definition.
 
+# Style notes: used only when [checks] style = true (or by `lint.py --style`). They are
+# hints for the author to read, never targets to rewrite toward.
 [style]
 max_sentence_words = 25       # sentences above this are reported as info (PL015)
 hard_sentence_words = 27      # sentences above this are warnings (PL001)
@@ -19,8 +21,6 @@ reference_style = "cleveref"  # "cleveref": flag hand-typed Eq.~\ref{...}; "any"
 max_word_repeats = 2          # a modifier used more often in one paragraph is reported (PL018)
 max_paragraph_words = 150     # longer paragraphs are reported (PL022)
 
-# Section lengths are not set here: each command derives a section's budget from what the
-# section must say (its idea inventory in paperlint_map.md).
 
 [words]
 known_acronyms = []           # acronyms that need no definition in your field, e.g. ["DNA"]
@@ -33,4 +33,6 @@ anthropomorphic = []          # extra verbs to flag as anthropomorphic
 repeat_ok = []                # modifiers this paper may repeat, e.g. ["finite"] (PL018)
 
 [checks]
-disable = []                  # check codes to switch off, e.g. ["PL014"]
+style = false                 # true: also run every style check (as notes)
+enable = []                   # style checks to run one by one, e.g. ["PL007", "PL013"]
+disable = []                  # check codes to switch off, e.g. ["PL011"]

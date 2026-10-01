@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Set up paperlint for a paper - create paperlint.toml and glossary.toml, propose glossary entries from the paper's own terminology, and build or audit CLAUDE.md (evidence map, decisions, required content, review status). Use when the user wants to start using paperlint on a paper, or when a paper has no paperlint.toml, or to build or check its CLAUDE.md.
+description: Set up paperlint for a paper - create paperlint.toml and glossary.toml, propose glossary entries from the paper's own terminology, build or audit CLAUDE.md (evidence map, decisions, required content, review status), and collect style_examples.md from published papers the authors admire. Use when the user wants to start using paperlint on a paper, or when a paper has no paperlint.toml, or to build or check its CLAUDE.md.
 argument-hint: "[paper directory]"
 ---
 
@@ -34,5 +34,14 @@ Set up paperlint for one paper.
    If a `CLAUDE.md` already exists, do not rewrite it. Check it against section 11 and
    report, entry by entry, what to keep, move to another project file, merge, update or
    delete. Show the proposal and write only what the user agrees to.
-5. Run the linter once on the whole paper and report the counts per check, so the user
-   sees the starting point.
+5. Build `style_examples.md` in the paper directory. Ask the user for two or three
+   published papers, in the target journal or field, whose writing they or their
+   co-authors admire (a PDF, an arXiv number or a DOI). From each, copy three to five
+   paragraphs that show how the authors want to write: an opening, a results paragraph
+   with numbers, a method or derivation paragraph, a closing. Keep the source of each.
+   Every command that drafts text matches these paragraphs, and the `compare` agent
+   judges rewrites against them. Later author corrections about style are added to
+   this file as before/after pairs.
+6. Run the linter once on the whole paper and report the errors it finds, so the user
+   sees the starting point. Style notes are available with `--style` but are not
+   targets.

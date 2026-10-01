@@ -1,154 +1,51 @@
 ---
 name: scientific-writing
-description: Procedure, rules and tools for writing or revising scientific papers so the text is clear, precise and easy to follow, and avoids the typical problems of LLM prose. Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
+description: Procedure, rules and tools for writing or revising scientific papers so the text is correct, consistent, supported by its data, and written in the style of published prose the authors admire. Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
 ---
 
 # Writing scientific papers
 
-The main risk in LLM-assisted papers is prose that is informal and overly technical at
-the same time: slogans instead of physics, terms used without definition, references to
-things the reader has not seen. It reads like two experts talking at a blackboard. This
-skill turns the rules that prevent it into a procedure with checks.
+paperlint splits the work in two. **Checking** is what it does reliably: terms defined,
+notation consistent, every number from its data, claims no stronger than the evidence,
+limitations with their consequence, derivations complete, captions that reproduce the
+figure. **Prose** belongs to the authors. paperlint drafts only from a paragraph plan the
+author approved, matches the paper's example prose instead of following style rules, and
+keeps a rewrite only when a blind comparison prefers it. Rounds of patches toward a
+checklist are what make text read as generated, so paperlint does not do them.
 
 Files in this skill's directory:
-- `rules.md`: the full rules, by topic. Read the sections you need before drafting.
-- `examples.md`: flagged sentences and the rewrites the authors accepted. Read it before
-  writing a new section; match the accepted versions in tone and density.
-- `scripts/lint.py`: mechanical checks (sentence length, punctuation, openers, banned
-  phrases, acronyms, glossary terms, hand-typed references). Run it; don't redo it by eye.
+- `rules.md`: the correctness rules (eleven short sections). Read all of it once per
+  session.
+- `examples.md`: author corrections, before and after. Read before drafting.
+- `scripts/lint.py`: the checker. By default it reports errors only; `--style` adds
+  notes.
 - `scripts/check_refs.py`: checks `.bib` entries against Crossref.
-- `scripts/init_project.py`: creates `paperlint.toml` and `glossary.toml` for a paper.
+- `scripts/init_project.py`: creates `paperlint.toml`, `glossary.toml` and
+  `style_examples.md` for a paper.
 
-The `cold-reader` agent of this plugin reads a finished section with no context and lists
-every place where a reader would ask "what is this?", "which one?" or "why?". The
-`referee` agent reads it as an expert of the subfield and lists what is wrong, doubtful
-or pedantic for that audience.
+Agents: `referee` (wrong, doubtful or overstated claims), `cold-reader` (at most five
+places a reader gets lost), `literature` (sources for claims), `compare` (blind A/B
+judge of two versions against the paper's example prose).
 
 ## Project files
 
-A paper directory may contain:
-- `paperlint.toml`: lint settings (sentence limits, banned words, disabled checks).
-- `glossary.toml`: one name per object, avoided synonyms, appendix-only terms, symbols.
-- `CLAUDE.md`: build notes, required content, review status, decisions made so far.
+A paper directory may contain `paperlint.toml` (checker settings, audience),
+`glossary.toml` (one name per object), `style_examples.md` (the prose to match),
+`CLAUDE.md` (decisions, required content, evidence map), `paperlint_map.md` and
+`paperlint_ledger.md`. Read them before working on the paper; they override the
+general rules where they conflict.
 
-Read all three before working on the paper. They override the general rules where they
-conflict. If they don't exist, offer to run `scripts/init_project.py`.
+## Procedure
 
-## Procedure (every section, every time)
-
-1. **Read** the project files, the section, and the parts of earlier sections it builds
-   on. Note what the reader already knows at this point.
-2. **Plan.** Write the topic sentence of every paragraph first and read them in a row.
-   They must answer why, what is known, and what we do, and end by pointing to the next
-   section. Fix the structure before writing sentences.
-3. **Draft**, following the checklist below. Plain words first. A technical term only
-   where it earns its definition.
-4. **Audit.** Run all of these on the whole section, and fix what they find:
-   - `python3 <skill dir>/scripts/lint.py <file.tex> --section "<title>"` (mechanical).
-   - **Terms**: list every technical term, where it is defined at first use in the
-     document, and its reference.
-   - **Notation**: every symbol (text, equations, tables, figures) is introduced with a
-     full clause before use, and has one meaning in the section.
-   - **Parameters**: everything a results section uses is introduced in the method, its
-     figure and its derivation.
-   - **Back-references**: every this, that, it, its, such, the same points to one object
-     named in the same or the previous sentence.
-   - **Redundancy**: each fact once, then check that no premise was cut.
-   - **Claims**: numbers match their source, improvement factors state their baseline,
-     statements about other papers were read, not assumed. List unread ones as questions.
-   - **Cold read and referee read**: launch the `cold-reader` and `referee` agents on the
-     section and fix what they find, or say why a finding is wrong.
-   - **Weight**: cut sentences that tell the audience what it knows or read a formula
-     aloud; each paragraph opens with the physics it is for.
-5. **After any local edit**, reread the whole paragraph from its first sentence, rerun the
-   back-reference and redundancy checks on it, and search the document for any term a
-   deleted sentence defined. (The PostToolUse hook of this plugin lints edited paragraphs
-   automatically when the paper has a `paperlint.toml`.)
-6. **Compile, render the pages, and look at them.** Check figure legends against the
-   text's terminology.
-7. **Report**: what changed (before and after for anything the authors flagged), the audit
-   results, and open questions. Turn every author correction into a rule, in `rules.md`
-   if it is general, in the project files if it concerns this paper only.
-
-## Checklist (details and examples in rules.md)
-
-**As short as the ideas allow** (rules.md §0, with §2b the most important)
-- Would the reader miss this sentence? If not, cut it. One idea per paragraph.
-- Each section within the budget of its idea inventory: list what it must say, give
-  each idea the words it needs, cut what goes beyond (`lint.py --words` counts).
-- A fix rewrites the sentence it corrects; it does not add one. Caveats go where the
-  result is shown, not in the introduction.
-- Cut test: a fifth shorter without losing an idea means the draft was too long.
-
-**Sound like a scientist** (rules.md §2)
-- No slogans or aphorisms. Say what happens, with the equation.
-- No informal words for methods ("recipe", "trick", "engine", "buys", "prices").
-- No anthropomorphism ("the bath remembers", "the atoms see").
-- No placeholder words ("a microscopic model", "the corresponding equation"). Name it.
-- Contrast with prior work explicitly: what they have, what we have, and the limit that
-  recovers theirs. Known element first, new element last.
-- Explain what a formula means physically; never read a displayed formula aloud ("its
-  first term is ..."). State consequences directly, not as counterfactuals.
-
-**Sound like a person, not a generator** (§2b)
-- Vary sentence length and join related sentences with because, so, but, although.
-- No chained one-sentence definitions, at most one parenthetical pointer per sentence.
-- State conditions once, not in every sentence. One hedge per uncertain claim.
-- No "The first ... The second ..." paragraphs, no objects as agents ("the model
-  tests"), no modifier three times in a paragraph. Draft openings fresh, don't patch.
-- No "not X but Y" reflex, no triples for rhythm, no "Notably"/"Importantly" openers,
-  no stock phrases, no paragraph that ends by restating its first sentence.
-
-**The reader has no context** (§3)
-- Write for a researcher of the journal's field (`audience` in `paperlint.toml`), not a
-  student. Every technical term gets a reference at first use, even standard ones, and a
-  definition only where that reader needs it, as a clause of the sentence that uses the
-  term, never a definition sentence of its own. A term the argument turns on (white vs.
-  coloured noise) always gets its meaning in a clause at first use. Spell out every acronym.
-- Coin a name only if the paper uses it several times. Cite the classic literature of
-  the class of equations you adopt. Same typography (hats, bold) in every equation.
-- If a term needs more than a clause, describe the object in plain words and keep the
-  term for the appendix.
-- Introduce each reference by what it did before relying on it. Cite again at the first
-  mention in each section.
-- Introduce notation with its concept in a full clause. Figures and captions never
-  introduce notation. One meaning per symbol.
-- Pronouns and demonstratives point to one object just named.
-
-**Say it once** (§4)
-- Each fact once. No term paired with its own paraphrase. No circular definitions.
-- But keep premises: a section may recall what it builds on, and every "therefore" needs
-  its reason.
-
-**Be specific and correct** (§5)
-- Flat in what? Which methods? Tie each claim to the equation that realises it.
-- Justify odd factors and structural choices in an equation when it appears.
-- Claim only what holds in general. State the paper's model choices as choices ("we
-  add a sub-Ohmic bath"), not as facts about a regime ("at large N the bath is ..."). Read papers before describing them.
-- General case first (1/S for a spin of length S), then the paper's instance (1/N).
-- Every limitation says whether it invalidates the results and on which timescale the
-  method holds. A claim that a test isolates something gives the reason.
-- Every physics claim must survive a referee of the subfield (the `referee` agent).
-
-**Structure** (§6, §9)
-- Every section: why, what is known, what we do. Topic sentence first in each paragraph.
-- Close each section with a summary and a transition that names the next question.
-  Don't preview what later sections find; only the introduction does that.
-- The method contains everything the results use; it says what and why, not how well.
-- Procedure steps about 70 words. Detail goes to the appendix; important results don't.
-- Appendices follow the same rules and open with why they exist.
-
-**Captions and titles** (§7)
-- Captions are minimal but self-sufficient, in full sentences, with the parameters.
-- Titles say what the section finds or does. Legends use the text's terminology.
-
-**Sentences** (§9, house defaults, configurable)
-- Under 25 words. No colons or semicolons in running text. No em dashes.
-- No sentence starts with a symbol, a numeral or an acronym.
-- No "It is … that", "There is", bare "This is". No fluff ("in order to", "very").
-- Introduction: findings in words, no values. Abstract: written last.
-
-## Tone of the report to the authors
-
-Say what you changed and why in plain terms, show before/after for flagged text, and
-list open questions separately. Do not claim a check passed unless you ran it.
+1. **Read** the project files, the section, the sections it builds on, and the code and
+   data behind it.
+2. **Check** (always): run `lint.py`, audit against `rules.md` sections 1 to 9, launch
+   the `referee` and `cold-reader` agents, and fix each confirmed error with the
+   smallest edit, in the sentence that has it. Recompute every number from its script.
+3. **Rewrite** (only when asked): a plan of one claim per paragraph, approved by the
+   author; one fresh draft matched to `style_examples.md`; the `compare` agent against
+   the old version; the winner checked as in step 2.
+4. **Compile, render and look** at the pages, including figures and equations.
+5. **Report** errors first, then other fixes, rejected findings, and author decisions
+   as questions with a recommendation. Author corrections about content go to the
+   project files; about style, to `style_examples.md` or `examples.md` as a pair.

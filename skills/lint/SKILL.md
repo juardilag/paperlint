@@ -1,19 +1,15 @@
 ---
 name: lint
-description: Run the paperlint mechanical checks on a LaTeX paper, a section or a line range, and fix what they find. Use when the user asks to lint, check style, or check a section of a paper.
-argument-hint: "[file.tex] [--section TITLE | --lines A-B]"
+description: Run the paperlint checker on a LaTeX paper, a section or a line range. By default it reports errors only (acronyms used before they are defined, glossary terms, hand-typed references, lower-case references at a sentence start); `--style` adds style notes. Use when the user asks to lint or check a paper mechanically.
+argument-hint: "[file.tex] [--section TITLE | --lines A-B] [--style]"
 ---
 
-Run the mechanical style checks of the scientific-writing skill.
-
-1. Find the paper: use the file in `$ARGUMENTS` if given, otherwise the files listed in
-   the nearest `paperlint.toml`, otherwise ask.
+1. Find the paper: the file in `$ARGUMENTS`, otherwise the files in the nearest
+   `paperlint.toml`, otherwise ask.
 2. Run
    `python3 "${CLAUDE_PLUGIN_ROOT}/skills/scientific-writing/scripts/lint.py" $ARGUMENTS`
-   (add `--no-info` for a shorter report; `--list-checks` explains the codes).
-3. Group the findings by code and show the user a short summary.
-4. Offer to fix them. When fixing, follow `skills/scientific-writing/rules.md`: a long
-   sentence becomes two sentences, not a sentence with a colon; a colon becomes a full
-   stop or a rewrite, not a dash. After fixing, run the linter again on the same range and
-   report the result. If a finding is a false positive, say so instead of changing the
-   text.
+   (`--list-checks` explains the codes and marks which are errors and which are style).
+3. Show a short summary grouped by code, and fix the errors with minimal edits, or say
+   why one is a false positive. Rerun on the same range and report.
+4. Style notes (`--style`) are shown to the user as notes. Do not rewrite the text
+   toward them unless the user asks for a specific one.
