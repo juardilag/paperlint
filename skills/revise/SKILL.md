@@ -208,6 +208,8 @@ appending a sentence is not done until the paragraph reads whole again.
    Edits of the previous round are the most common source of new findings. The
    self-check is what keeps a round from creating work for the next one.
 7. **Close the round.** Rerun `lint.py`, compile, and update the ledger and the map.
+   Search the log for `Overfull \hbox` and fix every one in the section, then render
+   its pages and look at the equations (rules.md, section 8).
    At the end of the run, update `CLAUDE.md` (rules.md, section 11): the review status
    of the section, any evidence-map entry the run found wrong or missing, and any new
    decision, replacing the old entry rather than adding to it.

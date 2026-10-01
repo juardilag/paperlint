@@ -698,6 +698,15 @@ Back-references
   well (Equation, Figure, Section, Appendix, Table), and check the PDF text. Otherwise
   sentences start with "Sec." or "Eq.". Join the extracted text into one line before
   searching for ". Sec." or ". Eq.". Line wrapping produces false hits otherwise.
+- **Every displayed equation fits its column.** In a two-column journal a column is
+  about 8.6 cm wide, and a long equation runs into the margin or the other column.
+  After every compile, search the log for `Overfull \hbox` and fix each one in the
+  text you touched: break the equation with `aligned` or `split` at a relation or a
+  binary operator, align continuation lines so the second line does not start further
+  right than the first, move a definition out of the display into the text, or use a
+  full-width float only for a table. Then render the page and look at it, because a
+  break can fit and still read badly. A section is not finished while its log shows
+  an overfull line.
 - New references go in the bibliography file. Tell the authors which entries were added,
   so they can verify the bibliographic details.
 - Keep a backup of the file before large edits, and say where it is.
