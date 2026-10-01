@@ -1,258 +1,103 @@
 ---
 name: revise
-description: Revise one section of a paper to a finished state in a single command. Reads the whole paper for context, then runs lint, audits, literature checks and cold reads in rounds, fixes the editorial findings without asking, self-checks every edit against the rest of the paper, keeps a ledger of settled findings, and stops when a round brings nothing new that must or should be fixed. Only content decisions go to the authors. Use when the user asks to revise, review, finish, polish or "run the plugin on" a section, an appendix, a caption or the abstract.
-argument-hint: "<file.tex> <section title or line range>"
+description: Revise one section of a paper. Checks the section against the whole paper, its code and its data, and fixes errors with minimal edits; rewrites the prose only from a paragraph plan the author approved, and keeps a rewrite only if a blind comparison against the paper's example prose prefers it. Content decisions go to the authors. Use when the user asks to revise, check, finish or "run the plugin on" a section, an appendix, a caption or the abstract.
+argument-hint: "<file.tex> <section title or line range> [--rewrite]"
 ---
 
-Bring one section to a finished state and stop. A section is never independent of the
-rest of the paper: every round reads and checks it in the context of the whole paper.
+Revise one section and stop. Two jobs, kept apart:
 
-**The main goal is prose that reads as written by a scientist, not generated**, for a
-researcher of the journal's field (`audience` in `paperlint.toml`), not for a student,
-and as short as its ideas allow (rules.md, section 0). Concision and rhythm are the two
-audits that matter most. Correct
-physics and defined terms are necessary, but a section is not finished while any
-paragraph reads as a list, a chain of definitions or a patchwork of fixes (rules.md,
-section 2b). Every fix is judged by that goal as well: a fix that answers a finding by
-appending a sentence is not done until the paragraph reads whole again.
+- **Checking** (always): find what is wrong, inconsistent, unsupported or undefined,
+  and fix each with the smallest edit. This is where paperlint is reliable.
+- **Rewriting** (only with `--rewrite`, or when the user asks for it): a fresh draft of
+  the section from a paragraph plan the author approved, matched to the paper's
+  `style_examples.md`, kept only if the `compare` agent prefers it. Prose is never
+  improved by rounds of patches.
 
-## Before the first round
+## Before starting
 
-1. **Target.** Identify the file and the section from `$ARGUMENTS`. Load the
-   `scientific-writing` skill and read `rules.md` (all of it the first time in a
-   session) and `examples.md`.
-2. **Project files.** Read `paperlint.toml`, `glossary.toml`, `CLAUDE.md` and the ledger
-   `paperlint_ledger.md` in the paper directory (create the ledger if missing). The
-   ledger lists findings already settled: fixed, rejected with the reason, or decided
-   by the authors. Author decisions are not reopened by the command, with two
-   exceptions: a correctness question (a claim that may be false) is never settled by a
-   decision on wording, and a later comment by a co-author that contradicts a recorded
-   decision is reported to the user as a conflict. Record who decided and when, so
-   conflicts between co-authors can be seen. Review comments in a PDF (highlights,
-   strike-outs, sticky notes) are read from the annotations themselves, with the text
-   each one marks, not from the rendered page.
-3. **Paper map.** Read the whole paper once and write or update `paperlint_map.md` in
-   the paper directory:
-   - per section, one line on what it establishes and which results it uses;
-   - every symbol with its meaning and where it is defined;
-   - every technical term with where it is defined;
-   - every number the text quotes, with its source (figure, table, data file);
-   - every equation, figure and table label that other sections refer to.
-   Rebuild an entry whenever its section changed. The map is how the section is checked
-   against the rest of the paper; it is not a substitute for reading the neighbouring
-   sections, which you also do.
-4. **Code and data.** If `CLAUDE.md` names the code or data behind the results, locate
-   them. A claim about what a run did is checked there, not guessed.
-5. Write the idea inventory of the section and derive its budget (rules.md, section
-   0): every idea it must convey, the words each needs, and their sum. Record both in
-   `paperlint_map.md`, with the current length from `lint.py --section "<title>"
-   --words`. If the section is longer than its budget, the run must bring it to the
-   budget, keeping every idea; it must never end longer than it started, except for
-   new content the authors asked for.
+1. Load the `scientific-writing` skill and read `rules.md`, `examples.md`, and the
+   paper's `style_examples.md` (if it is missing, ask the user for two or three
+   published papers whose writing they admire and run the `setup` step that builds it;
+   without it, do not rewrite, only check).
+2. Read `paperlint.toml`, `glossary.toml`, `CLAUDE.md` and `paperlint_ledger.md` in the
+   paper directory (create the ledger if missing). Author decisions in the ledger and
+   in `CLAUDE.md` are not reopened, except a correctness question, which a decision on
+   wording never settles; a later co-author comment that contradicts a decision is
+   reported as a conflict. Review comments in a PDF are read from the annotations.
+3. Read the whole paper once and update `paperlint_map.md`: per section what it
+   establishes, every symbol and term with where it is defined, every quoted number
+   with its source, and the labels other sections use.
+4. Locate the code and data behind the section (`CLAUDE.md` evidence map).
 
-## Each round
+## Check (always)
 
-1. **Mechanical.** Run `lint.py` on the section and fix everything it reports. The
-   texture checks PL018 (a repeated modifier), PL019 (an enumeration) and PL020 (an
-   object as agent) are info-level because they can be false positives, but each one
-   is read and either fixed or dismissed with a reason; they mark the paragraphs the
-   rhythm audit starts from.
-2. **Audits**, done by you, against the section and the paper map:
-   - terms: each defined at its first use in the whole paper, with a reference, and
-     each the precise name the field uses for the object (the annihilation and creation
-     operators of a mode, not its "ladder operators");
-   - notation: one meaning per symbol in the whole paper, including averages and
-     brackets; the same symbol as in the other sections for the same object;
-   - back-references: every this, that, it, the same points to one object just named;
-   - redundancy: each fact once in the paper, not only in the section; premises kept;
-   - claims: numbers match their source, statements about other work are supported,
-     results are stated no more strongly than the figures and data show, and the
-     paper's own choices (a bath, a parameter, a coupling) are stated as choices, not as
-     facts about a regime ("for this test we add ...", not "at large N the bath is ..."). Recompute every
-     number quoted for a figure from its data over the plotted window, and check every
-     statement about an inset against what the inset draws (read the plotting code); an
-     exception stated in a summary points to the panel that shows it;
-   - why: ask "what is it?" and "why?" of every sentence, as a researcher of the
-     journal's field who knows only the earlier text, and answer only the questions such
-     a reader would ask. A quantity given by a formula says what it is physically and
-     why it has that value, without reading the formula aloud; a correction or replacement says what goes wrong without it; a property
-     the text claims (real, positive, conserved) but the displayed formula does not
-     show, because of an i or a sign, gets its reason. The answer
-     is one clause in the main text; its mechanism goes to the appendix;
-   - weight (rules.md, sections 2 and 3): keep, or add, a clause with the meaning of every
-     term the argument turns on, at its first use in the paper; cut every sentence that
-     defines what the audience knows, restates a displayed formula in words, or coins a name the paper
-     uses less than twice; every paragraph opens with the physics it is for;
-   - consequences (rules.md, section 5): every limitation says whether it invalidates
-     the results and on which timescale or regime the method holds; every statement
-     that a test isolates something gives the reason; every scaling is given in general
-     before the paper's instance; a consequence is stated directly, not as a
-     counterfactual; the closing does not preview what later sections find;
-   - conventions and lineage: a stochastic equation states Itô or Stratonovich next to
-     it; a known class of equations cites its classic literature; typography (hats,
-     bold) is the same in every equation of the paper;
-   - method applied: every equation of motion in a results section follows from the
-     general method; compare it with the method and with the code behind the figure;
-   - structure (method sections): the central equation comes first and each of its
-     terms is explained after it; the procedure follows. The step that carries the main
-     idea and the recovery of the known method get the space they need; technical detail
-     stays short (rules.md, section 6);
-   - generality: the method is stated in the most general form its derivation supports,
-     with where it holds approximately beyond the exact case (rules.md, section 5);
-   - examples: list the examples the paper treats, and test every general statement of
-     the method on each one; a statement with an exception says so;
-   - restrictions: every "only", "at zero temperature", "for weak coupling" the text
-     states has a reason in the text or the appendix; one that has none is checked
-     against the derivation, the code and the literature, and is a correctness finding
-     if it cannot be confirmed;
-   - framing: credit to other work says what it did and what this paper adds, and no
-     sentence presents the paper as carrying out someone else's plan;
-   - scope: every statement about a step of the method holds for every case the paper
-     uses (all systems, samplings, integrators); a general step does not single out
-     one kind of system but points to the appendix that treats each;
-   - concision (rules.md, section 0), with rhythm the most important audit, on every
-     section whether or not it has a budget or is under it: for every sentence, would
-     the reader miss it if cut; for every paragraph, its one idea;
-     qualifications and numbers moved to the section that shows them; the cut test
-     (a fifth shorter without losing an idea), and the section against the budget of its
-     idea inventory. PL022 marks long paragraphs as a place to start;
-   - rhythm first (rules.md, section 2b), the most important audit: reread every
-     paragraph of the section whole, not sentence by sentence, and apply the read-aloud
-     test. Rewrite any paragraph that reads as a list, a chain of definitions, a
-     patchwork of added sentences, or instructions outside a procedure. Give each
-     paragraph the rhythm verdict of rules.md, section 2b (order, enumeration, agent,
-     repetition, why, pointers) and write down its weakest sentence; "reads fine" is
-     not a verdict. For the opening and the closing paragraph of the
-     section, first write down in two or three plain sentences what the paragraph must
-     tell the reader and why, then draft it fresh from that note without looking at the
-     current text, and keep whichever version reads better. A fresh draft forgets the
-     decisions already taken on that paragraph, so check it against the ledger and
-     `CLAUDE.md` before keeping it (a redrafted opening once brought back a framing a
-     co-author had struck out). Concretely, after a redraft search the ledger for every
-     citation key and every claim in the new text: a cut that rebuilt a sentence once
-     put a proposal paper back on "was observed", an error fixed two rounds before. Patching an opening
-     sentence by sentence keeps its list structure. This audit runs in every round, and
-     again after the fixes, because the other fixes create patchwork;
-   - captions (rules.md, section 7): every caption of the section, sentence by sentence;
-     keep only what reproduces the figure, cut results, reasons and restatements of the
-     text, and state shared settings once;
-   - derivations (rules.md, section 6), on every appendix or section that derives: list
-     its equations in order and check that each follows from the earlier ones and the
-     step named between them; the model and its terms come first, the approximation
-     last, remarks after the chain. A derivation that fails this is redrafted as a
-     whole from that list, not patched;
-   - implementability: every numerical step the results rely on (noise sampling,
-     discretisation and truncation of memory integrals, boundary and equal-time terms,
-     the integrator) is described precisely enough to reimplement, checked against the
-     code;
-   - required content: a content the authors require (`CLAUDE.md`) is kept, but its
-     wording is not protected. Check what it does for the argument and give it the
-     fewest words that do it, merged into a sentence that is already there when
-     possible;
-   - main text vs. appendix (rules.md, section 6): detail in the appendix, the argument
-     in the main text; the section does not grow without a reason.
-3. **Cold read and referee read.** Launch the `cold-reader` and the `referee` agents on
-   the section, in parallel. Pass both the paths of the ledger and the paper map, and
-   tell them not to raise settled findings again unless the text changed. The cold
-   reader finds what an outsider cannot follow; the referee finds what an expert doubts
-   or finds pedantic. When the two conflict (the cold reader asks for a definition the
-   referee calls pedantic), the audience in `paperlint.toml` decides: a reference is
-   always given, a clause only if that audience needs it. Its rhythm verdict does not replace your own: a paragraph that
-   either of you fails is a should-fix finding.
-4. **Triage.** Check every finding against the text. Put each one in one class:
-   - **Editorial**: fix it now, without asking. This covers undefined terms and
-     symbols, inconsistent notation, missing pointers, ambiguous references, wording,
-     sentence structure, redundancy, a missing one-clause reason for a factor or a step,
-     the statement of a standard convention (for example the Stratonovich reading of
-     physical noise), and moving detail between the main text and an appendix. Where a
-     standard answer exists in the literature, use it and cite it.
-   - **Literature**: a claim about other work, a "says who?", or a statement that needs
-     a source. Launch the `literature` agent (one per topic, in parallel) and apply the
-     result when the sources support it. Present a result as derived in the paper when
-     no source states it.
-   - **Author decision**: collect it for the report and do not edit. This covers what
-     the paper claims about its own results, the scope and the structure of the paper,
-     adding or removing a result, a figure or a section, anything the code or the data
-     must decide, and anything the authors already decided (`CLAUDE.md`, the ledger).
-     A correctness finding is never put in this class to avoid checking it: check it
-     first (derivation, code, `literature` agent), and send only the decision that
-     remains to the authors.
-   - **Rejected**: the finding is wrong. Write the reason in one sentence.
-5. **Apply** the editorial and literature fixes. Length budget: a round that adds text
-   cuts at least as much elsewhere in the section. A wrong claim is fixed by rewording
-   it, not by adding a sentence, and a qualification a reviewer asks for goes where the
-   result is shown, not into the introduction or a summary. Cut pedantic sentences
-   first.
-6. **Self-check every edit** before anything else runs:
-   - reread each changed paragraph from its first sentence, as a whole, against
-     rules.md section 2b; if the edit added a sentence, rewrite the paragraph so the new
-     content sits inside the sentences that need it, instead of appending it;
-   - check each changed sentence against the equations and symbols around it (signs,
-     factors, which variable, which average), and against the paper map;
-   - for every sentence a cut shortened or merged, compare it with the old version
-     side by side: the same subject, the same verb, the same hedge ("has the form
-     of", "its initial state", "can"). A cut that changes the claim is an error, not
-     an edit (rules.md, section 0);
-   - read each changed sentence as the reader, who has not seen the finding: a fix
-     written in the reviewer's shorthand ("unambiguous", "consistent") refers to a
-     problem the text never states, and a "because" that restates a definition explains
-     nothing (rules.md, section 4). Rewrite it in the paper's own terms;
-   - grep the whole paper for every symbol, term, label and equation number the edit
-     touched, and fix the other occurrences so the paper stays consistent;
-   - if an edit removed a definition, find the next use of that term and define it
-     there;
-   - if an edit rewrote a pointer or a fragment as a claim, check that the claim is no
-     narrower than what it replaced (every case the pointer covered);
-   - if an edit changed a derivation, follow it to the equation it produces and check
-     that the result is unchanged or that every later use is updated.
-   Edits of the previous round are the most common source of new findings. The
-   self-check is what keeps a round from creating work for the next one.
-7. **Close the round.** Rerun `lint.py`, compile, and update the ledger and the map.
-   Search the log for `Overfull \hbox` and fix every one in the section, then render
-   its pages and look at the equations (rules.md, section 8).
-   At the end of the run, update `CLAUDE.md` (rules.md, section 11): the review status
-   of the section, any evidence-map entry the run found wrong or missing, and any new
-   decision, replacing the old entry rather than adding to it.
+1. Run `lint.py --section "<title>"`. It reports errors only (undefined acronyms,
+   glossary terms, hand-typed references); fix each. Do not run `--style` unless the
+   user asks, and never rewrite toward its notes.
+2. Audit the section against `rules.md`, sections 1 to 9:
+   - every term and symbol defined at first use, one name and one symbol per object
+     across the paper (grep it);
+   - every number recomputed from its data with the script that prints it, and every
+     statement about a figure checked against what the plotting code draws;
+   - every claim no stronger than its evidence, the paper's choices stated as
+     choices, general statements tested on every example of the paper;
+   - every limitation with its consequence; Itô or Stratonovich stated;
+   - results equations derived from the method and compared with the code;
+   - derivations as one ordered chain, numerical steps reimplementable;
+   - captions carry every parameter that reproduces the figure, and any takeaway
+     they state matches the data; legends use the text's terms;
+   - each fact once; cross-references and column widths (`Overfull \hbox`).
+3. Launch the `referee` agent (correctness only) and the `cold-reader` agent (at most
+   five places where a reader got lost), in parallel, with the paths of the ledger and
+   the map.
+4. Triage every finding:
+   - **Error** (wrong, inconsistent, undefined, unsupported): fix it now with the
+     smallest edit, in the sentence that has the problem. Never append a sentence to
+     answer a finding when a clause in the existing sentence does it. Where a source is
+     needed, launch the `literature` agent.
+   - **Author decision**: scope, structure, what the paper claims about its own
+     results, anything the data must decide. Check correctness first; send only the
+     decision.
+   - **Rejected**: say why in one sentence.
+   Findings about style, rhythm or length are not errors and are not acted on in a
+   check.
+5. Self-check every edit: reread the sentence and its paragraph, check it against the
+   equations, symbols and numbers around it and the map, grep the paper for every
+   symbol, term and label it touched, and confirm a shortened sentence makes the same
+   claim with the same hedge.
+6. Compile, fix any `Overfull \hbox` in the section, update the ledger and the map.
 
-## When to stop
+A check is one pass. Run it again only if the fixes changed a claim, a number or a
+derivation, and then only on what changed.
 
-Stop after a round in which the cold read and the audits bring no new finding of
-severity must fix or should fix, every paragraph of the section passes the rhythm
-verdict (rules.md, section 2b) in both your audit and the cold read, and the section is
-within the budget of its idea inventory. Being within budget is necessary, not
-sufficient: the concision audit must also find no sentence the reader would not miss. A paragraph that
-reads as generated is a should-fix finding. A new finding is one that is not in the
-ledger and does not repeat a rejected one. Stop also after three rounds, and say so.
-Do not start another round for consider-level findings only; fix the editorial ones in
-passing.
+## Rewrite (only with `--rewrite`)
 
-Rhythm and length are the exceptions to the three-round limit, because they are the
-main goal. If the section is still over budget after the last round, do one more pass
-that only cuts: every sentence the reader would not miss, every qualification that
-belongs elsewhere, keeping every idea, then rerun `lint.py` and self-check. If a
-paragraph still fails the rhythm verdict after the last round, do one more pass on
-those paragraphs alone: redraft each from a note of what it must say, rerun `lint.py`,
-self-check the edit, and give the rewritten paragraphs a cold read with the rhythm
-verdict only. Report any paragraph that still fails.
-
-A cold reader always finds something. The ledger, the self-check and this rule are what
-end the loop.
+1. **Plan.** Write the section's plan: one line per paragraph with the claim it makes
+   and the evidence it rests on, in the order of the argument. Show the plan to the
+   user and wait. Nothing is rewritten before the author approves the plan; their
+   changes to it are content decisions.
+2. **Draft once**, from the approved plan, the checked facts and the paper's
+   `style_examples.md`, matching those examples in how sentences run and how claims and
+   numbers are introduced. Write the whole section fresh; do not edit the old text
+   sentence by sentence. Keep every decision in `CLAUDE.md` and the ledger (search both
+   for every citation and claim of the new text).
+3. **Compare.** Give the `compare` agent the old and the new version of each paragraph
+   as A and B in random order, with two or three paragraphs of `style_examples.md`.
+   Keep a new paragraph only if it wins and makes the same claims; otherwise keep the
+   old one, or show both to the user when the compare agent calls it a tie.
+4. **Check** the kept text as above, with minimal edits only.
 
 ## Report
 
-- The section length before and after. If it grew, say why, and what was cut.
-- The rhythm verdict of the final text: one line per paragraph with its first words,
-  pass or fail, and its weakest sentence.
-- The paragraphs rewritten for rhythm, each with what made it read as generated.
-- What was changed, grouped by class, with the before and after for anything an author
-  had flagged. Name every change outside the section made for consistency.
-- Errors found (a sign, a factor, a wrong claim), listed first and separately.
-- The literature used, with what each source supports.
-- The rejected findings, each with its reason.
-- The author decisions, each as one question with a recommendation. These are the only
-  items the authors need to act on.
-- The lint result, whether the paper compiles, and whether the run converged or
-  stopped at three rounds.
+- Errors found and fixed (a sign, a factor, a wrong number, an unsupported claim),
+  listed first, each with before and after.
+- Other fixes, grouped; every change outside the section made for consistency.
+- With `--rewrite`: the approved plan, and per paragraph the compare verdict and its
+  reason.
+- Rejected findings, each with its reason.
+- Author decisions, each as one question with a recommendation.
+- The lint result and whether the paper compiles.
 
-Turn every author correction into a rule: in `rules.md` if it is general, in the
-paper's `CLAUDE.md` or `glossary.toml` if it concerns this paper only.
+An author correction about content goes to `CLAUDE.md` or `glossary.toml`; one about
+style becomes a before/after pair in `style_examples.md` (this paper) or `examples.md`
+(general), never a rule.

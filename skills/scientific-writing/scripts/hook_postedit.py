@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PostToolUse hook: lint the paragraphs of a .tex file that Claude just edited.
+"""PostToolUse hook: report ERRORS in the paragraphs of a .tex file Claude just edited.
 
 Opt-in: it runs only when the edited file sits under a directory that contains a
 paperlint.toml (create one with the init script). It never modifies anything. The
@@ -78,9 +78,10 @@ def main() -> int:
 
     src = path.read_text(encoding="utf-8")
     cfg = lint.load_config(path)
-    # info-level findings are hidden, except anthropomorphism (PL014), a common LLM habit
-    findings = [f for f in lint.lint_text(src, str(path), cfg)
-                if f.severity != "info" or f.code == "PL014"]
+    # Errors only, whatever the paper's config: style notes are for the author to read,
+    # not for the writer to patch paragraph by paragraph.
+    cfg.style, cfg.enabled = False, set()
+    findings = lint.lint_text(src, str(path), cfg)
     ranges = _edited_ranges(src, tool_input)
     if ranges is not None:
         findings = [f for f in findings if any(a <= f.line <= b for a, b in ranges)]
@@ -88,8 +89,9 @@ def main() -> int:
         return 0
 
     where = "the edited paragraphs" if ranges is not None else "the file"
-    report = (f"paperlint found {len(findings)} issue(s) in {where} of {path.name}. "
-              "Fix them now unless a finding is a false positive (say so if you skip one).\n"
+    report = (f"paperlint found {len(findings)} error(s) in {where} of {path.name}. "
+              "Fix each with the smallest edit, or say why it is a false positive. "
+              "Do not rewrite the paragraph for this.\n"
               + lint.format_findings(findings, MAX_FINDINGS))
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse",
                                              "additionalContext": report}}))

@@ -59,13 +59,13 @@ class Hook(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             tex = Path(d) / "main.tex"
             tex.write_text("\\begin{document}\nThe first paragraph is fine.\n\n"
-                           "We use a recipe here.\n\\end{document}\n")
+                           "As in Eq.~\\ref{x} we go on.\n\\end{document}\n")
             (Path(d) / "paperlint.toml").write_text('[paper]\nfiles=["main.tex"]\n')
             out = self.run_hook({"tool_name": "Edit", "tool_input": {
                 "file_path": str(tex), "old_string": "x",
-                "new_string": "We use a recipe here."}})
+                "new_string": "As in Eq.~\\ref{x} we go on."}})
             ctx = json.loads(out)["hookSpecificOutput"]["additionalContext"]
-            self.assertIn("recipe", ctx)
+            self.assertIn("PL013", ctx)
             out2 = self.run_hook({"tool_name": "Edit", "tool_input": {
                 "file_path": str(tex), "old_string": "x",
                 "new_string": "The first paragraph is fine."}})

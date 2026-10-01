@@ -1,19 +1,22 @@
-# Examples: flagged text and accepted rewrites
+# Examples: author corrections, before and after
 
-Each pair shows a sentence a reviewer or co-author flagged, and a rewrite of the kind
-they accept. The pairs are invented, modelled on real reviews of LLM-assisted papers.
-Most follow one imaginary physics paper, a stochastic method for atoms in an optical
-lattice coupled to a phonon bath. A few come from other fields, to show that the rules
-do not depend on the subject. Read each pair for its rule, which is named in the
-heading.
+Each pair is a sentence a supervisor, co-author or referee flagged, and the rewrite they
+accepted. The pairs are invented, modelled on real reviews of LLM-assisted papers; most
+follow one imaginary physics paper (atoms in an optical lattice coupled to a phonon
+bath), a few come from other fields.
 
-When writing, match the accepted versions in tone and density: plain words, sentences
-joined by the logic between them, every term defined, every claim tied to an equation,
-a figure or a reference.
+These pairs, and the paper's own `style_examples.md`, carry paperlint's sense of style.
+Read them before drafting and match the accepted versions in tone and density. They are
+examples, not rules: a pair shows what one reader objected to, and what a scientist
+wrote instead. When a pair and the paper's `style_examples.md` disagree, the paper's
+examples win.
+
+New author corrections about style are added here (or to `style_examples.md`) as a
+pair, never as a rule.
 
 ---
 
-## Slogans and aphorisms (rules.md, section 2)
+## Slogans and aphorisms
 
 **Flagged:** "Detailed balance is a property of the construction, not an assumption."
 
@@ -28,7 +31,7 @@ spectrum."
 such modes in thermal equilibrium affects the atoms only through its temperature T and
 its spectral density J(ω)."
 
-## Placeholder words (section 2)
+## Placeholder words
 
 **Flagged:** "This section derives the corresponding equation from a microscopic model."
 *(Reviewer: "which equation? what is microscopic here?")*
@@ -37,7 +40,7 @@ its spectral density J(ω)."
 the phonons and their coupling (Eq. (2)), and derive a stochastic equation for the site
 occupations."
 
-## Implicit contrast with prior work (section 2)
+## Implicit contrast with prior work
 
 **Flagged:** the method is "the natural generalisation of Ref. [12]", with no statement
 of what Ref. [12] does.
@@ -48,7 +51,7 @@ depends on the past of the atom over the phonon correlation time. For a phonon b
 a flat spectral density this memory vanishes, and the equation of Ref. [12] is
 recovered."
 
-## Colloquial metaphor, anthropomorphism (section 2)
+## Colloquial metaphor, anthropomorphism
 
 **Flagged:** "the time over which the lattice remembers its past"
 
@@ -59,7 +62,7 @@ recovered."
 **Accepted:** "at high crowding the folded state has the lower free energy, and the
 folding rate increases"
 
-## Informal words for methods (section 2)
+## Informal words for methods
 
 **Flagged:** "Our recipe", "the trick that buys the speed-up", "the two engines",
 "this prices the approximation".
@@ -67,7 +70,7 @@ folding rate increases"
 **Accepted:** "our procedure", "the step that makes the calculation faster", "the two
 formulations", "this measures the cost of the approximation".
 
-## Terms defined for the audience (section 3)
+## Terms defined for the audience
 
 **Flagged:** "master equation", "white noise", "Langevin equation", "convolution", all
 used without definition or reference. *(Reviewer: "what is white noise? reference?")*
@@ -97,7 +100,7 @@ and nothing more, inside the sentence that uses the term:**
   phonon correlation time, and the noise coloured [ref]." The convolution itself is left
   to the displayed equation.
 
-## Plain description instead of jargon (section 3)
+## Plain description instead of jargon
 
 **Flagged:** "We represent each operator by its Weyl symbol on phase space." *(Reviewer:
 "what is the phase space here?")*
@@ -107,7 +110,7 @@ so that its average over the initial distribution equals the quantum expectation
 The appendix then adds: "This function is known as the Weyl symbol of the operator
 [refs]."
 
-## Formulas and corrections need their why (section 5)
+## Formulas and corrections need their why
 
 **Flagged:** "The damping is instantaneous, with the rate Γ = 2πJ(ω₀). Smith et al.
 absorb the accompanying frequency shift into ω₀." *(Authors: "what is Γ? why 2πJ? the
@@ -127,7 +130,7 @@ sentence instead of explaining again.
 contains the square of the occupation, the operator obeys n̂² = n̂, the classical number
 does not, so ...). *(Authors: "too much technical detail")* That mechanism is App. B's.
 
-## A property the formula does not show (section 5)
+## A property the formula does not show
 
 **Flagged:** "The noise has the correlation ⟨ξξ⟩ = −(i/2)K(t − t′). Its correlation is
 real and its spectrum is non-negative." *(Authors: "there is an i/2, so it is not clear
@@ -142,7 +145,7 @@ for the complex noise and a pointer for non-negativity, was struck out of the me
 step. A reason longer than a clause, or split into cases, goes to the appendix; and a
 unified definition of the noise (a co-author's paper) made the case split unnecessary.
 
-## Unusual property of a familiar object (section 3)
+## Unusual property of a familiar object
 
 **Flagged:** "The noise is then complex." *(Reviewer: "how can a noise be complex?")*
 
@@ -150,7 +153,7 @@ unified definition of the noise (a co-author's paper) made the case split unnece
 is not Hermitian, the force on them is a complex field. The noise is then complex,
 ξ = ξ₁ + iξ₂, with ξ₁ and ξ₂ real Gaussian noises of equal variance."
 
-## Notation introduced with a full clause (section 3)
+## Notation introduced with a full clause
 
 **Flagged:** "occupations n_j, collectively n"
 
@@ -162,7 +165,7 @@ K.
 **Accepted:** the text defines K where the convolution first appears, and the caption
 uses it without defining it.
 
-## Back-references (section 3)
+## Back-references
 
 **Flagged:** "The same step underlies the method for fermions." *("the same as what?")*
 
@@ -172,7 +175,7 @@ uses it without defining it.
 
 **Accepted:** "The convolution adds up the past occupations n(t′)."
 
-## Redundancy (section 4)
+## Redundancy
 
 **Flagged:** "The phonons start at temperature T. They then enter the dynamics only
 through T and J(ω)." *(T twice)*
@@ -190,14 +193,14 @@ limit of Eq. (6)" and closes "The result is the rate equation of Ref. [12]."
 
 **Accepted:** the closing sentence is cut. The topic sentence makes the claim once.
 
-## Cutting a premise (section 4), a fix that was rejected
+## Cutting a premise, a fix that was rejected
 
 A redundancy pass removed "Smith et al. describe the phonons by a single relaxation
 rate" from the opening of the method, because the introduction said it already. The
 authors reverted the cut: "now the method does not say what it improves on". A section
 opening may recall what it builds on. Keep that recall.
 
-## Method vs. results (section 6)
+## Method vs. results
 
 **Flagged:** in the method, "the correction reduces the error by a factor of four to
 six" *("this belongs to the results")*.
@@ -211,7 +214,7 @@ simulation in the paper sets it to zero.
 **Accepted:** the parameter is removed everywhere, after checking the simulation input
 files.
 
-## Scope of a method statement (section 5)
+## Scope of a method statement
 
 **Flagged:** "The atoms are sampled from the discrete distribution of Ref. [7]."
 *(Authors: "not true, the dense lattices use a Gaussian and the phonon modes their Wigner
@@ -228,7 +231,7 @@ atoms")*
 **Accepted:** "App. B gives these functions for the phonon modes and the atoms." The
 step keeps its general statement and points to the cases, as the sampling step does.
 
-## Procedure steps too long (section 6)
+## Procedure steps too long
 
 **Flagged:** steps of 110 to 125 words *("too long, chop it!")*.
 
@@ -236,7 +239,7 @@ step keeps its general statement and points to the cases, as the sampling step d
 in about 70 words. The definitions that made the steps long became plain descriptions,
 and the details moved to the appendix.
 
-## A step opens with what it does (section 6)
+## A step opens with what it does
 
 **Flagged:** a step that begins "Replace the occupation operators by classical numbers
 and every operator by its Weyl symbol" and states the equations of motion of the
@@ -247,7 +250,7 @@ that it computes the dynamics without phonons")*
 phonons. Replace the occupation operators by classical numbers, ... The isolated lattice
 then obeys ṅ_j = {n_j, H}." The action comes first, as in the other steps.
 
-## Answering review questions in place (section 6)
+## Answering review questions in place
 
 **Flagged:** after a review, every step of the method carried its own qualifications:
 the Fourier convention, the validity of an approximation, a special case, and three
@@ -256,7 +259,7 @@ pointers in parentheses. *(Authors: "too many technical details for the main tex
 **Accepted:** the method keeps the argument and one pointer per step. The conventions,
 validity conditions and special cases moved to the appendix, which the pointers name.
 
-## Closing a section (section 9)
+## Closing a section
 
 **Flagged:** "Section IV therefore tests the method against known results and then
 applies it." *(vague; it hid the most interesting test)*
@@ -291,7 +294,7 @@ generality of the coupling and the roadmap of the tests *("out of place", "this
 transition paragraph has to be rewritten; add a subsection, e.g. Remarks")*. The
 remarks moved to their own paragraph; the transition kept the four short parts.
 
-## Method explained top-down (section 6)
+## Method explained top-down
 
 **Flagged:** a five-step method that computes the kernels in step 2, the noise in step 3
 and shows the equation of motion only in step 4 *("the logical chain is to display the
@@ -301,7 +304,7 @@ equation first, and then describe each term")*.
 its three terms (the dynamics without phonons, the noise, the memory integral), each
 with its equation and reason, and ends with the procedure as a short list.
 
-## Contribution framed as someone else's plan (section 3)
+## Contribution framed as someone else's plan
 
 **Flagged:** "Smith et al. outlined this extension in an appendix of Ref. [12], and we
 carry it out." *(Smith, a co-author: "this can give the referee the impression that the
@@ -310,14 +313,14 @@ work is incremental")*
 **Accepted:** the introduction says what Ref. [12] does (a memoryless bath) and what the
 paper adds (the memory kernel and the coloured noise); the method sentence is cut.
 
-## Captions (section 7)
+## Captions
 
 **Flagged:** "Grey, individual trajectories. Shaded, their spread. Black, the mean."
 
 **Accepted:** "Grey lines show individual trajectories, the shaded band their spread,
 and the black line their mean."
 
-## Introduction (section 9)
+## Introduction
 
 **Flagged:** an introduction paragraph full of values ("agrees to 6 × 10⁻³ for 30 sites",
 "2.6 s for 8192 sites") *("too many numbers for an introduction")*.
@@ -325,7 +328,7 @@ and the black line their mean."
 **Accepted:** one sentence per result, in words, with a pointer: "For eight sites the
 method agrees with the exact solution at all interaction strengths (Sec. IV A)."
 
-## Smoother word order (section 2)
+## Smoother word order
 
 **Flagged:** "We start from the Hamiltonian of the atoms, the phonons and their coupling,
 Eq. (2) below, instead of a rate equation." *("put the known thing first")*
@@ -333,7 +336,7 @@ Eq. (2) below, instead of a rate equation." *("put the known thing first")*
 **Accepted:** "Instead of a rate equation, we start from the Hamiltonian of the atoms,
 the phonons and their coupling (Eq. (2))."
 
-## Rhythm and texture (section 2b)
+## Rhythm and texture
 
 **Flagged**, a paragraph that passes the linter and still reads as generated:
 > The lattice is coupled to a phonon bath. The bath is harmonic (Sec. II). The coupling
@@ -406,7 +409,7 @@ says why the exponent is a test (low frequencies, large sizes), which the flagge
 never did. The rewrite was drafted fresh from a note of what the paragraph must say, not
 patched sentence by sentence.
 
-## Formulas read aloud (section 2)
+## Formulas read aloud
 
 **Flagged:** "Its first term is the classical dynamics of the system. The second is the
 force exerted by the bath." and "The step function θ(τ) enforces causality." next to the
@@ -415,7 +418,7 @@ displayed equations. *(Co-author: "You shouldn't put formulas into words.")*
 **Accepted:** cut both; keep the sentence the equation cannot say, "The force at time t
 depends on the whole past of the atoms, over the correlation time of the phonons."
 
-## Counterfactual instead of the consequence (section 2)
+## Counterfactual instead of the consequence
 
 **Flagged:** "The noise kernel carries the zero-point fluctuations of the bath through
 the term 1 of coth(ω/2T), which remains at T = 0. With the classical noise, 2T/ω in
@@ -427,7 +430,7 @@ of the bath through the coth factor of Eq. (4). So, although the equations of mo
 are classical, the method relaxes the system to the quantum thermal state, which
 Sec. IV B shows through the fluctuation–dissipation relation."
 
-## A limitation without its consequence (section 5)
+## A limitation without its consequence
 
 **Flagged:** "Their size is set by the semiclassical parameter, of order 1/N for a
 collective spin of N spins one-half. The corrections accumulate at long times and grow
@@ -439,7 +442,7 @@ which we expect the method to work?")*
 collective spins used here), then the conclusion: until which time, in units the reader
 can check, the dropped corrections stay small, and where the paper tests it.
 
-## A name that does not pay (section 3)
+## A name that does not pay
 
 **Flagged:** "We call this the quadrature coupling, because the Hermitian operator
 couples to a quadrature of the bath modes." *(Co-author: "Do we care about this
@@ -448,7 +451,7 @@ nomenclature? Does it help?")*
 **Accepted:** "The coupling operators may be Hermitian, such as a spin component, or not,
 such as a lowering operator." The two cases are named only in the table that lists them.
 
-## Circular "because" and a word without its problem (section 4)
+## Circular "because" and a word without its problem
 
 **Flagged:** "Because the noise multiplies the bracket {φ,A}, a function of the system
 variables, it is multiplicative. With coloured noise every trajectory solves an ordinary
@@ -462,7 +465,7 @@ state of the system. In the white-noise limit the equation must then specify at 
 point of a time step the bracket is evaluated. The finite correlation time of a physical
 bath selects the midpoint, the Stratonovich rule [refs]."
 
-## Too long although every fix was right (section 0)
+## Too long although every fix was right
 
 **Flagged:** an introduction revised from 1519 to 1764 words. Every change fixed a real
 problem: an overstated claim got its conditions, a term its gloss, a list of methods its

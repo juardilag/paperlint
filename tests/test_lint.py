@@ -14,12 +14,14 @@ DOC = "\\begin{document}\n%s\n\\end{document}\n"
 def codes(body: str, cfg: lint.Config | None = None) -> list[str]:
     cfg = cfg or lint.Config(banned=list(lint.DEFAULT_BANNED),
                              anthropomorphic=list(lint.DEFAULT_ANTHROPOMORPHIC))
+    cfg.style = True
     return [f.code for f in lint.lint_text(DOC % body, "t.tex", cfg)]
 
 
 class Fixtures(unittest.TestCase):
     def test_bad_fixture_finds_every_check(self):
         cfg = lint.load_config(HERE / "fixtures" / "bad.tex")
+        cfg.style = True
         src = (HERE / "fixtures" / "bad.tex").read_text()
         found = {f.code for f in lint.lint_text(src, "bad.tex", cfg)}
         expected = {"PL001", "PL002", "PL003", "PL004", "PL005", "PL006", "PL007",
@@ -29,8 +31,24 @@ class Fixtures(unittest.TestCase):
 
     def test_good_fixture_is_clean(self):
         cfg = lint.load_config(HERE / "fixtures" / "good.tex")
+        cfg.style = True
         src = (HERE / "fixtures" / "good.tex").read_text()
         self.assertEqual(lint.lint_text(src, "good.tex", cfg), [])
+
+
+class Defaults(unittest.TestCase):
+    def test_only_errors_by_default(self):
+        cfg = lint.load_config(HERE / "fixtures" / "bad.tex")
+        src = (HERE / "fixtures" / "bad.tex").read_text()
+        found = {f.code for f in lint.lint_text(src, "bad.tex", cfg)}
+        self.assertTrue(found)
+        self.assertLessEqual(found, lint.ERROR_CHECKS)
+
+    def test_enable_one_style_check(self):
+        cfg = lint.Config(enabled={"PL003"})
+        found = [f.code for f in lint.lint_text(DOC % "One; two. We use a recipe.",
+                                                 "t.tex", cfg)]
+        self.assertEqual(found, ["PL003"])
 
 
 class Sentences(unittest.TestCase):
@@ -155,7 +173,7 @@ class Words(unittest.TestCase):
         self.assertNotIn("PL007", codes("The result is very good.", cfg))
 
     def test_anthropomorphic_is_info(self):
-        cfg = lint.Config(anthropomorphic=list(lint.DEFAULT_ANTHROPOMORPHIC))
+        cfg = lint.Config(anthropomorphic=list(lint.DEFAULT_ANTHROPOMORPHIC), style=True)
         fs = lint.lint_text(DOC % "The bath remembers the past.", "t.tex", cfg)
         self.assertEqual([(f.code, f.severity) for f in fs], [("PL014", "info")])
 
