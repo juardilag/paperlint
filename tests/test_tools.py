@@ -79,6 +79,39 @@ class Hook(unittest.TestCase):
         self.assertEqual(self.run_hook({"tool_input": {"file_path": "/tmp/x.py"}}), "")
         self.assertEqual(self.run_hook({}), "")
 
+    def test_silent_for_round_notes(self):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "paperlint.toml").write_text("[paper]\n")
+            notes = Path(d) / "review" / "2026-10-03"
+            notes.mkdir(parents=True)
+            tex = notes / "summary.tex"
+            tex.write_text("\\begin{document}\nThe TWA; a recipe: here.\n\\end{document}\n")
+            self.assertEqual(self.run_hook({"tool_input": {"file_path": str(tex)}}), "")
+
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PdfComments(unittest.TestCase):
+    def test_reads_annotation_with_marked_text(self):
+        try:
+            from pypdf import PdfWriter
+            from pypdf.annotations import Highlight, Text
+            from pypdf.generic import ArrayObject, FloatObject
+        except ImportError:
+            self.skipTest("pypdf not installed")
+        import pdf_comments
+        w = PdfWriter()
+        w.add_blank_page(200, 200)
+        w.add_annotation(0, Text(text="say who?", rect=(10, 10, 30, 30)))
+        h = Highlight(rect=(50, 50, 90, 60), quad_points=ArrayObject(
+            [FloatObject(v) for v in (50, 60, 90, 60, 50, 50, 90, 50)]))
+        w.add_annotation(0, h)
+        with tempfile.TemporaryDirectory() as t:
+            pdf = str(Path(t) / "a.pdf")
+            w.write(pdf)
+            rows = pdf_comments.comments(pdf)
+        self.assertEqual([r["type"] for r in rows], ["Text", "Highlight"])
+        self.assertEqual(rows[0]["comment"], "say who?")
+        self.assertEqual(rows[1]["page"], 1)

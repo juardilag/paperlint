@@ -8,8 +8,8 @@ captions that do not reproduce their figure, and fixes each with the smallest ed
 
 The prose belongs to the authors. paperlint does not rewrite text in rounds toward a
 checklist, because that is what makes text read as generated. When asked to rewrite, it
-drafts once from a paragraph plan the author approved, in the style of published papers
-the authors chose, and keeps the new version only if a blind comparison prefers it.
+drafts once from a paragraph plan the author approved, in paperlint's house style
+(the prose of J. Marino, H. Hosseinabadi and M. Stefanini), and keeps the new version only if a blind comparison prefers it.
 
 ## Install
 
@@ -28,29 +28,47 @@ marketplace update paperlint` and `claude plugin update paperlint@paperlint`.
 
 Open Claude Code in the paper's folder and run `/paperlint:setup`. It creates
 `paperlint.toml` and `glossary.toml`, builds a `CLAUDE.md` with the script and data
-behind every figure, and asks for two or three published papers whose writing you
-admire. Paragraphs from those papers go into `style_examples.md`, which is what every
-draft is matched to. Then set the reader:
+behind every figure. Then set the reader:
 
 ```toml
 [paper]
 audience = "PRB: cold atoms and condensed-matter theory"
 ```
 
+## House style
+
+paperlint writes in one style, built in and the same for every paper: the prose of
+Jamir Marino, Hossein Hosseinabadi and Martino Stefanini, profiled with verbatim
+paragraphs from their papers in `skills/scientific-writing/style.md`. Every command
+that writes or changes a sentence matches it, and the `compare` agent judges rewrites
+against it. Corrections from reviewers become before/after pairs in `examples.md`.
+The style is not a setting.
+
 ## Commands
 
 | Command | Use it to |
 |---|---|
-| `/paperlint:setup` | Prepare a paper once: settings, glossary, `CLAUDE.md`, style examples |
+| `/paperlint:setup` | Prepare a paper once: settings, glossary, `CLAUDE.md` |
 | `/paperlint:revise` | Check a section and fix its errors; `--rewrite` for a planned rewrite |
 | `/paperlint:review` | Report on a section without editing |
 | `/paperlint:write` | Draft new text from your ideas, via a plan you approve |
+| `/paperlint:comments` | Implement a round of comments (annotated PDF, review notes): only the commented sections and what they affect, references, a one-page summary |
 | `/paperlint:finish` | Check every section, then the paper as one text |
 | `/paperlint:lint`, `/paperlint:literature`, `/paperlint:check-refs` | Run the checker, the source search or the Crossref check on its own |
 
 `revise` checks the section against the whole paper, its code and its data, and fixes
 errors with minimal edits. With `--rewrite` it first shows you a plan, one claim per
 paragraph, and drafts only after you approve it.
+
+`comments` works one round of review at a time. Attach the annotated PDF in the chat
+(or drop it in `review/<date>/` next to the main file) and run `/paperlint:comments`;
+add anything else in plain words, such as "also add key references on X" or "leave
+App. B alone". Settings for every round go in `[comments]` of `paperlint.toml`. It changes only the sections with
+comments, plus the appendices, figures and numbers those changes affect (unless you
+exclude them), rereads until every comment is implemented, adds verified references
+(`--topics` for key works on a subject), and leaves in the same folder a diff and a
+one-page summary of what the comments say about how you write. The paper is compiled
+where it lives; the round folder can be deleted afterwards.
 
 ## Agents
 
@@ -70,14 +88,14 @@ reports; it never edits.
 |---|---|
 | `paperlint.toml` | Checker settings and the audience |
 | `glossary.toml` | One name per object, words to avoid |
-| `style_examples.md` | Published paragraphs to match, and your style corrections as before/after pairs |
 | `CLAUDE.md` | Decisions with who and why, required content, which script and data make each figure and number |
 | `paperlint_map.md` | Where each symbol, term and number is defined |
 | `paperlint_ledger.md` | Findings fixed, rejected or decided, so later runs do not raise them again |
 
 When you correct Claude, the correction is stored where it works: a content decision in
-`CLAUDE.md` or the glossary, a style correction as a before/after pair. Style
-corrections never become rules.
+`CLAUDE.md` or the glossary, a style correction as an anonymised before/after pair in
+`examples.md`. Style corrections never become rules, and the house style is not
+changed by a paper.
 
 ## The checker
 

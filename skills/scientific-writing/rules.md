@@ -1,9 +1,9 @@
 # Rules for scientific writing
 
 These rules are about **correctness and clarity**, which a checker can enforce. They
-are deliberately few. **Style is not a rule.** It comes from the paragraphs in the
-paper's `style_examples.md` (published prose the authors admire, in the target journal)
-and from the authors' own corrections in `examples.md`. Style rules applied
+are deliberately few. **Style is not a rule.** It comes from paperlint's house style, `style.md` (the published
+prose of J. Marino, H. Hosseinabadi and M. Stefanini), and from reviewers' corrections
+in `examples.md`. Style rules applied
 mechanically (sentence-length caps, punctuation bans, banned openers) make prose read
 as generated, so paperlint does not enforce them; `lint.py --style` still offers them
 as notes for an author who wants to read them.
@@ -58,6 +58,12 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - A derivation is one ordered chain: the model and its terms first, each step from the
   ones before, the approximation last, remarks after. A derivation that fails this is
   rewritten as a whole.
+- The main text can be followed without opening an appendix. It sends the reader to
+  an appendix for a proof or a detail, never for a table or an equation needed to
+  understand the sentence.
+- A remark stands where its subject is introduced and says why it matters there. A
+  "Remarks" subsection collecting them means they are in the wrong place; a remark
+  that matters nowhere in the argument goes to an appendix or is cut.
 - Every numerical step the results rely on (noise sampling, discretisation,
   truncation, boundary terms, the integrator) is described well enough to
   reimplement, and agrees with the code.
@@ -67,10 +73,14 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   sampling, and what each line, marker and band is, so the figure can be reproduced
   from it. Settings shared by all panels are given once.
 - Whether a caption also states the takeaway, and how long it runs, is style: follow
-  the paper's `style_examples.md`. A takeaway it states must match the text and the
+  the house style (`style.md`) and the paper's `CLAUDE.md`. A takeaway it states must match the text and the
   data.
 - Legends and axis labels use the text's terms; re-render the figure after a change
-  of term.
+  of term. An equation drawn in a figure is the text's equation, or a schematic of it
+  that the caption calls one.
+- Every element drawn (a line, an arrow, a second curve, a zero line) is explained by
+  the caption or the text; an element nobody can explain is removed. A schematic
+  figure is redrawn after the text it illustrates is settled.
 
 ## 8. Each fact is stated once
 - A fact appears once in the paper, in the section that shows it. A premise that a
@@ -82,13 +92,19 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - Every displayed equation fits its column: no `Overfull \hbox` in the log for the
   text you touched; render the page and look at it.
 - New references go into the `.bib` file, and the authors are told which.
+- No link covers a figure. A hyperlink broken across a page or column break (a DOI
+  title in the bibliography) is restarted by pdfTeX at the top of the next page and
+  covers any float there; keep bibliography entries unbroken
+  (`\interlinepenalty=10000` before `\bibliography`) and check the compiled PDF for
+  link boxes larger than a few lines.
 
 ## 10. Maintaining the rules
 - A rule is added only for an error a checker or a reader can verify, never for
   taste. Before a rule is added, find the rule it overlaps and merge them; this file
   does not grow by more than it shrinks without a reason.
 - An author correction about style becomes a before/after pair in `examples.md` (or
-  in the paper's `style_examples.md` if it concerns one paper), not a rule.
+  anonymised, or to the paper's `CLAUDE.md` if it concerns one paper), not a rule.
+  The house style itself is not changed by a paper's authors.
 - An author correction about content goes to the paper's `CLAUDE.md` or
   `glossary.toml`.
 
@@ -108,7 +124,7 @@ What belongs:
 
 What does not belong: terminology (`glossary.toml`), settled findings
 (`paperlint_ledger.md`), lint settings and the audience (`paperlint.toml`), the map of
-sections and symbols (`paperlint_map.md`), style (`style_examples.md`), and anything
+sections and symbols (`paperlint_map.md`), style (`style.md` and `examples.md`, in the plugin), and anything
 the paper, the code or the git history already states.
 
 Form: one checkable instruction per line or bullet; objects named by label, not

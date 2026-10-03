@@ -10,8 +10,9 @@ checks; it does not rewrite the authors' prose.
 
 ## 1. Prepare
 
-1. Load the `scientific-writing` skill and read `rules.md`, `examples.md` and the
-   paper's `style_examples.md`. Read the project files and the ledger.
+1. Load the `scientific-writing` skill, read `rules.md`, and apply its style
+   procedure (both example sets in full, the style brief, the check of every change,
+   blind comparison of rewritten paragraphs) to every section it touches. Read the project files and the ledger.
 2. Build `paperlint_map.md` from scratch for the whole paper.
 3. Run `lint.py` on the whole file (errors only) and `check_refs.py` on the `.bib`
    file. Fix the unambiguous findings, keep the rest for the report.
@@ -44,12 +45,12 @@ after each section.
   sentence (doubtful ones to the `literature` agent).
 - **Abstract and title, last.** Propose a plan for the abstract (problem, what is new,
   main results in words) and wait for approval; draft it once in the style of
-  `style_examples.md`, keep it only if the `compare` agent prefers it to the current
+  house style (`style.md`), keep it only if the `compare` agent prefers it to the current
   one, and check that the title says what the paper does.
 
 ## 4. Compile and inspect
 
-Compile and render every page: overfull lines, figures against captions, labels
+Compile and render every page: link boxes that cover a figure (rules.md, section 9), overfull lines, figures against captions, labels
 against the text's terms, unresolved references, the order of floats.
 
 ## Report

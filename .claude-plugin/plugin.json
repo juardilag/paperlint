@@ -1,7 +1,7 @@
 {
   "name": "paperlint",
-  "version": "0.3.1",
-  "description": "Check and finish scientific papers with Claude Code. Finds undefined terms, inconsistent notation, numbers that do not match their data, overstated claims and incomplete derivations, and fixes them with minimal edits. Rewrites prose only from a plan you approve, matched to published papers you choose, and keeps a rewrite only if a blind comparison prefers it.",
+  "version": "0.7.0",
+  "description": "Check and finish scientific papers with Claude Code. Finds undefined terms, inconsistent notation, numbers that do not match their data, overstated claims and incomplete derivations, and fixes them with minimal edits. Rewrites prose only from a plan you approve, in one built-in house style (the prose of J. Marino, H. Hosseinabadi and M. Stefanini), and keeps a rewrite only if a blind comparison prefers it.",
   "author": {
     "name": "juardilag"
   },

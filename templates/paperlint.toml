@@ -32,6 +32,11 @@ ban = [                       # extra phrases to ban in this paper
 anthropomorphic = []          # extra verbs to flag as anthropomorphic
 repeat_ok = []                # modifiers this paper may repeat, e.g. ["finite"] (PL018)
 
+[comments]                    # /paperlint:comments, applied every round
+topics = []                   # key references added each round, e.g. ["TWA", "open systems"]
+exclude = []                  # labels never changed as a consequence, e.g. ["app:cost"]
+legend = ""                   # the reviewer's colours, e.g. "red = concept, blue = wording"
+
 [checks]
 style = false                 # true: also run every style check (as notes)
 enable = []                   # style checks to run one by one, e.g. ["PL007", "PL013"]

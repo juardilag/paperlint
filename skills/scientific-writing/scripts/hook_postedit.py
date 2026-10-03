@@ -73,8 +73,11 @@ def main() -> int:
     path = Path(fname)
     if not path.is_absolute():
         path = Path(event.get("cwd", ".")) / path
-    if not path.is_file() or _config_dir(path) is None:
+    cfg_dir = _config_dir(path)
+    if not path.is_file() or cfg_dir is None:
         return 0
+    if "review" in path.resolve().relative_to(cfg_dir.resolve()).parts[:-1]:
+        return 0  # round notes and summaries (review/<date>/) are not the paper
 
     src = path.read_text(encoding="utf-8")
     cfg = lint.load_config(path)

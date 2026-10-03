@@ -5,14 +5,13 @@ accepted. The pairs are invented, modelled on real reviews of LLM-assisted paper
 follow one imaginary physics paper (atoms in an optical lattice coupled to a phonon
 bath), a few come from other fields.
 
-These pairs, and the paper's own `style_examples.md`, carry paperlint's sense of style.
+These pairs, and the house style in `style.md`, carry paperlint's sense of style.
 Read them before drafting and match the accepted versions in tone and density. They are
 examples, not rules: a pair shows what one reader objected to, and what a scientist
-wrote instead. When a pair and the paper's `style_examples.md` disagree, the paper's
-examples win.
+wrote instead. Where a pair flags a pattern, avoid it even if a house-style paragraph
+happens to contain it.
 
-New author corrections about style are added here (or to `style_examples.md`) as a
-pair, never as a rule.
+New corrections about style are added here as an anonymised pair, never as a rule.
 
 ---
 
@@ -294,6 +293,15 @@ generality of the coupling and the roadmap of the tests *("out of place", "this
 transition paragraph has to be rewritten; add a subsection, e.g. Remarks")*. The
 remarks moved to their own paragraph; the transition kept the four short parts.
 
+**Flagged later, by the senior author:** the "Remarks" subsection itself, struck
+except for the zero-point paragraph *("this is an important comment that should be
+brought back to earlier parts of the section, right after we talk about the noise. it
+also needs a contextualization: why this remark matters?")*. **Accepted:** the
+zero-point remark follows the noise kernel and says what it changes ("In the TWA of a
+closed system the quantum fluctuations sit only in the initial state ... Here
+coth(ω/2T) tends to one, not to zero, at T = 0"); the remarks on the truncation error
+and on non-harmonic baths moved to the appendix that derives them.
+
 ## Method explained top-down
 
 **Flagged:** a five-step method that computes the kernels in step 2, the noise in step 3
@@ -303,6 +311,54 @@ equation first, and then describe each term")*.
 **Accepted:** the method opens with the Langevin equation of the atoms, then explains
 its three terms (the dynamics without phonons, the noise, the memory integral), each
 with its equation and reason, and ends with the procedure as a short list.
+
+**Flagged later, by the senior author:** the same equation "arrives too quickly ...
+first help the reader digest the key actors", and the sentences after it "cryptic":
+the reader "will have to believe based on physical intuition and common sense that this
+is the right equation and appreciate it term by term".
+
+**Accepted:** "Once the phonons are integrated out, they act on each atom through a
+force with two parts. The first is the reaction of the lattice: the atom displaced it
+at earlier times, and it pushes back with the delay of its own response, the memory
+kernel K. The second is the noise ξ, the fluctuations the thermal lattice has on its
+own." Then the equation, then each term in one or two sentences with its physical
+reason; the derivation is a pointer to the appendix.
+
+## Only the part of a known method the paper uses
+
+**Flagged:** a paragraph that explains the whole truncated Wigner method (classical
+variables, Weyl symbols, Poisson brackets) after the equation of motion already gave
+the dynamics *("the only aspect of TWA we have to cover is the sampling of the initial
+condition ... the reader does not need to be overflown with technical details")*.
+
+**Accepted:** the paragraph says only how the initial conditions are drawn and why
+that keeps the quantum fluctuations, in words a newcomer follows, with the details in
+an appendix and the original references.
+
+## Recovering a known limit
+
+**Flagged:** a paragraph of rates, frames and delta functions showing that the method
+reduces to an earlier one *("too technical to appear at this stage ... contains
+intuition based on our eq; contains elementary connections between open quantum
+systems and the Lindblad limit; convince the reader")*.
+
+**Accepted:** "If J is flat around ω₀, the bath responds without delay on the time
+scales of the system, and the force reduces to a damping at half the golden-rule rate
+plus a white noise." (A first draft had "the bath cannot tell when the system pushed
+it", which a reviewer flagged as anthropomorphic; see that pair.) Then the emission and absorption rates and the
+detailed balance any reader of the field knows, and the agreement with the earlier
+method in one sentence; the delta functions and the frame went to the appendix.
+
+## Words that clash with a nearby meaning
+
+**Flagged:** "where the overline is the average over trajectories, each with its own
+noise", a paragraph before the text explains that trajectories differ by their sampled
+initial conditions *("the reader may think at this point that trajectories are those of
+TWA initial state sampling and have a mental clash!")*.
+
+**Accepted:** "where the overline denotes the average over realisations of the noise",
+and, where the sampling is introduced, "Each trajectory draws its own initial condition
+and its own realisation of the noise".
 
 ## Contribution framed as someone else's plan
 
