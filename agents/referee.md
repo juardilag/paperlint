@@ -52,3 +52,7 @@ A list ordered by position. For each finding: `line N`, severity **must fix** (w
 a limitation without its consequence) / **should fix** / **consider**, the quoted words,
 your objection in one or two sentences as a referee would write it, and what settles it
 or the fix. End with one sentence: would you accept the section's claims as stated?
+
+Any wording you propose follows the house style (`style.md`) and the accepted
+versions in `examples.md` of the scientific-writing skill, and never repeats a
+flagged version there.

@@ -10,15 +10,14 @@ Revise one section and stop. Two jobs, kept apart:
   and fix each with the smallest edit. This is where paperlint is reliable.
 - **Rewriting** (only with `--rewrite`, or when the user asks for it): a fresh draft of
   the section from a paragraph plan the author approved, matched to the paper's
-  `style_examples.md`, kept only if the `compare` agent prefers it. Prose is never
+  house style (`style.md`), kept only if the `compare` agent prefers it. Prose is never
   improved by rounds of patches.
 
 ## Before starting
 
-1. Load the `scientific-writing` skill and read `rules.md`, `examples.md`, and the
-   paper's `style_examples.md` (if it is missing, ask the user for two or three
-   published papers whose writing they admire and run the `setup` step that builds it;
-   without it, do not rewrite, only check).
+1. Load the `scientific-writing` skill, read `rules.md`, and apply its style procedure
+   (both example sets in full, the style brief, the check of every change, blind
+   comparison of rewritten paragraphs) with the house style `style.md`.
 2. Read `paperlint.toml`, `glossary.toml`, `CLAUDE.md` and `paperlint_ledger.md` in the
    paper directory (create the ledger if missing). Author decisions in the ledger and
    in `CLAUDE.md` are not reopened, except a correctness question, which a decision on
@@ -77,12 +76,12 @@ derivation, and then only on what changed.
    user and wait. Nothing is rewritten before the author approves the plan; their
    changes to it are content decisions.
 2. **Draft once**, from the approved plan, the checked facts and the paper's
-   `style_examples.md`, matching those examples in how sentences run and how claims and
+   house style (`style.md`), matching its examples in how sentences run and how claims and
    numbers are introduced. Write the whole section fresh; do not edit the old text
    sentence by sentence. Keep every decision in `CLAUDE.md` and the ledger (search both
    for every citation and claim of the new text).
 3. **Compare.** Give the `compare` agent the old and the new version of each paragraph
-   as A and B in random order, with two or three paragraphs of `style_examples.md`.
+   as A and B in random order, with two or three paragraphs of `style.md`.
    Keep a new paragraph only if it wins and makes the same claims; otherwise keep the
    old one, or show both to the user when the compare agent calls it a tie.
 4. **Check** the kept text as above, with minimal edits only.
@@ -99,5 +98,5 @@ derivation, and then only on what changed.
 - The lint result and whether the paper compiles.
 
 An author correction about content goes to `CLAUDE.md` or `glossary.toml`; one about
-style becomes a before/after pair in `style_examples.md` (this paper) or `examples.md`
-(general), never a rule.
+style becomes a before/after pair in `examples.md`, anonymised, never a rule; a
+preference of this paper only goes to `CLAUDE.md`.

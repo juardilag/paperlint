@@ -11,9 +11,9 @@ the plan; the command supplies a draft, the references and the checks.
 
 1. From `$ARGUMENTS`, identify the file, the kind of text and where it goes. The rest
    is the author's brief: the ideas, results, equations, figures and sources.
-2. Load the `scientific-writing` skill. Read `rules.md`, `examples.md`, the paper's
-   `style_examples.md` (if it is missing, ask for two or three published papers whose
-   writing the authors admire, and build it as in the `setup` skill), and the project
+2. Load the `scientific-writing` skill and apply its style procedure (both example
+   sets in full, the style brief, the check of every change, blind comparison). Read
+   `rules.md`, the house style `style.md`, and the project
    files (`paperlint.toml`, `glossary.toml`, `CLAUDE.md`, `paperlint_ledger.md`).
 3. Read the whole paper and update `paperlint_map.md`. The new text uses the paper's
    notation and terms, does not repeat other sections, and fits between its
@@ -32,13 +32,14 @@ ask about wording.
 
 One line per paragraph: the claim it makes and the evidence it rests on (equation,
 figure, number with its source, reference), in the order of the argument. A method
-section shows its central equation first and the most general form the derivation
-supports (rules.md, sections 5 and 6). Show the plan and wait for approval, unless the
+section shows its central equation early, in the most general form the derivation
+supports (rules.md, sections 5 and 6), after one or two sentences that name its
+actors in words, so the reader meets each symbol already knowing what it does. Show the plan and wait for approval, unless the
 arguments contain `--no-confirm`. The plan is where the author shapes the text.
 
 ## 4. Draft once
 
-- Write the text from the approved plan, matching `style_examples.md` in how
+- Write the text from the approved plan, matching the house style (`style.md`) in how
   sentences run and how claims and numbers are introduced. Do not write toward
   checklists or word counts.
 - Use the paper's notation and terms; a new symbol or term goes into the glossary only

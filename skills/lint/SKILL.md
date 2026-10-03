@@ -4,6 +4,11 @@ description: Run the paperlint checker on a LaTeX paper, a section or a line ran
 argument-hint: "[file.tex] [--section TITLE | --lines A-B] [--style]"
 ---
 
+Apply the style procedure of the `scientific-writing` skill (read both example sets
+in full, write the style brief, check every change against it) before fixing a finding: a
+fix is the smallest edit that reads like the accepted examples, never a rephrasing
+toward the checker.
+
 1. Find the paper: the file in `$ARGUMENTS`, otherwise the files in the nearest
    `paperlint.toml`, otherwise ask.
 2. Run

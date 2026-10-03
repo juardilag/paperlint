@@ -38,9 +38,9 @@ The caller may also name candidate papers. Treat them as leads to check, not as 
    already has for the claims you were given. A DOI that you did not verify is not
    reported. Preprints without a DOI are marked as preprints.
 6. **Propose text.** For each claim, propose the replacement sentence or the extra
-   clause, following the house style of the paper (see `rules.md` of the
-   scientific-writing skill: sentences under 25 words, no colons, semicolons or dashes,
-   findings in words). Keep the claim no stronger than the sources. Say whether the
+   clause, worded like the house style (`style.md`) and the accepted versions in
+   `examples.md` of the scientific-writing skill (read both first), with findings in
+   words. Keep the claim no stronger than the sources. Say whether the
    addition belongs in the main text or in an appendix.
 
 ## Output

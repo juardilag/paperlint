@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create paperlint.toml, glossary.toml and style_examples.md for a paper (never overwrites).
+"""Create paperlint.toml and glossary.toml for a paper (never overwrites).
 
 Usage: init_project.py [paper_dir] [--main main.tex] [--bib refs.bib]
 """
@@ -33,7 +33,7 @@ def main(argv=None) -> int:
         bibs = sorted(p.name for p in d.glob("*.bib"))
         bib = bibs[0] if bibs else "refs.bib"
 
-    for name in ("paperlint.toml", "glossary.toml", "style_examples.md"):
+    for name in ("paperlint.toml", "glossary.toml"):
         dst = d / name
         if dst.exists():
             print(f"kept existing {dst}")
@@ -45,7 +45,7 @@ def main(argv=None) -> int:
         dst.write_text(text)
         print(f"wrote {dst}")
     print(f"main file: {main_tex}, bibliography: {bib}")
-    print("Next: fill style_examples.md with paragraphs from papers you admire, edit glossary.toml, then run lint.py.")
+    print("Next: edit glossary.toml, then run lint.py.")
     return 0
 
 

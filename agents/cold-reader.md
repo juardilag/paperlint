@@ -27,6 +27,10 @@ do not raise a settled finding again unless its text changed.
   referee of the field would ask for;
 - a jump: a quantity or claim you were not prepared for, a "therefore" without a
   reason;
+- a remark whose purpose at that point you could not see ("why is this here?");
+- a sentence you could follow only by opening an appendix, its table or its
+  equation;
+- a displayed equation whose symbols arrive before you know what each does;
 - in a derivation, the first place you could not follow from one equation to the
   next.
 
@@ -39,3 +43,7 @@ At most **five** findings, the ones that cost you most, ordered by position. For
 `line N`, the quoted words, and your question in one sentence, as a reader would ask
 it. No suggested rewrite; at most say what was missing (a definition, a reason, a
 pointer). If you got lost nowhere, say so in one line. That is a valid result.
+
+Any wording you propose follows the house style (`style.md`) and the accepted
+versions in `examples.md` of the scientific-writing skill, and never repeats a
+flagged version there.
