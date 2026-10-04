@@ -50,6 +50,16 @@ depends on the past of the atom over the phonon correlation time. For a phonon b
 a flat spectral density this memory vanishes, and the equation of Ref. [12] is
 recovered."
 
+**Flagged:** an opening that states what memory does, then describes how the earlier
+method works, and only in its last sentence says that this method has no memory
+*(Author: "the first paragraph is strange ... only at the end of the paragraph you
+talk about that it has no memory")*.
+
+**Accepted:** the point, then the earlier method with its limitation in the same
+sentence ("... describes neither, because it starts from a Lindblad equation, in which
+the bath has no memory"), then how the earlier method works. The limitation comes right
+after the method it limits, not after its details.
+
 ## Colloquial metaphor, anthropomorphism
 
 **Flagged:** "the time over which the lattice remembers its past"
@@ -348,6 +358,18 @@ plus a white noise." (A first draft had "the bath cannot tell when the system pu
 it", which a reviewer flagged as anthropomorphic; see that pair.) Then the emission and absorption rates and the
 detailed balance any reader of the field knows, and the agreement with the earlier
 method in one sentence; the delta functions and the frame went to the appendix.
+
+## Quantum statements in quantum terms
+
+**Flagged:** the opening of the method section of a semiclassical method, "A bath with
+memory acts on a system through a force with two parts, a delayed reaction to the past
+of the system and fluctuations correlated in time." *(Author: "This is a semiclassical
+view, but we are working with quantum systems")*
+
+**Accepted:** "A bath with memory ties a quantum system to its own past. The bath
+responds to what the system did at earlier times, and its quantum fluctuations stay
+correlated over a finite time." The words of the approximation (force,
+trajectory, classical variable) appear only once the text makes the approximation.
 
 ## Words that clash with a nearby meaning
 
