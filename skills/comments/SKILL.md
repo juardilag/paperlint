@@ -55,6 +55,10 @@ that belongs to the round and nothing the build needs:
 | `diff.pdf` | the changes, from `latexdiff` |
 | `summary.pdf` (and its `.tex`) | the one-page summary of the round |
 
+The folder is local: it is never committed. On the first round, add `review/` to the
+paper repository's `.git/info/exclude` (local to the clone, no tracked file changes),
+and never `git add` it; if the paper has no git repository, nothing is needed.
+
 When the round is finished the folder can be deleted or archived; what must outlive it
 goes into the project files (step 6.4).
 

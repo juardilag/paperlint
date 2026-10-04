@@ -680,8 +680,9 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 excerpt_at(ea, eb))
 
     # Acronyms: the first use must be a definition "... (ACR)", or listed as known.
+    # A single lower-case prefix counts (dTWA, mRNA); one capital alone does not (kHz).
     seen: set[str] = set()
-    for mt in re.finditer(r"(?<![A-Za-z\-])([A-Z][A-Za-z0-9]*[A-Z](?:-[A-Z]+)*)s?(?![A-Za-z])",
+    for mt in re.finditer(r"(?<![A-Za-z\-])([a-z]?[A-Z][A-Za-z0-9]*[A-Z](?:-[A-Z]+)*)s?(?![A-Za-z])",
                           masked):
         tok = mt.group(1)
         if sum(c.isupper() for c in tok) < 2 or tok in seen:

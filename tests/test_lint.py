@@ -189,6 +189,11 @@ class Acronyms(unittest.TestCase):
     def test_used_before_defined(self):
         self.assertIn("PL011", codes("The GPU is fast."))
 
+    def test_lowercase_prefix_acronym(self):
+        self.assertIn("PL011", codes("We sample from the distribution of dTWA here."))
+        self.assertNotIn("PL011", codes("The discrete method (dTWA) samples. The dTWA works."))
+        self.assertNotIn("PL011", codes("The signal at 5 kHz and 3 mW is weak."))
+
     def test_known_acronym(self):
         cfg = lint.Config(known_acronyms={"GPU"})
         self.assertNotIn("PL011", codes("The GPU is fast.", cfg))
