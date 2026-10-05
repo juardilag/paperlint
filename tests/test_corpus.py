@@ -73,6 +73,21 @@ class Blind(unittest.TestCase):
             self.assertAlmostEqual(blindtest.score(w), 0.75)
 
 
+class Budget(unittest.TestCase):
+    def test_sections_get_their_jobs(self):
+        words = " ".join(["word"] * 50) + ". Second. Third."
+        tex = (r"\begin{document}\section{Introduction}" + "\n\n" + words +
+               r"\section{Method}\subsection{Recipe}" + "\n\n" + words +
+               r"\section{Results}\subsection{A test}" + "\n\n" + words +
+               r"\appendix\section{Numerical performance}" + "\n\n" + words + r"\end{document}")
+        rows = {r["title"]: r for r in blindtest.section_lengths(tex)}
+        self.assertEqual(rows["Introduction"]["job"], "intro")
+        self.assertEqual(rows["Recipe"]["job"], "method")      # a subsection takes its section's job
+        self.assertEqual(rows["A test"]["job"], "results")
+        self.assertEqual(rows["Numerical performance"]["job"], "appendix")
+        self.assertEqual(rows["Recipe"]["level"], 1)
+
+
 class Learn(unittest.TestCase):
     def test_pairs_only_real_changes(self):
         old = "The noise is white. It has no memory.\n\nWe test it. It works well."

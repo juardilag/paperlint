@@ -1,6 +1,6 @@
 ---
 name: scientific-writing
-description: Procedure, rules and tools for writing or revising scientific papers so the text is correct, consistent, supported by its data, and reads like the published prose of J. Marino, H. Hosseinabadi and M. Stefanini (paperlint's house style, learned from a corpus of their real paragraphs). Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
+description: Procedure, rules and tools for writing or revising scientific papers so the text is correct, consistent, supported by its data, and reads as a physicist wrote it (human-like prose, learned from a corpus of real published paragraphs and from the authors' own edits). Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
 ---
 
 # Writing scientific papers
@@ -9,7 +9,7 @@ paperlint does two jobs and keeps them apart. **Checking** finds what is wrong:
 undefined terms, inconsistent notation, numbers that do not match their data, claims
 stronger than the evidence, limitations without their consequence. It fixes each with
 the smallest edit. **Drafting** writes prose, and learns how from real paragraphs of the
-house style, never from rules or from its own earlier drafts.
+published papers, never from rules or from its own earlier drafts.
 
 The measure of the prose is the blind test (`/paperlint:blindtest`): a judge that does
 not know which is which tries to tell the paper's paragraphs from held-out published
@@ -19,14 +19,15 @@ writes is kept only if it lowers that score.
 Files in this skill's directory:
 - `rules.md`: the correctness rules. Read all of it once per session.
 - `examples.md`: the tells of generated prose, and what real readers objected to.
-- `style.md`: a short description of the house style and a few verbatim paragraphs,
+- `style.md`: a short description of the target prose and a few verbatim paragraphs,
   the fallback when the corpus is missing.
 - `corpus_ids.txt`: the papers of the corpus.
 - `scripts/corpus.py`: builds the corpus in `~/.paperlint/corpus` and retrieves real
   paragraphs by the job they do (abstract, opening, intro, method, results, appendix,
   conclusion, caption).
 - `scripts/blindtest.py`: makes and scores the blind test; `stats` prints per-section
-  diagnostics against the corpus.
+  diagnostics against the corpus; `budget` gives every section its length budget from
+  the corpus.
 - `scripts/learn.py`: records an author's hand edits as pairs in the paper's
   `author_edits.md`.
 - `scripts/lint.py`: the checker (errors only; `--style` adds notes nobody has to
@@ -90,6 +91,25 @@ smallest edit in the sentence that has the error.
 Never add a sentence to answer a finding when a clause does it, and never answer a
 reader's "why?" in the main text unless the argument needs the answer there; the
 mechanism goes to an appendix, or nowhere.
+
+## Length
+
+Every section has a length budget from the corpus (`blindtest.py budget <file>`): the
+median length of real sections that do the same job, with the upper quartile as the
+limit. Every command that writes or redrafts reads it first.
+
+- A section stays within its limit. Every command that adds text to a section checks
+  the budget again afterwards; a check never ends with a section longer than it started,
+  unless the authors asked for new content.
+- A section over its limit has too many ideas for its job. The remedy is an author
+  decision: list the section's ideas, propose which go to an appendix and which go
+  entirely, and ask. A derivation appendix may run long if every step is needed; say
+  so rather than cut a step.
+- Never meet a budget by compressing. Squeezing the same ideas into fewer words gives
+  the fact-packed sentences the blind test catches first. Fewer ideas, each at the
+  pace of the retrieved paragraphs, is how published prose stays short.
+- When drafting, a paragraph is as long as the retrieved models doing the same job,
+  not as short as the facts allow.
 
 ## Checking
 

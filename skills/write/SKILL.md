@@ -29,6 +29,10 @@ ask about wording.
 
 ## 3. Plan, and wait
 
+Run `blindtest.py budget <file>`, and take the median length of real sections with the
+job of the new text as its target, the upper quartile as its limit. A brief with more
+ideas than fit goes back to the author with a proposal of what to move to an appendix.
+
 One line per paragraph: the job it does (opening, method, results, appendix,
 conclusion, caption), the claim it makes and the evidence it rests on (equation,
 figure, number with its source, reference), in the order of the argument. A method
@@ -58,7 +62,7 @@ agents, and minimal fixes. Compile and look at the rendered pages.
 
 ## Report
 
-- Where the text went and its length; the approved plan, and any departure from it.
+- Where the text went and its length against its budget; the approved plan, and any departure from it.
 - The references added, each with what it supports; claims presented as new.
 - Every number with its source.
 - The check report: errors fixed, rejected findings, author decisions.

@@ -4,6 +4,7 @@
     blindtest.py make  PAPER.tex [-n 10] [--seed S] [--section TITLE]  -> a work dir
     blindtest.py score WORKDIR                                          -> separation (AUC)
     blindtest.py stats PAPER.tex                                        -> fingerprints
+    blindtest.py budget PAPER.tex                                       -> length per section
 
 `make` mixes n paragraphs of the paper with n held-out paragraphs of the corpus
 (`corpus.py`), shuffled, into WORKDIR/blind.md, and keeps the key in WORKDIR/key.json.
@@ -15,6 +16,12 @@ they always can. Use the same seed to compare two versions of a text.
 `stats` prints per section the measures that separated the two in the first test
 (sentence length, "we", because/so, colons and dashes, parentheses). They are a
 diagnostic of where to look, never targets to write toward.
+
+`budget` gives each section and subsection its length budget from the corpus: the
+median length of real (sub)sections that do the same job (method, results, appendix,
+...), with the upper quartile as the limit. A section over its limit has too many
+ideas for its job; the remedy is to move or cut ideas, which is the authors' decision,
+never to compress the same ideas into fewer words.
 """
 from __future__ import annotations
 
@@ -141,6 +148,54 @@ def stats(tex: Path) -> None:
               f"{m['so/because']:8.1f}{m['colon+dash']:9.1f}{m['paren']:7.1f}")
 
 
+def corpus_lengths() -> dict[str, list[int]]:
+    """Words per real (sub)section, by job."""
+    size: dict[tuple, int] = {}
+    for r in corpus.load():
+        if r["job"] not in ("abstract", "caption"):
+            job = "intro" if r["job"] == "opening" else r["job"]
+            key = (r["arxiv"], job, r["section"] or job)
+            size[key] = size.get(key, 0) + r["words"]
+    out: dict[str, list[int]] = {}
+    for (_, job, _), n in size.items():
+        out.setdefault(job, []).append(n)
+    return {j: sorted(v) for j, v in out.items()}
+
+
+def section_lengths(tex: str) -> list[dict]:
+    """Prose words of every (sub)section, with the job of its top-level section."""
+    parts = re.split(r"(\\appendix\b|\\(?:sub)*section\*?\{[^}]*\})", tex_body(tex))
+    rows, top, appendix, cur = [], "", False, None
+    for part in parts:
+        head = re.match(r"\\((?:sub)*)section\*?\{([^}]*)\}", part)
+        if part == "\\appendix":
+            appendix = True
+        elif head:
+            level, title = head.group(1).count("sub"), head.group(2)
+            if level == 0:
+                top = title
+            job = "appendix" if appendix else corpus.job_of(top, "S", False)
+            cur = dict(title=title, level=level, job="intro" if job == "opening" else job, words=0)
+            rows.append(cur)
+        elif cur is not None:
+            cur["words"] += sum(len(p.split()) for p in paragraphs(part, 1, 10**6))
+    return [r for r in rows if r["words"] >= 40]
+
+
+def budget(tex: Path) -> list[dict]:
+    ref = corpus_lengths()
+    print(f"{'section':44s}{'job':>11s}{'words':>7s}{'median':>8s}{'limit':>7s}")
+    rows = section_lengths(tex.read_text())
+    for r in rows:
+        v = ref.get(r["job"], [])
+        r["median"] = statistics.median(v) if v else 0
+        r["limit"] = v[3 * len(v) // 4] if v else 0
+        flag = "OVER: cut or move ideas" if r["words"] > r["limit"] else ""
+        name = ("  " * r["level"] + r["title"])[:43]
+        print(f"{name:44s}{r['job']:>11s}{r['words']:7d}{r['median']:8.0f}{r['limit']:7d}  {flag}")
+    return rows
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -153,11 +208,15 @@ def main() -> None:
     s.add_argument("work", type=Path)
     t = sub.add_parser("stats")
     t.add_argument("tex", type=Path)
+    b = sub.add_parser("budget")
+    b.add_argument("tex", type=Path)
     a = ap.parse_args()
     if a.cmd == "make":
         make(a.tex, a.n, a.seed, a.section)
     elif a.cmd == "score":
         score(a.work)
+    elif a.cmd == "budget":
+        budget(a.tex)
     else:
         stats(a.tex)
 

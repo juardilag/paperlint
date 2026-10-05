@@ -1,6 +1,6 @@
 ---
 name: learn
-description: Record the authors' own edits of the paper as before/after pairs, so paperlint imitates how the authors write. Diffs the .tex against a git revision sentence by sentence and appends the changed passages to author_edits.md next to the paper. Use after an author edited the text by hand, or when the user says "learn from my edits".
+description: "Record the authors' own edits of the paper as before/after pairs, so paperlint imitates how the authors write. Diffs the .tex against a git revision sentence by sentence and appends the changed passages to author_edits.md next to the paper. Use after an author edited the text by hand, or when the user says 'learn from my edits'."
 argument-hint: "<file.tex> [--rev HEAD] [--who <name>]"
 ---
 

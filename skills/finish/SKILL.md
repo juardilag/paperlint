@@ -60,5 +60,7 @@ against the text's terms, unresolved references, the order of floats.
 - Errors found (signs, factors, numbers, wrong claims), listed first.
 - Changes at the level of the whole paper, with before and after.
 - The bibliography result.
+- The `budget` table: every section's length against its median and limit, and for
+  each section over its limit, the ideas proposed to move or cut (author decisions).
 - The blind-test separation (AUC) before and after, with the same seed.
 - Author decisions, each as one question with a recommendation, ordered by impact.

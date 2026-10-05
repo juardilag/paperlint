@@ -7,9 +7,8 @@ than the evidence, limitations without their consequence, incomplete derivations
 captions that do not reproduce their figure, and fixes each with the smallest edit.
 
 The prose belongs to the authors. paperlint does not rewrite text in rounds toward a
-checklist, because that is what makes text read as generated. When asked to rewrite, it
-drafts once from a paragraph plan the author approved, in paperlint's house style
-(the prose of J. Marino, H. Hosseinabadi and M. Stefanini), and keeps the new version only if a blind comparison prefers it.
+checklist, because that is what makes text read as generated. When it writes, it aims
+for prose that reads as a physicist wrote it, and it measures whether it got there.
 
 ## Install
 
@@ -35,27 +34,37 @@ behind every figure. Then set the reader:
 audience = "PRB: cold atoms and condensed-matter theory"
 ```
 
-## House style
+## Human-like writing
 
-paperlint writes in one style, built in and the same for every paper: the prose of
-Jamir Marino, Hossein Hosseinabadi and Martino Stefanini. It learns the style from
-their real paragraphs, not from rules. `corpus.py build` fetches 25 of their papers
-(listed in `skills/scientific-writing/corpus_ids.txt`) into `~/.paperlint/corpus`,
-outside the repository, and labels each paragraph by its job: opening, method,
-results, appendix, conclusion or caption. Before writing a paragraph, paperlint
-retrieves three real paragraphs that do the same job, lists the facts the paragraph
-must carry, and drafts from those alone, without looking at the old wording.
+paperlint learns how to write from published physics papers, not from style rules.
+`corpus.py build` fetches a set of well-written papers (listed in
+`skills/scientific-writing/corpus_ids.txt`) into `~/.paperlint/corpus`, outside the
+repository, and labels each paragraph by its job: opening, method, results, appendix,
+conclusion or caption. Before writing a paragraph, paperlint lists the facts it must
+carry, retrieves three real paragraphs that do the same job, and drafts from those
+alone, without looking at the old wording. It may add what published paragraphs are
+full of and fact lists lack: how a paragraph follows from the previous one, what a
+result means, a remark that guides the reader. It never adds a claim.
 
 Your own edits teach it too: after you rewrite Claude's text by hand, run
 `/paperlint:learn`, and the before/after pairs go to `author_edits.md`, which every
-draft reads.
+draft reads. This is the strongest signal paperlint has, because your text is the
+voice the paper should have.
+
+Length is set the same way. `blindtest.py budget` gives every section a budget: the
+median length of published sections that do the same job, with the upper quartile as
+the limit. A section over its limit has too many ideas; paperlint proposes which to
+move to an appendix or cut, and you decide. It never meets a budget by compressing the
+same ideas into fewer words, which is what makes generated text dense.
 
 The result is measured, not assumed. `/paperlint:blindtest` mixes paragraphs of your
-paper with held-out published ones, and a blind judge labels each as human or
-generated, each on its own. The score is the separation (AUC): 0.5 means the paper
-cannot be told from published prose, 1.0 that it always can. Text written with
-paperlint 0.7 scores 1.0, and a control of two groups of published authors scores at
-chance, so the test measures generated prose, not a change of author.
+paper with held-out published ones, and a blind judge gives each, on its own, a
+probability of being written by a person. The score is the separation (AUC): 0.5 means
+your paragraphs cannot be told from published prose, 1.0 that they always can. A
+control with two groups of published authors scores at chance, so the test measures
+generated prose, not a change of author. Text drafted by a language model still
+scores high on it, which is why paperlint works best when the authors write the key
+paragraphs and paperlint checks them.
 
 ## Commands
 
