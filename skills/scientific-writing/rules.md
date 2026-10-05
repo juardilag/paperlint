@@ -1,12 +1,13 @@
 # Rules for scientific writing
 
 These rules are about **correctness and clarity**, which a checker can enforce. They
-are deliberately few. **Style is not a rule.** It comes from paperlint's house style, `style.md` (the published
-prose of J. Marino, H. Hosseinabadi and M. Stefanini), and from reviewers' corrections
-in `examples.md`. Style rules applied
-mechanically (sentence-length caps, punctuation bans, banned openers) make prose read
-as generated, so paperlint does not enforce them; `lint.py --style` still offers them
-as notes for an author who wants to read them.
+are deliberately few. **Style is not a rule.** It is learned from real paragraphs of the
+house style (the corpus, `scripts/corpus.py`) and from the authors' own edits
+(`author_edits.md`), and it is measured by the blind test. Style rules applied
+mechanically (sentence-length caps, punctuation bans, banned openers, "join sentences
+with because", "open every paragraph with its claim") are what made earlier drafts read
+as generated, so paperlint has none; `lint.py --style` still offers notes for an author
+who wants to read them.
 
 The authors own the prose. A paragraph the authors wrote or approved is changed only to
 fix an error, with the smallest edit that fixes it, unless they ask for a rewrite.
@@ -102,9 +103,12 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - A rule is added only for an error a checker or a reader can verify, never for
   taste. Before a rule is added, find the rule it overlaps and merge them; this file
   does not grow by more than it shrinks without a reason.
-- An author correction about style becomes a before/after pair in `examples.md` (or
-  anonymised, or to the paper's `CLAUDE.md` if it concerns one paper), not a rule.
-  The house style itself is not changed by a paper's authors.
+- An author's edit of the prose is recorded as a pair with `/paperlint:learn`, not
+  as a rule. A reviewer's remark about style becomes an objection in `examples.md`,
+  with their words and no invented rewrite. The house style itself is not changed by a
+  paper's authors.
+- A change to how paperlint writes is kept only if the blind test on a fixed sample
+  (same paper, same seed) does not get worse.
 - An author correction about content goes to the paper's `CLAUDE.md` or
   `glossary.toml`.
 
@@ -119,13 +123,13 @@ What belongs:
 - **The evidence map**: for each figure, table and quoted number, the script, the data
   and the command that regenerate it, and where heavy runs are executed.
 - **Build**: how to compile, and any setting a command must not change.
-- **Review status**: which sections are revised, and the open author items, each one
-  line pointing to the ledger.
+- **Review status**: which sections are revised, and the open author items, one line
+  each.
 
-What does not belong: terminology (`glossary.toml`), settled findings
-(`paperlint_ledger.md`), lint settings and the audience (`paperlint.toml`), the map of
-sections and symbols (`paperlint_map.md`), style (`style.md` and `examples.md`, in the plugin), and anything
-the paper, the code or the git history already states.
+What does not belong: terminology (`glossary.toml`), lint settings and the audience
+(`paperlint.toml`), the history of findings (git and the reports), a map of the paper
+(rebuilt from the text every run), style (the corpus and `author_edits.md`), and
+anything the paper, the code or the git history already states.
 
 Form: one checkable instruction per line or bullet; objects named by label, not
 number; entries replaced, never duplicated; a later co-author comment that contradicts

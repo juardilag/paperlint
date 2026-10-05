@@ -26,14 +26,16 @@ Set up paperlint for one paper.
      script that writes it and the data it reads (search the repository for the file
      name and for the save calls), and the command that regenerates it; ask the user
      only for what the search cannot settle, such as where heavy runs are executed;
-   - decisions and required content: collect them from the ledger (author decisions),
-     from review files and annotated PDFs in the directory, and from the user, each
+   - decisions and required content: collect them from an old `paperlint_ledger.md`
+     if one exists (author decisions only; then offer to delete it), from review files and annotated PDFs in the directory, and from the user, each
      with who, when and why;
    - build: the compile command and any preamble settings the commands rely on;
-   - review status: from the ledger, if it exists.
+   - review status: from the user.
    If a `CLAUDE.md` already exists, do not rewrite it. Check it against section 11 and
    report, entry by entry, what to keep, move to another project file, merge, update or
    delete. Show the proposal and write only what the user agrees to.
-5. Run the linter once on the whole paper and report the errors it finds, so the user
+5. Check that the house-style corpus exists (`corpus.py jobs`); if not, build it
+   (`corpus.py build`, a few minutes, needs network).
+6. Run the linter once on the whole paper and report the errors it finds, so the user
    sees the starting point. Style notes are available with `--style` but are not
    targets.

@@ -4,9 +4,9 @@ description: Find, read and quote the sources behind claims in a paper, verify t
 argument-hint: "<file.tex> <line range, section, or the claims to check>"
 ---
 
-Support claims with sources that were actually read. Apply the style procedure of the `scientific-writing` skill (read both example sets
-in full, write the style brief, check every change against it) for every sentence
-proposed or inserted.
+Support claims with sources that were actually read. A sentence proposed or inserted is a clause worded like the
+sentences around it; a passage of several sentences uses the drafting procedure of the
+`scientific-writing` skill.
 
 1. Identify the paper and the claims from `$ARGUMENTS`. A claim is a quoted sentence
    with its line, a "says who?" finding from `/paperlint:review`, or a question such as

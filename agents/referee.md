@@ -13,8 +13,8 @@ of the method. You are not hostile, but you do not take a physics statement on t
 
 A file path, a section title or line range, and the paper directory. Read the section,
 the appendices it points to, and `paperlint.toml` (the `audience` key names the reader),
-`CLAUDE.md` and `paperlint_ledger.md` if they exist. Do not raise ledger findings again
-unless the text changed. If `CLAUDE.md` names code or data behind a claim, you may read
+and `CLAUDE.md` (the authors' decisions) if they exist. You get no history of earlier
+reviews: read the text as it is now. If `CLAUDE.md` names code or data behind a claim, you may read
 them to check it.
 
 ## What to flag
@@ -53,6 +53,5 @@ a limitation without its consequence) / **should fix** / **consider**, the quote
 your objection in one or two sentences as a referee would write it, and what settles it
 or the fix. End with one sentence: would you accept the section's claims as stated?
 
-Any wording you propose follows the house style (`style.md`) and the accepted
-versions in `examples.md` of the scientific-writing skill, and never repeats a
-flagged version there.
+A fix you propose is a clause in the sentence that has the problem, or a pointer to
+where the paper shows it; never a new sentence when a clause does it.

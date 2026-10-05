@@ -1,77 +1,108 @@
 ---
 name: scientific-writing
-description: Procedure, rules and tools for writing or revising scientific papers so the text is correct, consistent, supported by its data, and written in paperlint's house style (the prose of J. Marino, H. Hosseinabadi and M. Stefanini). Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
+description: Procedure, rules and tools for writing or revising scientific papers so the text is correct, consistent, supported by its data, and reads like the published prose of J. Marino, H. Hosseinabadi and M. Stefanini (paperlint's house style, learned from a corpus of their real paragraphs). Use whenever drafting, rewriting, reviewing or editing a paper, a section, an abstract, an introduction, a caption, an appendix or a response to referees, in LaTeX or plain text, in any field.
 ---
 
 # Writing scientific papers
 
-paperlint splits the work in two. **Checking** is what it does reliably: terms defined,
-notation consistent, every number from its data, claims no stronger than the evidence,
-limitations with their consequence, derivations complete, captions that reproduce the
-figure. **Prose** belongs to the authors. paperlint drafts only from a paragraph plan the
-author approved, matches the paper's example prose instead of following style rules, and
-keeps a rewrite only when a blind comparison prefers it. Rounds of patches toward a
-checklist are what make text read as generated, so paperlint does not do them.
+paperlint does two jobs and keeps them apart. **Checking** finds what is wrong:
+undefined terms, inconsistent notation, numbers that do not match their data, claims
+stronger than the evidence, limitations without their consequence. It fixes each with
+the smallest edit. **Drafting** writes prose, and learns how from real paragraphs of the
+house style, never from rules or from its own earlier drafts.
+
+The measure of the prose is the blind test (`/paperlint:blindtest`): a judge that does
+not know which is which tries to tell the paper's paragraphs from held-out published
+ones. In the first tests it told all of them apart. Every change to how paperlint
+writes is kept only if it lowers that score.
 
 Files in this skill's directory:
-- `rules.md`: the correctness rules (eleven short sections). Read all of it once per
-  session.
-- `examples.md`: author corrections, before and after. Read before drafting.
-- `scripts/lint.py`: the checker. By default it reports errors only; `--style` adds
-  notes.
-- `scripts/check_refs.py`: checks `.bib` entries against Crossref.
-- `scripts/pdf_comments.py`: lists the annotations of a reviewed PDF with the text
-  they mark.
-- `scripts/init_project.py`: creates `paperlint.toml` and `glossary.toml` for a paper.
-- `style.md`: the house style, the prose of J. Marino, H. Hosseinabadi and
-  M. Stefanini, profiled with verbatim paragraphs from their papers. It is the same for
-  every paper and is not a setting.
+- `rules.md`: the correctness rules. Read all of it once per session.
+- `examples.md`: the tells of generated prose, and what real readers objected to.
+- `style.md`: a short description of the house style and a few verbatim paragraphs,
+  the fallback when the corpus is missing.
+- `corpus_ids.txt`: the papers of the corpus.
+- `scripts/corpus.py`: builds the corpus in `~/.paperlint/corpus` and retrieves real
+  paragraphs by the job they do (abstract, opening, intro, method, results, appendix,
+  conclusion, caption).
+- `scripts/blindtest.py`: makes and scores the blind test; `stats` prints per-section
+  diagnostics against the corpus.
+- `scripts/learn.py`: records an author's hand edits as pairs in the paper's
+  `author_edits.md`.
+- `scripts/lint.py`: the checker (errors only; `--style` adds notes nobody has to
+  follow). `check_refs.py`: `.bib` against Crossref. `pdf_comments.py`: annotations of
+  a reviewed PDF. `init_project.py`: creates `paperlint.toml` and `glossary.toml`.
 
-Agents: `referee` (wrong, doubtful or overstated claims), `cold-reader` (at most five
-places a reader gets lost), `literature` (sources for claims), `compare` (blind A/B
-judge of two versions against the house style).
+Agents: `referee` (wrong or overstated claims), `cold-reader` (at most five places a
+reader gets lost), `literature` (sources), `compare` (blind A/B of two versions against
+real paragraphs), `judge` (the blind test).
 
 ## Project files
 
-A paper directory may contain `paperlint.toml` (checker settings, audience),
-`glossary.toml` (one name per object), `CLAUDE.md` (decisions, required content, evidence map), `paperlint_map.md` and
-`paperlint_ledger.md`. Read them before working on the paper; they override the
-general rules where they conflict.
+`paperlint.toml` (checker settings, audience), `glossary.toml` (one name per object),
+`CLAUDE.md` (decisions with who and when, required content, evidence map) and
+`author_edits.md` (the authors' own edits). Read them before working on the paper. No
+history of findings is kept: what was fixed is in git, a rejected finding is said once
+in a report, and a decision goes to `CLAUDE.md`. Reviewers read the text fresh each
+time.
 
-## Style, in every command
+## Drafting, in every command that writes prose
 
-Every command that writes, rewrites, fixes or proposes a sentence follows the example
-prose, not a checklist. This is the one style procedure; the commands call it.
+This is the one procedure for writing a paragraph, whether new or redrafted. Use it
+for every new paragraph, for every paragraph a check touched twice or more, and for
+every paragraph the user asks to rewrite. A single error fix is not drafting: it is the
+smallest edit in the sentence that has the error.
 
-1. **Read both example sets in full** before the first edit of the session, not by
-   searching them: this skill's `style.md` (the house style) and `examples.md`
-   (reviewers' corrections as pairs). Where they disagree, `examples.md` wins for the
-   flagged pattern; a recorded decision in the paper's `CLAUDE.md` or ledger about its
-   own content wins over both.
-2. **Write a style brief** of three to eight lines before drafting: how the house
-   style runs for this kind of text (sentence length, how claims, numbers and credit are introduced), and
-   the pairs of `examples.md` that apply to the text at hand (for example "Formulas
-   read aloud", "Counterfactual instead of the consequence", "Redundancy"). Put it in
-   the command's working file (`comments.md`, the ledger) or the report.
-3. **Check every changed paragraph against the brief** before compiling: no sentence
-   repeats a flagged version, and each reads like the accepted ones. A checker that
-   contradicts the house style (a sentence-length note against prose that runs long
-   sentences) loses.
-4. **Compare blind.** A paragraph rewritten beyond a clause goes to the `compare`
-   agent against its old version, with two or three paragraphs of
-   `style.md`. Keep the new one only if it wins and makes the same claims.
+1. **Facts.** Write down what the paragraph must carry: each claim, each number with
+   its source, each reference, each symbol it introduces or uses, each hedge, and each
+   decision of `CLAUDE.md` that applies. Take them from the old paragraph, the approved
+   plan, the code and the data. This list is the only thing that passes from the old
+   text to the new one. A cross-reference or a reason is not a fact: keep one where a
+   reader needs it to follow, and let the others go.
+2. **Models.** Retrieve real paragraphs that do the same job:
+   `corpus.py retrieve <job> "<the facts or the plan line>"`, three of them, and read
+   them whole. Read the afters of the paper's `author_edits.md` and the tells of
+   `examples.md`. If the corpus is missing, run `corpus.py build`; if that fails, use
+   the paragraphs of `style.md` and say so in the report.
+3. **Draft blind.** Write the paragraph from the facts and the models only, without
+   looking at the old wording, which pulls a draft back toward itself. Write it the way
+   the models are written: how they open (from the setting, the figure or the previous
+   point, rarely from a thesis), how long their sentences run, where they give a reason
+   and where they let the order carry it, how they use "we", how they introduce a
+   number and credit other work, and how they speak to the reader ("we note that",
+   "of course", "notice", a hedge where the evidence is partial, a stock phrase of the
+   field). Do not copy their phrases, and do not write toward a sentence length:
+   match the variety of the models, not an average.
+4. **Check the facts.** Every item of the list is in the draft, with the same strength
+   and the same hedge, and no new claim is added. A missing or changed claim is fixed
+   now. What a draft may and should add is discourse, which a list of facts lacks and
+   published paragraphs are full of: how the paragraph follows from the previous one,
+   what a result means for the reader or for the question the paper asks, a comparison
+   with work the paper already cites, a remark that guides the reader ("notice that
+   ...", "in other words ..."). Discourse that would need its own evidence is a claim.
+5. **Compare.** Give the `compare` agent the old and the new paragraph as A and B in
+   random order, with the three models. Keep the new one only if it wins and makes the
+   same claims; on a tie, show both to the user.
+6. **Measure.** After a section was drafted or redrafted, run the blind test on it
+   with the same seed as before (`/paperlint:blindtest <file> --section <title>`) and
+   report the separation (AUC) before and after.
 
-## Procedure
+Never add a sentence to answer a finding when a clause does it, and never answer a
+reader's "why?" in the main text unless the argument needs the answer there; the
+mechanism goes to an appendix, or nowhere.
+
+## Checking
 
 1. **Read** the project files, the section, the sections it builds on, and the code and
-   data behind it.
-2. **Check** (always): run `lint.py`, audit against `rules.md` sections 1 to 9, launch
-   the `referee` and `cold-reader` agents, and fix each confirmed error with the
-   smallest edit, in the sentence that has it. Recompute every number from its script.
-3. **Rewrite** (only when asked): a plan of one claim per paragraph, approved by the
-   author; one fresh draft matched to `style.md`; the `compare` agent against
-   the old version; the winner checked as in step 2.
-4. **Compile, render and look** at the pages, including figures and equations.
-5. **Report** errors first, then other fixes, rejected findings, and author decisions
-   as questions with a recommendation. Author corrections about content go to the
-   project files; about style, to `examples.md` as an anonymised pair.
+   data behind it. Build a map of the paper in your working notes (what each section
+   establishes, where each symbol and term is defined, the source of each number). It
+   is not saved: it is rebuilt from the current text every run.
+2. **Check**: run `lint.py`, audit against `rules.md` sections 1 to 9, launch the
+   `referee` and `cold-reader` agents on the text as it is now, and fix each confirmed
+   error with the smallest edit, in the sentence that has it. Recompute every number
+   from its script.
+3. **Compile, render and look** at the pages, including figures and equations.
+4. **Report** errors first, then other fixes, rejected findings with a reason, and
+   author decisions as questions with a recommendation. An author's decision goes to
+   `CLAUDE.md`, with who and when; an author's edit of the prose is recorded with
+   `/paperlint:learn`.

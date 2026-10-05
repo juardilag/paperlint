@@ -7,11 +7,11 @@ argument-hint: "<file.tex> <section title or line range>"
 Review a section and report; do not edit.
 
 1. Identify the file and the section from `$ARGUMENTS`; ask if either is missing.
-   Apply the style procedure of the `scientific-writing` skill (read both example sets
-in full, write the style brief, check every change against it), so that every fix the review proposes is worded like the examples.
+   Read `rules.md` and `examples.md` of the `scientific-writing` skill; a fix the
+   review proposes is a clause, worded like the sentence around it.
 2. Launch the `referee` agent (correctness only) and the `cold-reader` agent (at most
    five places where a reader gets lost) in parallel, with the paper directory so they
-   can read `paperlint.toml`, `glossary.toml`, `CLAUDE.md` and the ledger.
+   can read `paperlint.toml`, `glossary.toml` and `CLAUDE.md`.
 3. Triage every finding against the text yourself: confirm it, or say why it is wrong.
    A correctness finding is checked against the derivation, the code or the data
    before it is confirmed. A "says who?" goes to the `literature` agent.

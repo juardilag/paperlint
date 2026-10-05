@@ -11,11 +11,10 @@ the plan; the command supplies a draft, the references and the checks.
 
 1. From `$ARGUMENTS`, identify the file, the kind of text and where it goes. The rest
    is the author's brief: the ideas, results, equations, figures and sources.
-2. Load the `scientific-writing` skill and apply its style procedure (both example
-   sets in full, the style brief, the check of every change, blind comparison). Read
-   `rules.md`, the house style `style.md`, and the project
-   files (`paperlint.toml`, `glossary.toml`, `CLAUDE.md`, `paperlint_ledger.md`).
-3. Read the whole paper and update `paperlint_map.md`. The new text uses the paper's
+2. Load the `scientific-writing` skill; every paragraph is written with the drafting procedure of the `scientific-writing` skill (facts, real paragraphs retrieved from the corpus, a blind draft, the fact check, blind comparison). Read
+   `rules.md`, `examples.md` and the project files (`paperlint.toml`, `glossary.toml`,
+   `CLAUDE.md`, `author_edits.md`).
+3. Read the whole paper and build its map in your working notes. The new text uses the paper's
    notation and terms, does not repeat other sections, and fits between its
    neighbours.
 4. Read the code, data and figures the brief or `CLAUDE.md` point to. Every number and
@@ -30,7 +29,8 @@ ask about wording.
 
 ## 3. Plan, and wait
 
-One line per paragraph: the claim it makes and the evidence it rests on (equation,
+One line per paragraph: the job it does (opening, method, results, appendix,
+conclusion, caption), the claim it makes and the evidence it rests on (equation,
 figure, number with its source, reference), in the order of the argument. A method
 section shows its central equation early, in the most general form the derivation
 supports (rules.md, sections 5 and 6), after one or two sentences that name its
@@ -39,9 +39,10 @@ arguments contain `--no-confirm`. The plan is where the author shapes the text.
 
 ## 4. Draft once
 
-- Write the text from the approved plan, matching the house style (`style.md`) in how
-  sentences run and how claims and numbers are introduced. Do not write toward
-  checklists or word counts.
+- Write each paragraph from its approved plan line with the drafting procedure: its
+  facts, three retrieved paragraphs that do the same job, a draft written from those
+  alone. Do not write toward checklists or word counts. Then read the text whole and
+  fix only the joins between paragraphs.
 - Use the paper's notation and terms; a new symbol or term goes into the glossary only
   if the author agrees.
 - For every statement about other work, launch the `literature` agent; cite only what
@@ -61,3 +62,4 @@ agents, and minimal fixes. Compile and look at the rendered pages.
 - The references added, each with what it supports; claims presented as new.
 - Every number with its source.
 - The check report: errors fixed, rejected findings, author decisions.
+- The blind-test separation (AUC) of the new text (`/paperlint:blindtest <file> --section`).
