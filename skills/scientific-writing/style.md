@@ -1,7 +1,7 @@
-# House style: J. Marino, H. Hosseinabadi, M. Stefanini
+# Published prose: the target
 
-paperlint writes like these three physicists. The style is learned from their real
-paragraphs, retrieved from the corpus by the job a paragraph does
+paperlint aims for prose that reads as a physicist wrote it. It learns how from real
+paragraphs of published papers, retrieved from the corpus by the job a paragraph does
 (`scripts/corpus.py retrieve`, papers in `corpus_ids.txt`); this file only describes it
 in a few lines and keeps a handful of paragraphs for when the corpus is not built. It
 is the same for every paper and is not a setting. A description of a style is not a
@@ -21,10 +21,8 @@ the sentences. Prior work is credited in clusters of citations by platform or me
 Introductions open on the big picture or by defining the phenomenon, state the gap, and
 announce "In this work, we ..."; conclusions summarise in one or two sentences and turn
 to experiments and open directions. Captions run three to six sentences, panel by panel,
-and may state the takeaway. Where the three differ, Marino sets openings, framing and
-conclusions, and Hosseinabadi and Stefanini methods, derivations and approximations;
-Stefanini gives a physical picture for every mechanism and states each limitation with
-the advantage that compensates it.
+and may state the takeaway. Mechanisms come with a physical picture, and each limitation
+with the advantage that compensates it.
 
 The paragraphs below are verbatim from the arXiv versions; inline math lost in
 extraction is marked `[math]`.
@@ -76,20 +74,20 @@ extraction is marked `[math]`.
 15. Outlook tied to experiments (1904.01026, Outlook)
 > The Dicke model is currently engineered in several experimental platforms [58-63]. We expect our results to be qualitatively insensitive to the details of the microscopic structure of the interaction term [math], and to hold in a broader set of models, and thus would be relevant for experiments where collectivity of the system is inevitably broken by inhomogeneous fields [...]. We believe that the outreach of our results has the potential to motivate a new generation of experiments on TCs in many-body systems
 
-16. Introduction opening (M. Stefanini, 2406.03527, Sec. I)
+16. Introduction opening (2406.03527, Sec. I)
 > The Kondo effect [1] is one of the simplest and most iconic phenomena in the physics of strongly correlated systems. It emerges when an interacting impurity exchanges particles with a gapless fermionic reservoir. The hybridization of the impurity levels with the bath's states causes the emergence of a very narrow many-body resonance (the Kondo, or Abrikosov-Suhl resonance) pinned at the chemical potential of the reservoir, whose properties dominate the low-energy physics and lead to a number of fascinating phenomena
 
-17. Gap and contribution (M. Stefanini, 2310.00039, Introduction)
+17. Gap and contribution (2310.00039, Introduction)
 > In this Letter, we embark on an initial exploration in this direction by proposing a model of non-unitary dynamics where non-perturbative effects beyond bosonization manifest in a controlled fashion, and where at the same time the mechanisms for the breakdown of bosonization can be traced back to a transparent physical picture. The latter feature is highly nontrivial, since there are only a few cases [34, 36] in which the breakdown is physically well understood.
 
-18. Introducing the central object of a method (M. Stefanini, 2506.22436, Sec. 4.3)
+18. Introducing the central object of a method (2506.22436, Sec. 4.3)
 > In this section we introduce the main object determining the Markovian properties of a bath—the Fourier transform of its correlation function(s) [math], known as spectral density or spectral function. A fundamental condition for a bath to provide dissipation is that it has to be large enough (in the thermodynamic sense) that its spectrum can be considered to be continuous. [...] If this condition is not fulfilled—for instance, in a small bath—the information of the previous states of the system will be able to feed back on it, providing memory and thus breaking Markovianity.
 
-19. Caption (M. Stefanini, 2310.00039, Fig. 1)
+19. Caption (2310.00039, Fig. 1)
 > Absolute value of the return amplitude as a function of the rescaled time for L = 1000, J = 0.5, γ = 0.3 and increasing density. The plot shows the absence of particle-hole symmetry as the low-density curves (in shades of red) decay faster than those at the conjugate densities 1 − n̄ (shades of blue) because of an additional exponential envelope caused by the post-selected measurements.
 
-20. Limitation with its advantage (M. Stefanini, 2206.13478, Sec. VII)
+20. Limitation with its advantage (2206.13478, Sec. VII)
 > We studied the problem from the perspective of the impurity and of the baths themselves, employing an improved perturbative technique. Albeit a priori limited to small couplings, the method we used is rather simple, and has the advantage of providing analytical results for the whole system-bath state.
 
-21. Conclusion (M. Stefanini, 2310.00039, Conclusions)
+21. Conclusion (2310.00039, Conclusions)
 > From a fundamental point of view, our research unveils a novel mechanism for departures from bosonization. The mechanism is distinct from more traditional explanations rooted in the effects of band curvature of the dispersion relation [34], and in this regard it illustrates transparently the profound difference between unitary and dissipative systems when it comes to the breakdown of low-energy collective descriptions.

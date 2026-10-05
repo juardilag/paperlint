@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The house-style corpus: real paragraphs, labelled by the job they do.
+"""The corpus: real published paragraphs, labelled by the job they do.
 
     corpus.py build                 fetch the papers of corpus_ids.txt and index them
     corpus.py retrieve JOB [TEXT]   the k real paragraphs closest to TEXT that do JOB
@@ -7,8 +7,8 @@
 
 JOB is one of: abstract, opening, intro, method, results, appendix, conclusion,
 caption. A drafter reads the retrieved paragraphs before writing a paragraph that
-does the same job; that is how paperlint learns the house style from text instead
-of from a description of it.
+does the same job; that is how paperlint learns how published prose reads from text
+instead of from a description of it.
 
 Every fifth paragraph (by a hash of its id) is held out as the "test" split: the
 blind test samples only from it and retrieval never returns it, so the judge never
@@ -45,7 +45,7 @@ def read_ids() -> list[tuple[str, str, str]]:
     for line in IDS.read_text().splitlines():
         line = line.split("#")[0].split()
         if line:
-            out.append((line[0], line[1] if len(line) > 1 else "", line[2] if len(line) > 2 else ""))
+            out.append((line[0], "", line[-1] if len(line) > 1 else ""))
     return out
 
 
@@ -137,7 +137,7 @@ def build() -> None:
         for r in got:
             r.update(author=author, kind=kind)
         rows += got
-        print(f"  {arxiv} {author:12s} {len(got):4d} paragraphs")
+        print(f"  {arxiv} {kind:8s} {len(got):4d} paragraphs")
     with INDEX.open("w") as fh:
         for r in rows:
             fh.write(json.dumps(r) + "\n")
@@ -189,7 +189,7 @@ def main() -> None:
                   f"  test {sum(r['job'] == j and r['split'] == 'test' for r in rows):4d}")
     else:
         for r in retrieve(a.job, " ".join(a.text), a.k):
-            print(f"[{r['arxiv']}, {r['author']}, {r['section'] or r['job']}]\n{r['text']}\n")
+            print(f"[{r['arxiv']}, {r['section'] or r['job']}]\n{r['text']}\n")
 
 
 if __name__ == "__main__":

@@ -27,7 +27,9 @@ Revise one section and stop. Two jobs, kept apart:
    section what it establishes, every symbol and term with where it is defined, every
    quoted number with its source, the labels other sections use.
 4. Locate the code and data behind the section (`CLAUDE.md` evidence map).
-5. If the section will be drafted (`--rewrite`), run the blind test on it first
+5. Run `blindtest.py budget <file>` and note the section's length, median and limit
+   (the "Length" part of the `scientific-writing` skill).
+6. If the section will be drafted (`--rewrite`), run the blind test on it first
    (`blindtest.py make <file> --section "<title>" --seed 1`, the `judge` agent,
    `blindtest.py score`) to have the before score.
 
@@ -70,14 +72,19 @@ Revise one section and stop. Two jobs, kept apart:
 6. **Redraft patched paragraphs.** A paragraph that received two or more fixes in this
    check is redrafted with the drafting procedure (facts, models, blind draft, fact
    check, compare). Patches stacked in one paragraph are what reads as generated.
-7. Compile and fix any `Overfull \hbox` in the section.
+7. **Length.** Run `budget` again. The section must not be longer than it started. If
+   it is over its limit, list its ideas and propose, as an author decision, which move
+   to an appendix and which go; never compress to meet the limit.
+8. Compile and fix any `Overfull \hbox` in the section.
 
 A check is one pass. Run it again only if the fixes changed a claim, a number or a
 derivation, and then only on what changed.
 
 ## Rewrite (only with `--rewrite`)
 
-1. **Plan.** One line per paragraph: the job it does (opening, method, results,
+1. **Plan.** Within the section's budget: if the section is over its limit, the plan
+   proposes which ideas leave it, and the author decides. One line per paragraph: the
+   job it does (opening, method, results,
    appendix, conclusion, caption), the claim it makes and the evidence it rests on, in
    the order of the argument. Show the plan to the user and wait. Their changes to it
    are content decisions.
@@ -98,5 +105,6 @@ derivation, and then only on what changed.
   paragraph, and the blind-test separation (AUC) before and after.
 - Rejected findings, each with its reason.
 - Author decisions, each as one question with a recommendation.
+- The section's length before and after, against its median and limit.
 - The lint result and whether the paper compiles.
 - If the author edits the text by hand afterwards, suggest `/paperlint:learn` once.

@@ -1,34 +1,30 @@
-# The house-style corpus: arXiv papers whose prose paperlint writes like.
-# One per line: arXiv id, then the house author it represents and the paper type.
+# The corpus: published papers whose prose paperlint learns from.
+# One per line: arXiv id and paper type (letter, article, review).
 # `corpus.py build` fetches each (arXiv HTML, or ar5iv for older papers) into
 # ~/.paperlint/corpus. The texts are never committed; this list is.
 
-# J. Marino, last author, recent
-2608.10075  Marino       letter
-2605.05343  Marino       letter
-2604.26117  Marino       article
-2510.02246  Hosseinabadi article
-2505.10531  Hosseinabadi article
-2504.06267  Marino       letter
-2503.17443  Hosseinabadi article
-2603.18176  Hosseinabadi article
-# J. Marino, most cited
-1904.01026  Marino       article
-1508.02723  Marino       letter
-1612.02419  Marino       letter
-1606.00452  Marino       article
-2201.09894  Marino       review
-1307.3738   Marino       letter
-1805.03343  Marino       article
-1807.09797  Marino       article
-# H. Hosseinabadi, first author
-2306.03898  Hosseinabadi article
-2311.05682  Hosseinabadi letter
-2312.11624  Hosseinabadi article
-2603.11263  Hosseinabadi letter
-# M. Stefanini, first author
-2101.06526  Stefanini    article
-2206.13478  Stefanini    article
-2310.00039  Stefanini    letter
-2406.03527  Stefanini    article
-2506.22436  Stefanini    review
+2608.10075  letter
+2605.05343  letter
+2604.26117  article
+2510.02246  article
+2505.10531  article
+2504.06267  letter
+2503.17443  article
+2603.18176  article
+1904.01026  article
+1508.02723  letter
+1612.02419  letter
+1606.00452  article
+2201.09894  review
+1307.3738   letter
+1805.03343  article
+1807.09797  article
+2306.03898  article
+2311.05682  letter
+2312.11624  article
+2603.11263  letter
+2101.06526  article
+2206.13478  article
+2310.00039  letter
+2406.03527  article
+2506.22436  review
