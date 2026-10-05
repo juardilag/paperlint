@@ -38,11 +38,24 @@ audience = "PRB: cold atoms and condensed-matter theory"
 ## House style
 
 paperlint writes in one style, built in and the same for every paper: the prose of
-Jamir Marino, Hossein Hosseinabadi and Martino Stefanini, profiled with verbatim
-paragraphs from their papers in `skills/scientific-writing/style.md`. Every command
-that writes or changes a sentence matches it, and the `compare` agent judges rewrites
-against it. Corrections from reviewers become before/after pairs in `examples.md`.
-The style is not a setting.
+Jamir Marino, Hossein Hosseinabadi and Martino Stefanini. It learns the style from
+their real paragraphs, not from rules. `corpus.py build` fetches 25 of their papers
+(listed in `skills/scientific-writing/corpus_ids.txt`) into `~/.paperlint/corpus`,
+outside the repository, and labels each paragraph by its job: opening, method,
+results, appendix, conclusion or caption. Before writing a paragraph, paperlint
+retrieves three real paragraphs that do the same job, lists the facts the paragraph
+must carry, and drafts from those alone, without looking at the old wording.
+
+Your own edits teach it too: after you rewrite Claude's text by hand, run
+`/paperlint:learn`, and the before/after pairs go to `author_edits.md`, which every
+draft reads.
+
+The result is measured, not assumed. `/paperlint:blindtest` mixes paragraphs of your
+paper with held-out published ones, and a blind judge labels each as human or
+generated, each on its own. The score is the separation (AUC): 0.5 means the paper
+cannot be told from published prose, 1.0 that it always can. Text written with
+paperlint 0.7 scores 1.0, and a control of two groups of published authors scores at
+chance, so the test measures generated prose, not a change of author.
 
 ## Commands
 
@@ -54,11 +67,15 @@ The style is not a setting.
 | `/paperlint:write` | Draft new text from your ideas, via a plan you approve |
 | `/paperlint:comments` | Implement a round of comments (annotated PDF, review notes): only the commented sections and what they affect, references, a one-page summary |
 | `/paperlint:finish` | Check every section, then the paper as one text |
+| `/paperlint:blindtest` | Measure how far the prose is from published prose (blind judge) |
+| `/paperlint:learn` | Record your hand edits as pairs that drafts imitate |
 | `/paperlint:lint`, `/paperlint:literature`, `/paperlint:check-refs` | Run the checker, the source search or the Crossref check on its own |
 
 `revise` checks the section against the whole paper, its code and its data, and fixes
-errors with minimal edits. With `--rewrite` it first shows you a plan, one claim per
-paragraph, and drafts only after you approve it.
+errors with minimal edits. A paragraph that collects two or more fixes is redrafted
+instead of patched. With `--rewrite` it first shows you a plan, one claim per
+paragraph, drafts only after you approve it, and reports the blind-test score before
+and after.
 
 `comments` works one round of review at a time. Attach the annotated PDF in the chat
 (or drop it in `review/<date>/` next to the main file) and run `/paperlint:comments`;
@@ -80,7 +97,8 @@ reports; it never edits.
 | `referee` | wrong, doubtful or overstated claims and limitations without consequence; never style |
 | `cold-reader` | at most five places where a reader from a neighbouring field gets lost |
 | `literature` | whether the cited sources say what the text claims, with quotes |
-| `compare` | which of two versions, shown blind, reads more like your example papers, and whether they make the same claims |
+| `compare` | which of two versions, shown blind, reads more like real paragraphs of the same job, and whether they make the same claims |
+| `judge` | for the blind test: which paragraphs are published and which generated, and the tells |
 
 ## Files next to the paper
 
@@ -89,13 +107,14 @@ reports; it never edits.
 | `paperlint.toml` | Checker settings and the audience |
 | `glossary.toml` | One name per object, words to avoid |
 | `CLAUDE.md` | Decisions with who and why, required content, which script and data make each figure and number |
-| `paperlint_map.md` | Where each symbol, term and number is defined |
-| `paperlint_ledger.md` | Findings fixed, rejected or decided, so later runs do not raise them again |
+| `author_edits.md` | Your hand edits of Claude's text, as before/after pairs (`/paperlint:learn`) |
 
-When you correct Claude, the correction is stored where it works: a content decision in
-`CLAUDE.md` or the glossary, a style correction as an anonymised before/after pair in
-`examples.md`. Style corrections never become rules, and the house style is not
-changed by a paper.
+No history of findings is kept. Earlier versions kept a ledger of every finding and a
+saved map of the paper; agents that read them repeated old wording and old disputes.
+What was fixed is in git, a rejected finding is explained once in the report, and the
+reviewers read the text fresh every time. A content decision goes to `CLAUDE.md` or the
+glossary; a style correction is an edit you make, recorded with `/paperlint:learn`.
+Neither becomes a rule.
 
 ## The checker
 
@@ -117,8 +136,9 @@ enable = ["PL007"]       # stock phrases
 
 ## Development
 
-The rules are in `skills/scientific-writing/rules.md` (correctness only), the author
-corrections in `examples.md`, the checker and its scripts in
+The rules are in `skills/scientific-writing/rules.md` (correctness only), the tells
+and readers' objections in `examples.md`, the corpus list in `corpus_ids.txt`, the
+checker and its scripts in
 `skills/scientific-writing/scripts/`, the agents in `agents/`, and each command in
 `skills/<command>/SKILL.md`.
 
@@ -128,7 +148,9 @@ claude plugin validate .claude-plugin/plugin.json
 ```
 
 A rule is added only for an error a checker or a reader can verify, and replaces the
-rule it overlaps. Raise `version` in `.claude-plugin/plugin.json` with every change.
+rule it overlaps. A change to how paperlint writes is kept only if the blind test on a
+fixed sample (same paper, same seed, two seeds) does not get worse. Raise `version` in
+`.claude-plugin/plugin.json` with every change.
 
 ## License
 

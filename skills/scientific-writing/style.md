@@ -1,74 +1,33 @@
 # House style: J. Marino, H. Hosseinabadi, M. Stefanini
 
-paperlint writes like these three physicists, whose prose the plugin's authors chose
-as its standard. This file is the same for every paper and is not a setting. Every
-command that writes or changes a sentence reads it in full (the style procedure of
-`SKILL.md`), and the `compare` agent judges rewrites against its paragraphs. Where a
-pair in `examples.md` flags a pattern, avoid it even if a paragraph here contains it.
+paperlint writes like these three physicists. The style is learned from their real
+paragraphs, retrieved from the corpus by the job a paragraph does
+(`scripts/corpus.py retrieve`, papers in `corpus_ids.txt`); this file only describes it
+in a few lines and keeps a handful of paragraphs for when the corpus is not built. It
+is the same for every paper and is not a setting. A description of a style is not a
+recipe: do not write toward the lines below, read the retrieved paragraphs.
 
-Where the three differ, follow Marino (corresponding author of their joint work) for
-openings, framing and conclusions, and Hosseinabadi and Stefanini for methods,
-derivations and the statement of approximations.
+## In a few lines
 
-Quotes are verbatim from the arXiv versions; inline math lost in extraction is marked
-`[math]`.
+Sentence length varies a lot, from a few words to a long sentence with several
+clauses, and it follows the content rather than a pattern. A paragraph opens from its setting, its figure or the previous point ("In Fig. 2a
+we show ...", "We consider ...", "Despite ...") and arrives at its claim, rather than
+stating a thesis and listing support. "We" narrates throughout ("we benchmark", "we
+note that", "we have recently investigated"). Evaluation is welcome where it is earned
+("remarkably", "in sharp contrast", "excellent agreement"), and so are the field's
+stock phrases ("has been extensively studied", "see, e.g., Refs."). Reasons are given
+where a reader would ask, often by a colon or a dash, and otherwise left to the order of
+the sentences. Prior work is credited in clusters of citations by platform or mechanism.
+Introductions open on the big picture or by defining the phenomenon, state the gap, and
+announce "In this work, we ..."; conclusions summarise in one or two sentences and turn
+to experiments and open directions. Captions run three to six sentences, panel by panel,
+and may state the takeaway. Where the three differ, Marino sets openings, framing and
+conclusions, and Hosseinabadi and Stefanini methods, derivations and approximations;
+Stefanini gives a physical picture for every mechanism and states each limitation with
+the advantage that compensates it.
 
-Papers read (full text), first batch (recent, Marino last author): 2608.10075 (PRL-style Letter, lasing/TWA on GPU), 2605.05343 (kinetically constrained superradiance), 2604.26117 (partially pumped ensembles), 2603.18176 (two-qubit T2 spectroscopy), 2510.02246 (kinetically constrained cavity QED), 2505.10531 (magnon nesting), 2503.17443 (user-friendly TWA), 2504.06267 (prethermalization in cavity-Rydberg arrays).
-
-Second batch (most cited; citations from Semantic Scholar, Oct 2026; arXiv PDF text):
-- Marino top-cited not in the first batch: 1904.01026 (NJP 2019, 154 cit., middle author; read), 1806.11044 (Sci. Adv. 2018, 118, middle), 1307.3738 (PRL 2013, 111, middle), 1805.03343 (NJP 2018, 98, middle), 1508.02723 (PRL 2015, 95, first; read), 2201.09894 (Rep. Prog. Phys. 2022, 91, first, review; read), 1807.09797 (PRB 2018, 70, middle), 1612.02419 (PRL 2016, 59, last; read). Also read: 1606.00452 (PRB 2016, 50, first; Keldysh/FRG).
-- Hosseinabadi first author (all with Marino last): 2503.17443 (PRX Quantum 2025, 32), 2306.03898 (PRB 2023, 15; read), 2311.05682 (PRR 2023, 11; Letter-style; read), 2312.11624 (PRR 2023, 11; long article; read), 2510.02246 (PRX Quantum 2025, 6), 2505.10531 (PRB 2025, 5), 2603.18176 (2026, 4), 2603.11263 (PRL 2026, 1), 2609.09305 (2026, 0; Moessner last).
-
-Counts in the Marino and Hosseinabadi profile are over the 16 papers read in full, those of the Stefanini section over his five first-author papers; items marked ~ are judged from the excerpts read, not a line-by-line tally. "HH" = Hosseinabadi first author.
-
-Third batch, M. Stefanini first author (excerpts read: introduction, method, captions, conclusions): 2101.06526 (impurity in a two-leg ladder, with Capone and Silva), 2206.13478 (impurity coupled to two 1D fermionic baths), 2310.00039 (orthogonality catastrophe beyond bosonization, Letter, with Marino), 2406.03527 (dissipative realization of Kondo models, with Marino), 2506.22436 ("Is Lindblad for me?", SciPost lecture notes, with Marino). Also 2411.13638 (variational dissipative impurity dynamics, second author).
-
-## Profile
-
-- Introductions open with the big picture and the field's stakes: "Lasers with ultra-narrow linewidths ... are central to precision metrology" (2608.10075); "The study of emergent dynamical phenomena ... constitutes a frontier of research" (1904.01026). Alternative: open by defining the phenomenon ("Spin glasses (SG) are frozen states of spins", 2311.05682). (big picture 13/16, definition 3/16)
-- Prior work is credited in bulk citation clusters grouped by platform or mechanism; authors rarely named in text. (16/16)
-- The gap is stated explicitly before the contribution: "Existing strategies therefore trade reduced recoil heating against optical coherence." (2608.10075). (~13/16)
-- Contribution announced with "In this work, we ..." / "In this Letter, we ..." / "In this paper, we ...". (~14/16)
-- Abstracts: recent papers use strong discovery verbs ("We uncover", "We discover", "We identify a new universality class", 1508.02723); older and HH papers more often "We study / We investigate" (2306.03898, 2311.05682, 1904.01026). (strong verbs ~8/16)
-- Abstracts end on a broad-impact sentence: "Our results point to ..." (2605.05343); "These findings illustrate the rich nature of ..." (1904.01026); "Our predictions are relevant for all spin glass systems ..." (2311.05682). (~12/16; literally "Our results ..." ~5/16)
-- Pervasive "we"; also "our approach", "our findings". (16/16)
-- Claim strength high but hedged in outlooks: "strongly suggests its potential" (2503.17443); "Our results hint toward further research" (2306.03898). (~14/16)
-- Evaluative adverbs as signposts: "Remarkably", "Notably", "Crucially", "Interestingly" (1612.02419). (~12/16)
-- Contrast framing: "in sharp contrast to the behavior in the Fermi liquid regime" (2306.03898); "in striking contrast with classical equilibrium" (1508.02723). (~14/16)
-- Colons introduce a mechanism mid-sentence; dashes for inserted lists or asides. (~10/16)
-- Long sentences (30-50 words) with subordinate clauses dominate. (16/16)
-- Results paragraphs open by pointing to the figure, then parameters, then interpretation; regimes labelled (I, II, III). (~12/16; RG papers 1508.02723, 1606.00452 lead with equations instead)
-- Validation against exact or semiclassical results reported plainly: "We benchmark 2PI with a semi-classical phase space approximation ... and demonstrate excellent agreement in the limit of large spins" (2312.11624). (~10/16; more frequent in HH papers)
-- Captions long and descriptive (3-6 sentences), panel by panel, often stating the takeaway. (~14/16)
-- Letters use run-in headings with dashes ("Introduction –", "Perspectives –", "Conclusions–"). (all Letters: 6/6)
-- Limitations stated candidly: "DTWA predicts a slower relaxation for small S, possibly because as a semi-classical approach it ignores quantum fluctuations" (2311.05682). (~9/16)
-- Outlooks enumerate directions ("A natural avenue is ...", "(i) ... (ii) ..."). (~14/16)
-- Conclusions tie predictions to named experiments: "our predictions can be tested by performing such experiment in two and three spatial dimensions" (1612.02419). (NEW, ~12/16)
-- Key results listed as numbered items at the end of the introduction: "In particular, we obtain the following key results: (i) New non-equilibrium fixed point." (1508.02723). (NEW, ~5/16)
-- Gap sometimes posed as direct questions: "In other words, is there a driven analogue of quantum critical behavior?" (1508.02723). (NEW, rare, 3/16)
-- "Note added" paragraph on concurrent work (HH only: 2311.05682, 2306.03898). (rare, 2/16)
-- Short blunt narrowing sentence ("The main limitation comes from the pump.", 2608.10075). (flagged: rare, ~2/16)
-- Recurring phrases: "minimal model", "knob", "toolbox", "beyond mean-field", "stepping stone", "open question". (~)
-
-### Differences by paper type
-
-- Letters (1508.02723, 1612.02419, 2311.05682, 2608.10075, 2605.05343, 2504.06267): run-in headings, one-paragraph conclusion that restates the result in one sentence and gives one or two outlook directions.
-- Regular articles (1606.00452, 2312.11624, 2306.03898, 1904.01026): numbered sections, multi-paragraph outlook; 2312.11624 lists future platforms as labelled run-in paragraphs ("Rydberg arrays integrated in optical cavities –").
-- Review (2201.09894): abstract "We overview ...", conclusion opens "In this work we reviewed ..." and closes with open questions asked directly ("Can a properly defined order parameter ... ?").
-- HH first-author vs Marino-last recent Letters: HH papers lean on method (Keldysh, 2PI, TWA), state motivation as "(i) ... (ii) ... (iii)", benchmark more, use plainer abstract verbs, and add "Note added"; Marino-led Letters carry the high-stakes opening and the strongest abstract verbs.
-
-### M. Stefanini (first-author papers)
-
-- Opens on the phenomenon in one plain defining sentence, then its mechanism: "The Kondo effect [1] is one of the simplest and most iconic phenomena in the physics of strongly correlated systems. It emerges when an interacting impurity exchanges particles with a gapless fermionic reservoir." (2406.03527). (~4/5)
-- States the gap as an erosion of clarity rather than a missing result: "the boundaries delineating when the Lindblad equation faithfully captures physical dynamics and when it does not have grown blurred." (2506.22436). (~3/5)
-- Insists on a transparent physical picture for every mechanism: "where at the same time the mechanisms for the breakdown of bosonization can be traced back to a transparent physical picture" (2310.00039); "the information of the previous states of the system will be able to feed back on it, providing memory and thus breaking Markovianity" (2506.22436). (~5/5)
-- Validity in terms of hierarchies of timescales: "the conditions of validity of the various approximations can be understood in terms of the existence of certain hierarchies of timescales." (2506.22436). (~3/5)
-- Positions the work against close prior work in one explicit sentence: "While non-equilibrium versions of the OC problem have been explored in previous literature [51-54], our approach is distinct." (2310.00039); "In this, we are distinguished from other recent works that use dissipation to introduce entirely new features" (2406.03527). (~4/5)
-- Significance announced as two-sided: "The significance of our results is twofold. On the one hand, ... On the other hand, ..." (2406.03527). (~2/5)
-- Limitations stated with the advantage that compensates them: "Albeit a priori limited to small couplings, the method we used is rather simple, and has the advantage of providing analytical results for the whole system-bath state." (2206.13478). (~3/5)
-- Em dashes for an inserted example or term, more often than Marino: "If this condition is not fulfilled—for instance, in a small bath—the information ..." (2506.22436). (~5/5)
-- Captions: parameters first, then the takeaway with its cause ("because of ..."). (~4/5)
-- Compared with Marino: fewer evaluative adverbs, more definitions of the central object before using it, more explicit statements of what the method cannot do. Compared with Hosseinabadi: more physical pictures, fewer enumerated motivations.
+The paragraphs below are verbatim from the arXiv versions; inline math lost in
+extraction is marked `[math]`.
 
 ## Examples
 

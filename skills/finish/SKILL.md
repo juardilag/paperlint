@@ -10,18 +10,19 @@ checks; it does not rewrite the authors' prose.
 
 ## 1. Prepare
 
-1. Load the `scientific-writing` skill, read `rules.md`, and apply its style
-   procedure (both example sets in full, the style brief, the check of every change,
-   blind comparison of rewritten paragraphs) to every section it touches. Read the project files and the ledger.
-2. Build `paperlint_map.md` from scratch for the whole paper.
-3. Run `lint.py` on the whole file (errors only) and `check_refs.py` on the `.bib`
+1. Load the `scientific-writing` skill, read `rules.md` and `examples.md`; any
+   paragraph written or redrafted uses its drafting procedure. Read the project files.
+2. Build a map of the whole paper in your working notes (not saved).
+3. Run the blind test on the whole paper (`/paperlint:blindtest`) for the before
+   score.
+4. Run `lint.py` on the whole file (errors only) and `check_refs.py` on the `.bib`
    file. Fix the unambiguous findings, keep the rest for the report.
 
 ## 2. Check every section
 
 Run the **Check** part of the `revise` skill on each section in reading order
 (introduction, method, results, conclusions, appendices, captions with the section
-that first refers to each figure), honouring `--from` and `--skip`. Update the map
+that first refers to each figure), honouring `--from` and `--skip`. Update your map
 after each section.
 
 ## 3. Check the paper as one text
@@ -44,8 +45,8 @@ after each section.
 - **References.** Every cross-reference resolves; every citation supports its
   sentence (doubtful ones to the `literature` agent).
 - **Abstract and title, last.** Propose a plan for the abstract (problem, what is new,
-  main results in words) and wait for approval; draft it once in the style of
-  house style (`style.md`), keep it only if the `compare` agent prefers it to the current
+  main results in words) and wait for approval; draft it with the
+  drafting procedure (job `abstract`), keep it only if the `compare` agent prefers it to the current
   one, and check that the title says what the paper does.
 
 ## 4. Compile and inspect
@@ -59,4 +60,5 @@ against the text's terms, unresolved references, the order of floats.
 - Errors found (signs, factors, numbers, wrong claims), listed first.
 - Changes at the level of the whole paper, with before and after.
 - The bibliography result.
+- The blind-test separation (AUC) before and after, with the same seed.
 - Author decisions, each as one question with a recommendation, ordered by impact.

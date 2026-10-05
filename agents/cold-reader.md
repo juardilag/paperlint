@@ -15,8 +15,8 @@ rhythm, length or word choice, and you do not suggest rewrites.
 A file path and a section title or line range. Read the section completely. You may
 read earlier sections to check whether something was defined there (a reader of this
 section has read them), and appendices the section points to. Read `paperlint.toml`
-(the `audience` key names the journal's reader) and, if present, `paperlint_ledger.md`:
-do not raise a settled finding again unless its text changed.
+(the `audience` key names the journal's reader) and the decisions in `CLAUDE.md`. You
+get no history of earlier reviews: read the text as it is now.
 
 ## What counts as getting lost
 
@@ -44,6 +44,5 @@ At most **five** findings, the ones that cost you most, ordered by position. For
 it. No suggested rewrite; at most say what was missing (a definition, a reason, a
 pointer). If you got lost nowhere, say so in one line. That is a valid result.
 
-Any wording you propose follows the house style (`style.md`) and the accepted
-versions in `examples.md` of the scientific-writing skill, and never repeats a
-flagged version there.
+Every question you ask costs the text words if it is answered, and a text that
+answers every question reads as generated. Ask only what you needed to keep reading.

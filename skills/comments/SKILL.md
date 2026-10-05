@@ -64,11 +64,11 @@ goes into the project files (step 6.4).
 
 ## 1. Collect the comments
 
-1. Load the `scientific-writing` skill, read `rules.md`, and apply its style
-   procedure: both example sets in full, the style brief written at the top of
-   `comments.md`, every changed paragraph checked against it, and every rewritten
-   paragraph compared blind with its old version (step 4). Read the project files (`paperlint.toml`, `glossary.toml`,
-   `CLAUDE.md`, `paperlint_ledger.md`, `paperlint_map.md`).
+1. Load the `scientific-writing` skill, read `rules.md`, and read `examples.md`; every
+   paragraph rewritten for a comment uses its drafting procedure (facts, retrieved
+   paragraphs, a blind draft, the fact check, comparison with its old version in step
+   4). Read the project files (`paperlint.toml`, `glossary.toml`, `CLAUDE.md`,
+   `author_edits.md`).
 2. Read the comments:
    - an annotated PDF: run
      `python3 "${CLAUDE_PLUGIN_ROOT}/skills/scientific-writing/scripts/pdf_comments.py" <pdf>`.
@@ -123,13 +123,12 @@ one-line update at each stage (implemented, reviewed, references, delivered).
 ## 3. Implement
 
 1. Work through the comments in reading order. Before editing, read each comment
-   against the text, the map, the code and the data. A comment that is wrong (it
+   against the text, the code and the data. A comment that is wrong (it
    rests on a misreading or contradicts the data) is not implemented: it goes to the
-   report with the evidence. A comment that contradicts a decision in `CLAUDE.md` or
-   the ledger is reported as a conflict.
+   report with the evidence. A comment that contradicts a decision in `CLAUDE.md` is reported as a conflict.
 2. Implement each comment fully, not only at the words it marks. A comment on one
    sentence often applies to every place with the same problem in the scope. A
-   wording comment is fixed so the result matches the house style (`style.md`). A concept
+   wording comment that rewrites a passage is drafted with the drafting procedure. A concept
    comment is fixed in the argument, and in every sentence the concept appears. A
    structure comment ("reorder", "chop", "this repeats Sec. X") is fixed with a plan
    of one claim per paragraph, drafted once from it (the `revise` rewrite procedure;
@@ -148,7 +147,7 @@ one-line update at each stage (implemented, reviewed, references, delivered).
 
 Compile, render the changed pages, and reread them as a whole. Give each rewritten
 paragraph, or the rewritten section as a whole, to the `compare` agent against the
-version in `before.tex`; a version that loses is redrafted from the style brief. For each comment ask:
+version in `before.tex`; a version that loses is redrafted from its facts and new retrieved paragraphs. For each comment ask:
 is it implemented, everywhere it applies, as well as possible? Then ask what the edits
 themselves changed: a paragraph that now repeats another, a transition that no longer
 holds, a term used before its new definition, a sentence the comment's logic now
@@ -206,9 +205,9 @@ not convergence; leave the text.
    - the references added, as counts per purpose;
    - the open questions for the authors.
    Every before/after quoted is real text from the two versions.
-4. **Learn.** Add each principle's before/after pair to the paper's
-   `examples.md` (style, anonymised) or `CLAUDE.md` (content), as `rules.md`, section 10
-   says. Never as a rule. Update the ledger and the map.
+4. **Learn.** A comment about content becomes a decision in `CLAUDE.md`, with who and
+   when. A comment that rewrote the authors' prose in their own words is recorded with
+   `learn.py` (their words are the after). Never as a rule.
 
 ## 7. Train paperlint (only with `--train`)
 
@@ -226,7 +225,9 @@ the plugin's source repository, not the installed copy.
      `rules.md`, section 10 says (the file does not grow by more than it shrinks
      without a reason), and give the `referee` or `cold-reader` agent the question
      that finds it;
-   - taste: an anonymised before/after pair in `examples.md`, never a rule;
+   - taste: an objection in `examples.md` with the reviewer's words and no invented
+     rewrite, never a rule; check with the blind test that the change did not make
+     the prose worse;
    - procedure (an order of work, a step that was missing): the skill that runs it.
    A general comment that contradicts a rule is a decision for the developer: show
    both and recommend one.
@@ -240,7 +241,7 @@ Lead with what the user needs, in this order, and keep it short:
 
 1. One line: the round is done (or what is left), and whether the paper compiles.
 2. The decisions for the authors, each as a question with a recommendation. When the
-   user answers in the chat, record each answer in `CLAUDE.md` and the ledger and apply
+   user answers in the chat, record each answer in `CLAUDE.md` and apply
    it, without a new round.
 3. Where to look: the round folder, with `summary.pdf` first.
 
