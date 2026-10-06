@@ -18,11 +18,17 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   (`audience` in `paperlint.toml`) who knows the term gets the reference only.
 - A term that needs more than a clause is described in plain words in the main text,
   and the term itself is kept for the appendix.
+- This includes every index, subscript and label (what $n$ and $m$ run over, what
+  the subscript of a bracket marks) and every argument a function gains ($H(\phi)$
+  after $\hat H$). A quantity referred back to is named physically, not by its symbol
+  alone ("the spectral density $J$", not "the $J$ of panel (a)").
 - A pronoun or "this" points to one object just named.
 
 ## 2. One name and one symbol per object
 - The same object has the same name and symbol in every section, figure, legend and
   table (`glossary.toml`). One symbol has one meaning in the whole paper.
+- Every average says what it runs over (noise realisations, initial conditions,
+  both), and one symbol never averages over different ensembles.
 - Typography is the same in every equation (hats, bold, indices).
 
 ## 3. Claims are no stronger than the evidence
@@ -73,6 +79,8 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - A caption says what is plotted against what, the model and every parameter, the
   sampling, and what each line, marker and band is, so the figure can be reproduced
   from it. Settings shared by all panels are given once.
+- Each panel is described in a sentence that names its quantities physically; a
+  caption is read without the text, so it is never a list of symbols.
 - Whether a caption also states the takeaway, and how long it runs, is style: follow
   the house style (`style.md`) and the paper's `CLAUDE.md`. A takeaway it states must match the text and the
   data.
