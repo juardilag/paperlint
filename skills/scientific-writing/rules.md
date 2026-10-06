@@ -22,14 +22,20 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   the subscript of a bracket marks) and every argument a function gains ($H(\phi)$
   after $\hat H$). A quantity referred back to is named physically, not by its symbol
   alone ("the spectral density $J$", not "the $J$ of panel (a)").
-- A pronoun or "this" points to one object just named.
+- A pronoun or "this" points to one object just named; after a sentence that names
+  several, name the subject again ("the spectral density depends", not "it depends").
+- A connective states a relation that holds ("by", "in turn", "therefore" only for a
+  means, a sequence, a consequence); otherwise drop it.
 
 ## 2. One name and one symbol per object
 - The same object has the same name and symbol in every section, figure, legend and
   table (`glossary.toml`). One symbol has one meaning in the whole paper.
 - Every average says what it runs over (noise realisations, initial conditions,
   both), and one symbol never averages over different ensembles.
-- Typography is the same in every equation (hats, bold, indices).
+- Typography is the same in every equation (hats, bold, indices), and a function
+  keeps its argument wherever it appears ($J(\omega)$, not $J$ in one place).
+- A sentence about an equation names only what the equation shows (no indices the
+  equation does not carry).
 
 ## 3. Claims are no stronger than the evidence
 - Every number in the text comes from saved data and a script that prints it.
@@ -43,7 +49,13 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   S, so 2/N here"). Test every general statement of the method on every example the
   paper treats; a statement with an exception says so.
 - Statements about other work are checked against the source (the `literature`
-  agent), and credit says what that work did and what this paper adds.
+  agent), and credit says what that work did and what this paper adds. A method is
+  credited to the work that introduced it, not only to its latest or a co-author's
+  formulation.
+- A special case is marked as an example ("for example, ..."), not stated as the
+  general rule. A preview or bridge to the next section is a claim too: every word
+  holds for all the cases it covers, and it ranks nothing ("of increasing
+  difficulty").
 
 ## 4. Every limitation has its consequence
 - An approximation, a dropped term or a growing error is stated with whether it

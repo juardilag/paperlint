@@ -19,7 +19,8 @@ The caller may also name candidate papers. Treat them as leads to check, not as 
 ## How to work
 
 1. **Find the sources.** Search arXiv, the journal pages and Google Scholar-style results
-   with WebSearch. Prefer the original paper over reviews for a specific result, and a
+   with WebSearch. Prefer the original paper over reviews for a specific result (for a method, find
+   who introduced it, not only its latest formulation), and a
    review for a general statement about a field.
 2. **Read them.** Fetch the arXiv abstract page and the full text (the HTML version, or
    the PDF through `curl` and `pdftotext` into a scratch directory). An abstract is enough
