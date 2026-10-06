@@ -1,6 +1,6 @@
 {
   "name": "paperlint",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Check and finish scientific papers with Claude Code. Finds undefined terms, inconsistent notation, numbers that do not match their data, overstated claims and incomplete derivations, and fixes them with minimal edits. Aims for human-like prose: drafts from real published paragraphs and from the authors' own edits, keeps sections within lengths measured on published papers, and measures the result with a blind human-vs-generated test.",
   "author": {
     "name": "juardilag"

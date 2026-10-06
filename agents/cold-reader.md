@@ -22,7 +22,9 @@ get no history of earlier reviews: read the text as it is now.
 
 - a term, symbol or acronym you needed and that is not defined here or earlier, and
   that a reader of the journal's field (`audience`) would not know;
-- a "this", "it" or "the same" where you could not tell which object is meant;
+- a "this", "it" or "the same" where you could not tell which object is meant (after
+  a sentence that names several things, check that it has one candidate);
+- a sentence about an equation that mentions what the equation does not show;
 - a step, factor or choice whose reason you needed to follow the argument, and a
   referee of the field would ask for;
 - a jump: a quantity or claim you were not prepared for, a "therefore" without a
