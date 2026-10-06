@@ -63,6 +63,15 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
   *(Co-author: "Of order 1/S for a spin of length S.")*
 - **A circular "because".** "... is a first-order differential equation, so Eq. (6) is
   unambiguous." *(Author: "this makes no sense")*
+- **A comparison the argument does not need.** Initial-state fluctuations set against
+  those of the reservoir *(Senior author: "it is confusing and can attract
+  criticism")*.
+- **A historical citation where the field cites a modern source.** The 1925 paper for
+  the classical correspondence of commutators *(Senior author: "good to cite the
+  review, no human would cite the original")*.
+- **Words that do not fit the physics.** "a weakly damped transition" *(Senior author:
+  "how can a transition be damped physically?")*; "the bath cannot respond before it
+  is perturbed" for causality *(Senior author: "say it as a physicist")*.
 - **A property the formula does not show, left unexplained.** "The noise is then
   complex." *(Reviewer: "how can a noise be complex?")*; a correlator claimed real next
   to an explicit i/2.
@@ -76,6 +85,10 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
   *(Co-author: "You shouldn't put formulas into words.")*; *(Authors: "too much
   technical detail")*; a name coined and used once *(Co-author: "Do we care about
   this?")*.
+- **Too little, for notation:** an index pair, a subscript or a new argument used
+  without a word *(Senior author: "it is assumed the reader will figure out but he
+  won't"; "each notation adds overhead to reading")*; two averages behind one overline
+  *(Senior author: "a clear conceptual clash")*.
 - **The balance** *(Author: "we must try not to assume anything of the reader ... this
   is important, find a balance")*: a reference for every term, a clause of meaning
   only for the terms the argument turns on, the mechanism in an appendix.
@@ -92,4 +105,13 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
   "arrives too quickly")*: name its actors in words first, then show it.
 - **A "Remarks" subsection**, struck by the senior author: a remark stands where its
   subject is, or goes.
+- **A thin section opening.** An abrupt first sentence about "the existing methods",
+  then a second paragraph that assumes the reader knows the background *(Senior
+  author: "starting of sections are always difficult ... expand ... a concise yet
+  longer and deeper summary at a conceptual level. Do not be shallow")*.
+- **A compressed technical paragraph in the main text** *(Senior author: "decide
+  whether this section is for a short show off or to deliver real content")*: expand
+  it with intuition and references, or move it to an appendix.
+- **A placeholder caption** *(Senior author: "a caption has still to be understood
+  and not just be a placeholder")*.
 - **A closing that lists the sections again** (flagged by a second co-author).

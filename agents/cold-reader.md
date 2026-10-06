@@ -31,6 +31,9 @@ get no history of earlier reviews: read the text as it is now.
 - a sentence you could follow only by opening an appendix, its table or its
   equation;
 - a displayed equation whose symbols arrive before you know what each does;
+- an index, subscript or label whose meaning you had to guess, or an average
+  (an overline, a bracket) whose ensemble you could not tell;
+- a section opening that assumed what it should summarise;
 - in a derivation, the first place you could not follow from one equation to the
   next.
 
