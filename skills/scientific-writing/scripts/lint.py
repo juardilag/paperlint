@@ -44,7 +44,7 @@ REF_UPPER = "\u24c7"   # \Cref{...}
 PARA = "\u00b6"        # paragraph or item break
 
 # Reported by default. Everything else in CHECKS is a style note, off by default.
-ERROR_CHECKS = {"PL006", "PL010", "PL011", "PL013"}
+ERROR_CHECKS = {"PL006", "PL010", "PL011", "PL013", "PL023", "PL024"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
@@ -68,7 +68,13 @@ CHECKS = {
     "PL019": "paragraph built as an enumeration (The first ... The second ...)",
     "PL020": "inanimate agent (a model, figure or equation 'tests', 'shows', ...)",
     "PL022": "paragraph longer than the paragraph limit",
+    "PL023": "symbol of a displayed equation never named in the text",
+    "PL024": "the same connective in two consecutive sentences",
 }
+
+# Connectives a reader notices when two sentences in a row use them (PL024).
+CONNECTIVES = ("whether however therefore thus hence instead moreover whereas "
+               "although nevertheless conversely accordingly meanwhile").split()
 
 # Each entry: regex (case-insensitive, word-bounded where it makes sense), advice.
 DEFAULT_BANNED = [
@@ -530,7 +536,16 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
         return re.sub(r"\s+", " ", src[a:b])
 
     spans = split_sentences(masked)
+    prev: set[str] = set()
     for a, b in spans:
+        s_low = masked[a:b].lower()
+        here = {c for c in CONNECTIVES if re.search(rf"\b{c}\b", s_low)}
+        for c in sorted(here & prev):
+            mt = re.search(rf"\b{c}\b", s_low)
+            add(a + mt.start(), "PL024", f"'{c}' also in the previous sentence; "
+                "change one of them", excerpt_at(a, min(b, a + 80)), "error")
+        prev = here if PARA not in masked[a:b] else set()
+
         s = masked[a:b]
         words = WORD_RE.findall(s.replace(DISPLAY, " "))
         nwords = len(words)
@@ -714,7 +729,80 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
             add(mt.start(), "PL013", "hand-typed reference; use \\cref / \\Cref",
                 excerpt_at(mt.start(), mt.end() + 20))
 
+    for pos, key in check_display_symbols(src):
+        add(pos, "PL023", f"${key}$ appears only in displayed equations; name it in "
+            "the sentence that introduces or follows the equation", key, "error")
+
     out.sort(key=lambda f: (f.line, f.col, f.code))
+    return out
+
+
+# ---------------------------------------------------------------------------
+# PL023: every symbol of a displayed equation is named somewhere in the prose.
+GREEK = ("alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota kappa "
+         "lambda mu nu xi rho varrho sigma tau upsilon phi varphi chi psi omega "
+         "Gamma Delta Theta Lambda Xi Sigma Upsilon Phi Psi Omega").split()
+# Constants and operators that are not symbols of the paper.
+SYMBOL_SKIP = {r"\pi", r"\infty", r"\partial", r"\nabla", r"\delta", "e", "i", "d"}
+DISPLAY_ENVS = r"(?:equation|align|gather|multline|eqnarray|displaymath)\*?"
+_SUB = r"(?:_(?:\{(?:[^{}]|\{[^{}]*\})*\}|\\[A-Za-z]+|[A-Za-z0-9]))"
+_SUP = r"(?:\^(?:\{(?:[^{}]|\{[^{}]*\})*\}|\\[A-Za-z]+|[A-Za-z0-9]))"
+_DECOR = r"(?:\\(?:hat|bar|tilde|check|vec|mathbf|boldsymbol|mathcal|mathrm|rm)\s*\{?\s*)*"
+SYMBOL_RE = re.compile(
+    _DECOR + r"(?P<base>\\(?:" + "|".join(GREEK) + r")(?![A-Za-z])|(?<![\\A-Za-z])[A-Za-z](?![A-Za-z]))"
+    r"\}?\s*(?P<scripts>(?:" + _SUP + "|" + _SUB + r")*)")
+
+
+def _symbol_keys(math: str) -> dict[str, int]:
+    """Map each symbol of a math string (base plus subscript) to its first offset."""
+    math = re.sub(r"\\(?:label|begin|end|text|mathrm|rm|operatorname|ref|cref|eqref)\s*\{[^{}]*\}",
+                  lambda m: " " * len(m.group(0)), math)
+    keys: dict[str, int] = {}
+    for m in SYMBOL_RE.finditer(math):
+        base = m.group("base")
+        subs = re.findall(_SUB, m.group("scripts") or "")
+        sub = re.sub(r"[\s{}]|\\(?:rm|mathrm)", "", subs[0][1:]) if subs else ""
+        key = base + ("_" + sub if sub else "")
+        if base in SYMBOL_SKIP and not sub:
+            continue
+        if base in ("e", "i", "d") or (base.isalpha() and len(base) == 1 and not sub
+                                         and base not in "ABCDEFGHJKLMNOPQRSTUVWXYZ"):
+            continue        # single lower-case Latin letters are too often variables
+        keys.setdefault(key, m.start())
+    return keys
+
+
+def _shape(key: str) -> str:
+    """The key with its one-letter indices made generic: A_m,cl and A_n,cl match.
+    A single index stays: omega_q of one bath is not omega_k of another."""
+    base, _, sub = key.partition("_")
+    if len(sub) < 2:
+        return key
+    return base + "_" + re.sub(r"(?<![A-Za-z\\])[a-z](?![A-Za-z])", "?", sub) if sub else key
+
+
+def check_display_symbols(src: str) -> list[tuple[int, str]]:
+    """(offset, symbol) for each symbol that appears only in displayed equations."""
+    nocom = re.sub(r"(?<!\\)%.*", lambda m: " " * len(m.group(0)), src)
+    displays = [(m.start(), m.end()) for m in re.finditer(
+        r"\\begin\{(" + DISPLAY_ENVS + r")\}.*?\\end\{\1\}|\\\[.*?\\\]", nocom, re.S)]
+    prose = nocom
+    for a, b in displays:
+        prose = prose[:a] + " " * (b - a) + prose[b:]
+    named: set[str] = set()
+    for m in re.finditer(r"\$([^$]+)\$|\\\((.+?)\\\)", prose, re.S):
+        named.update(_symbol_keys(m.group(1) or m.group(2)))
+    named |= {_shape(k) for k in named}
+    out, seen = [], set()
+    for a, b in displays:
+        body = nocom[a:b]
+        bound = set(re.findall(r"\bd\s*(\\[A-Za-z]+|[A-Za-z])", body))  # integration variables
+        for key, off in _symbol_keys(body).items():
+            base = key.split("_")[0]
+            if key in named or _shape(key) in named or key in seen or base in bound:
+                continue
+            seen.add(key)
+            out.append((a + off, key))
     return out
 
 

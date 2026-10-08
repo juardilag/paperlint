@@ -23,7 +23,11 @@ get no history of earlier reviews: read the text as it is now.
 - a term, symbol or acronym you needed and that is not defined here or earlier, and
   that a reader of the journal's field (`audience`) would not know;
 - a "this", "it" or "the same" where you could not tell which object is meant (after
-  a sentence that names several things, check that it has one candidate);
+  a sentence that names several things, check that it has one candidate), and a vague
+  or indefinite name for a specific object ("a critical exponent", "the two", "keep
+  the cavity", "a bath of its own");
+- in a results section, a name for an object or step that the method section calls
+  something else, or a technical word with no physical reading ("a complex noise");
 - a sentence about an equation that mentions what the equation does not show;
 - a step, factor or choice whose reason you needed to follow the argument, and a
   referee of the field would ask for;
@@ -32,7 +36,9 @@ get no history of earlier reviews: read the text as it is now.
 - a remark whose purpose at that point you could not see ("why is this here?");
 - a sentence you could follow only by opening an appendix, its table or its
   equation;
-- a displayed equation whose symbols arrive before you know what each does;
+- a displayed equation whose symbols arrive before you know what each does, or a
+  symbol in it that no sentence names, even one you could guess (a bath's $\omega_q$,
+  $\eta_q$): symbols are never exempt as "known to the field";
 - an index, subscript or label whose meaning you had to guess, or an average
   (an overline, a bracket) whose ensemble you could not tell;
 - a section opening that assumed what it should summarise;

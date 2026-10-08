@@ -92,6 +92,19 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
 - **The balance** *(Author: "we must try not to assume anything of the reader ... this
   is important, find a balance")*: a reference for every term, a clause of meaning
   only for the terms the argument turns on, the mechanism in an appendix.
+- **A departure explained by its mechanism.** A step that does not follow the method
+  explained with joint ground states and negative frequencies *(Author: "I think for
+  not confuse the reader, just say that because the cavity loss is of Lindblad type,
+  the noise is white, and reference")*; earlier, *(Author: "more direct, better
+  explained, because this is the first test of the method, so it is really strange
+  that we set up a list of steps, and then it does not work")*; and of the one-sentence
+  remainder, *(Author: "this is not necessary ... the important thing is to say that
+  this Lindblad loss produces a white noise that is filtered with the cavity because
+  we integrated it out")*: say what the step does, point to the appendix for why.
+- **Another paper's results re-derived** *(Author: "These results come from another
+  paper, maybe just state them more direct and concisely")*.
+- **A particular number without its support** *(Author: "This is a particular result,
+  right? Maybe we can quit this and just state the general result")*.
 - **Every fix right, the whole too long.** An introduction revised from 1519 to 1764
   words, each change justified *(Author: "the text is too dense, is too large ... a
   human seeks to communicate all the ideas in a concise readable way, not wasting space
@@ -113,5 +126,6 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
   whether this section is for a short show off or to deliver real content")*: expand
   it with intuition and references, or move it to an appendix.
 - **A placeholder caption** *(Senior author: "a caption has still to be understood
-  and not just be a placeholder")*.
+  and not just be a placeholder")*, and its opposite, a caption that repeats the
+  text and every setting *(Author: "we need a more concise and direct caption")*.
 - **A closing that lists the sections again** (flagged by a second co-author).
