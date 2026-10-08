@@ -39,6 +39,14 @@ them to check it.
     are done, or a numerical step (noise sampling, discretisation of a memory
     integral, a boundary term) the paper does not describe well enough to reimplement.
 7. **Inconsistent notation.** Operators with and without hats, vectors bold and not.
+8. **Agreement claims against the data.** Every "agrees", "within one standard error",
+   "follows the lines", "reproduces the exponent": recompute it from the saved data
+   (the evidence map in `CLAUDE.md`), and check that the data covers what is claimed
+   (an asymptotic exponent claimed from points that do not reach the asymptotic
+   regime is overstated). A departure from the claim is attributed to a cause only if
+   the data shows that cause.
+9. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
+   done by the paper's own code is not X's.
 
 Do not flag style, rhythm, length, word choice or emphasis: they are the authors'
 business, judged against their example papers, and a referee report that lists them

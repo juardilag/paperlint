@@ -246,3 +246,33 @@ class Sections(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DisplaySymbols(unittest.TestCase):
+    BATH = ("the modes $\\hat c_q$ outside,\n\\begin{equation}\n"
+            "  H = \\sum_q \\omega_q \\hat c_q^\\dagger \\hat c_q + \\eta_q X%s\n"
+            "\\end{equation}\nwhere $H$ and $X$ are given%s.")
+
+    def test_symbol_only_in_display_is_flagged(self):
+        found = lint.check_display_symbols(DOC % (self.BATH % ("", "")))
+        self.assertEqual({k for _, k in found}, {"\\omega_q", "\\eta_q"})
+
+    def test_symbol_named_in_text_is_clean(self):
+        body = self.BATH % ("", ", with frequency $\\omega_q$ and coupling $\\eta_q$")
+        self.assertEqual(lint.check_display_symbols(DOC % body), [])
+
+    def test_integration_variable_is_not_flagged(self):
+        body = "a kernel\n\\begin{equation}\n  K(t) = \\int d\\tau\\, e^{-\\tau}\n\\end{equation}\nwith $K$."
+        self.assertEqual(lint.check_display_symbols(DOC % body), [])
+
+
+class RepeatedConnective(unittest.TestCase):
+    def test_whether_twice_in_a_row(self):
+        body = ("It captures the exponent, whether the damping or the noise sets it. "
+                "Whether the state is thermal is the question of the next section.")
+        self.assertIn("PL024", codes(body))
+
+    def test_whether_once_is_clean(self):
+        body = ("It captures the exponent, whether the damping or the noise sets it. "
+                "The next section tests the state.")
+        self.assertNotIn("PL024", codes(body))

@@ -20,10 +20,16 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   and the term itself is kept for the appendix.
 - This includes every index, subscript and label (what $n$ and $m$ run over, what
   the subscript of a bracket marks) and every argument a function gains ($H(\phi)$
-  after $\hat H$). A quantity referred back to is named physically, not by its symbol
+  after $\hat H$). Every symbol of a displayed equation is named in the sentence that
+  introduces or follows it, even one a reader could guess (the frequency $\omega_q$ and
+  coupling $\eta_q$ of a bath's modes); the `audience` exemption covers terms, never
+  symbols (`lint.py` PL023). A quantity referred back to is named physically, not by its symbol
   alone ("the spectral density $J$", not "the $J$ of panel (a)").
 - A pronoun or "this" points to one object just named; after a sentence that names
   several, name the subject again ("the spectral density depends", not "it depends").
+  A specific object is named specifically: "the critical exponent $\nu$ of the photon
+  number", not "a critical exponent"; "NM-TWA and the exact solution", not "the two";
+  "the cavity is not integrated out", not "keep the cavity".
 - A connective states a relation that holds ("by", "in turn", "therefore" only for a
   means, a sequence, a consequence); otherwise drop it.
 
@@ -49,7 +55,9 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   S, so 2/N here"). Test every general statement of the method on every example the
   paper treats; a statement with an exception says so.
 - Statements about other work are checked against the source (the `literature`
-  agent), and credit says what that work did and what this paper adds. A method is
+  agent), and credit says what that work did and what this paper adds. "We follow
+  Ref. X" only for what X did; a calculation of this paper (its code) is this paper's.
+  A wording a reviewer proposes is checked like any other claim. A method is
   credited to the work that introduced it, not only to its latest or a co-author's
   formulation.
 - A special case is marked as an example ("for example, ..."), not stated as the
@@ -69,7 +77,16 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   with how it enters. A parameter the results never vary does not belong in the paper
   (check the code).
 - A results section applies the method: its equations of motion follow from the
-  general ones and agree with the code behind the figure.
+  general ones and agree with the code behind the figure. It uses the method's names
+  for the method's objects and steps (a new name for an existing object is an error),
+  and credits a result to the method as a whole, not to one ingredient.
+- Where a results section departs from a step of the method, it says so at that
+  step: the physical reason in a sentence, with a reference, and when the general step
+  would apply. The mechanism goes to an appendix. Known results of other work
+  (exponents, limits) are quoted with their reference, not re-derived.
+- An agreement claim ("follows", "within one standard error", "reproduces the
+  exponent") is recomputed from the saved data, and holds over the range the data
+  covers: an asymptotic quantity the data does not reach is not "reproduced".
 
 ## 6. The main text argues, the appendix proves
 - Each section says why, what is known and what it does. Results that matter stay in
@@ -104,8 +121,9 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   figure is redrawn after the text it illustrates is settled.
 
 ## 8. Each fact is stated once
-- A fact appears once in the paper, in the section that shows it. A premise that a
-  later argument needs is recalled where it is needed.
+- A fact appears once in the paper, in the section that shows it, and a mechanism
+  is explained once; later mentions point back to it. A premise that a later argument
+  needs is recalled where it is needed.
 
 ## 9. LaTeX mechanics
 - Cross-reference with one mechanism (`\cref`/`\Cref`, `\Cref` at a sentence start),
