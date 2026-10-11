@@ -172,10 +172,11 @@ class Words(unittest.TestCase):
         cfg = lint.Config(banned=[b for b in lint.DEFAULT_BANNED if "very" not in b[0]])
         self.assertNotIn("PL007", codes("The result is very good.", cfg))
 
-    def test_anthropomorphic_is_info(self):
-        cfg = lint.Config(anthropomorphic=list(lint.DEFAULT_ANTHROPOMORPHIC), style=True)
-        fs = lint.lint_text(DOC % "The bath remembers the past.", "t.tex", cfg)
-        self.assertEqual([(f.code, f.severity) for f in fs], [("PL014", "info")])
+    def test_unprofessional_is_error(self):
+        cfg = lint.Config(anthropomorphic=list(lint.DEFAULT_ANTHROPOMORPHIC))
+        for text in ("The bath remembers the past.", "The cavity gets a damping."):
+            fs = lint.lint_text(DOC % text, "t.tex", cfg)
+            self.assertEqual([(f.code, f.severity) for f in fs], [("PL014", "warning")])
 
     def test_long_emph(self):
         self.assertIn("PL009", codes("\\emph{The truncation is the only approximation here}."))

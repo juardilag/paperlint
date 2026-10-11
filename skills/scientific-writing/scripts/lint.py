@@ -44,7 +44,7 @@ REF_UPPER = "\u24c7"   # \Cref{...}
 PARA = "\u00b6"        # paragraph or item break
 
 # Reported by default. Everything else in CHECKS is a style note, off by default.
-ERROR_CHECKS = {"PL006", "PL010", "PL011", "PL013", "PL023", "PL024"}
+ERROR_CHECKS = {"PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
@@ -60,7 +60,7 @@ CHECKS = {
     "PL011": "acronym used before it is defined",
     "PL012": "bare demonstrative opener (This is / This means ...)",
     "PL013": "hand-typed cross-reference",
-    "PL014": "anthropomorphic verb",
+    "PL014": "anthropomorphic or colloquial wording",
     "PL015": "sentence longer than the target length",
     "PL016": "more than one parenthetical pointer in a sentence",
     "PL017": "antithesis reflex ('not X but Y', ', not an X')",
@@ -122,6 +122,9 @@ DEFAULT_ANTHROPOMORPHIC = [
     "remember", "remembers", "remembered", "forget", "forgets",
     "sees", "saw", "inherit", "inherits", "inherited",
     "knows", "wants", "decides", "tells", "feels", "chooses",
+    # colloquial: say the technical verb ("acquires", "is subject to", "costs")
+    "gets", "buys", "kicks in", "for free", "of its own", "a lot of", "lots of",
+    "pretty much", "stuff", "nothing else enters", "does the job", "the trick",
 ]
 
 # Function words of five letters or more, which PL018 does not count.
@@ -622,8 +625,8 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
             pat = r"\b(" + "|".join(map(re.escape, cfg.anthropomorphic)) + r")\b"
             for mt in re.finditer(pat, s, re.I):
                 p = a + mt.start()
-                add(p, "PL014", f"'{mt.group(0)}': describe what physically happens",
-                    excerpt_at(max(a, p - 40), p + 40), "info")
+                add(p, "PL014", f"'{mt.group(0)}': not professional English; describe what "
+                    "physically happens in the field's terms", excerpt_at(max(a, p - 40), p + 40))
         for term in cfg.forbidden_terms:
             if term["scope"] == "main" and a >= mk.appendix_at:
                 continue
@@ -801,6 +804,9 @@ def check_display_symbols(src: str) -> list[tuple[int, str]]:
             base = key.split("_")[0]
             if key in named or _shape(key) in named or key in seen or base in bound:
                 continue
+            sub = key.partition("_")[2]
+            if "," in sub and all(f"{base}_{p}" in named for p in sub.split(",")):
+                continue    # phi_{cl,q} with phi_cl and phi_q each named
             seen.add(key)
             out.append((a + off, key))
     return out

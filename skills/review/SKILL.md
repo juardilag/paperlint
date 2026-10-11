@@ -9,8 +9,9 @@ Review a section and report; do not edit.
 1. Identify the file and the section from `$ARGUMENTS`; ask if either is missing.
    Read `rules.md` and `examples.md` of the `scientific-writing` skill; a fix the
    review proposes is a clause, worded like the sentence around it.
-2. Launch the `referee` agent (correctness only) and the `cold-reader` agent (at most
-   five places where a reader gets lost) in parallel, with the paper directory so they
+2. Launch the `referee` agent (correctness only), the `cold-reader` agent (every place
+   a reader gets lost, one per subsection and one on each opening) and the
+   `rule-checker` agent (every failure of `rules.md`) in parallel, with the paper directory so they
    can read `paperlint.toml`, `glossary.toml` and `CLAUDE.md`.
 3. Triage every finding against the text yourself: confirm it, or say why it is wrong.
    A correctness finding is checked against the derivation, the code or the data

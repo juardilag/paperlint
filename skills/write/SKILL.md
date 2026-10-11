@@ -57,8 +57,8 @@ arguments contain `--no-confirm`. The plan is where the author shapes the text.
 ## 5. Check
 
 Run the **Check** part of the `revise` skill on the new text: `lint.py` (errors
-only), the audits of `rules.md`, sections 1 to 9, the `referee` and `cold-reader`
-agents, and minimal fixes. Compile and look at the rendered pages.
+only), the audits of `rules.md`, sections 1 to 10, the `referee`, `cold-reader` and `rule-checker`
+agents, minimal fixes, and the rule gate. Compile and look at the rendered pages.
 
 ## Report
 

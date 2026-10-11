@@ -161,14 +161,20 @@ is it implemented, everywhere it applies, as well as possible? Then ask what the
 themselves changed: a paragraph that now repeats another, a transition that no longer
 holds, a term used before its new definition, a sentence the comment's logic now
 makes weak. Run the **Check** part of the `revise` skill on the changed text (lint,
-the `referee` and `cold-reader` agents, minimal fixes) and triage their findings.
+the `referee`, `cold-reader` and `rule-checker` agents, minimal fixes) and triage their findings.
+
+"Change only what the comments ask" limits what is edited, not what is checked: give
+the `rule-checker` every paragraph this round touched, and the opening of every section
+in scope. Its failures in those paragraphs are fixed in this round, so a later round
+does not have to make the same comment again; failures elsewhere in the scope go to the
+report as questions.
 
 A reviewer's finding that contradicts a comment of the round (for example "cut the
 overview" when the comment asked for one) is rejected with that reason; the comment
 wins over the agents, and a conflict with a recorded decision goes to the authors.
 
 Fix what this finds and reread again. Stop when a round changes nothing that a comment
-or a correctness rule requires; at most four rounds, and report what is still open
+or a correctness rule requires and the `rule-checker` reports `PASS` on the touched paragraphs; at most four rounds, and report what is still open
 after the fourth. Changes made only because a round could find another phrasing are
 not convergence; leave the text.
 
@@ -231,7 +237,7 @@ the plugin's source repository, not the installed copy.
    `examples.md`, the skills, the agents, `lint.py`) and why it was not caught.
    Change the plugin where the miss was:
    - an error a reader or checker can verify: merge it into the rule it overlaps, as
-     `rules.md`, section 10 says (the file does not grow by more than it shrinks
+     `rules.md`, section 11 says (the file does not grow by more than it shrinks
      without a reason), and give the `referee` or `cold-reader` agent the question
      that finds it;
    - taste: an objection in `examples.md` with the reviewer's words and no invented

@@ -21,9 +21,13 @@ version is the original and which is the rewrite; do not guess.
 2. Read A and B whole, each as a reader of the journal would, not sentence by
    sentence.
 3. Decide which reads more like the reference prose: closer to how a scientist of the
-   field writes, easier to follow, no denser than its content needs. Judge the reading
-   only. Defined terms, correctness and rule compliance are checked elsewhere.
-4. Check that A and B make the same claims: the same results, numbers, hedges and
+   field writes, easier to follow, no denser than its content needs.
+4. Check both versions against `rules.md` of the scientific-writing skill, sections
+   1, 2, 6 and 10: a term or object referred to before it is introduced, something
+   that appears without preparation, notation that differs from the paper, a sentence
+   that needs an appendix, informal or unidiomatic English. A version that breaks a
+   rule the other keeps loses, whatever its prose; if both break rules, say so.
+5. Check that A and B make the same claims: the same results, numbers, hedges and
    scope. A version that drops, adds or changes a claim is flagged, whatever its
    prose.
 
@@ -33,5 +37,6 @@ version is the original and which is the rewrite; do not guess.
 - **Why**, in two or three sentences, in terms of the reference prose (for example
   "B joins its results by their logic as the reference does; A states them as a list
   of short sentences, each with its own qualification").
+- **Rule check:** "both pass", or each rule a version breaks, with the quoted words.
 - **Claim check:** "same claims", or each claim that differs, quoted from both.
 - The single sentence of the losing version that most gives it away.

@@ -104,9 +104,10 @@ reports; it never edits.
 | Agent | Reports |
 |---|---|
 | `referee` | wrong, doubtful or overstated claims and limitations without consequence; never style |
-| `cold-reader` | at most five places where a reader from a neighbouring field gets lost |
+| `cold-reader` | every place where a reader from a neighbouring field gets lost |
+| `rule-checker` | every sentence that breaks a rule of `rules.md`, with the rule; a check ends only on its `PASS` |
 | `literature` | whether the cited sources say what the text claims, with quotes |
-| `compare` | which of two versions, shown blind, reads more like real paragraphs of the same job, and whether they make the same claims |
+| `compare` | which of two versions, shown blind, reads more like real paragraphs of the same job, whether either breaks a rule, and whether they make the same claims |
 | `judge` | for the blind test: which paragraphs are published and which generated, and the tells |
 
 ## Files next to the paper

@@ -20,7 +20,7 @@ Set up paperlint for one paper.
    - acronyms that the field uses without definition, if any;
    - symbols with their single meaning.
    Show the proposal and write it only after the user agrees.
-4. Build or audit `CLAUDE.md` in the paper directory, following rules.md, section 11.
+4. Build or audit `CLAUDE.md` in the paper directory, following rules.md, section 12.
    Derive what you can instead of asking for it:
    - the evidence map: for every figure and table file the paper includes, find the
      script that writes it and the data it reads (search the repository for the file
@@ -31,7 +31,7 @@ Set up paperlint for one paper.
      with who, when and why;
    - build: the compile command and any preamble settings the commands rely on;
    - review status: from the user.
-   If a `CLAUDE.md` already exists, do not rewrite it. Check it against section 11 and
+   If a `CLAUDE.md` already exists, do not rewrite it. Check it against section 12 and
    report, entry by entry, what to keep, move to another project file, merge, update or
    delete. Show the proposal and write only what the user agrees to.
 5. Check that the house-style corpus exists (`corpus.py jobs`); if not, build it

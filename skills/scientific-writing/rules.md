@@ -7,7 +7,8 @@ house style (the corpus, `scripts/corpus.py`) and from the authors' own edits
 mechanically (sentence-length caps, punctuation bans, banned openers, "join sentences
 with because", "open every paragraph with its claim") are what made earlier drafts read
 as generated, so paperlint has none; `lint.py --style` still offers notes for an author
-who wants to read them.
+who wants to read them. Professional English (section 10) is not style but correctness,
+and is enforced.
 
 The authors own the prose. A paragraph the authors wrote or approved is changed only to
 fix an error, with the smallest edit that fixes it, unless they ask for a rewrite.
@@ -30,6 +31,13 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   A specific object is named specifically: "the critical exponent $\nu$ of the photon
   number", not "a critical exponent"; "NM-TWA and the exact solution", not "the two";
   "the cavity is not integrated out", not "keep the cavity".
+- Nothing is referred to before it is introduced. "The X" presupposes that the reader
+  has met X: "the exact master equation", "the linearised result", "the baths" and a
+  field $B$ are errors until the text has said which one. A quantity that relates
+  two objects names both ("the coupling $\eta_q$ of the cavity to mode $q$").
+- Nothing appears suddenly. A new tool (a Poisson bracket, a coupling operator), a
+  comparison (with another method) or a change of subject is prepared by the sentence
+  before it, so the reader knows why it is there before it is used.
 - A connective states a relation that holds ("by", "in turn", "therefore" only for a
   means, a sequence, a consequence); otherwise drop it.
 
@@ -37,7 +45,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - The same object has the same name and symbol in every section, figure, legend and
   table (`glossary.toml`). One symbol has one meaning in the whole paper.
 - Every average says what it runs over (noise realisations, initial conditions,
-  both), and one symbol never averages over different ensembles.
+  both), in the formula as well as in the words, and one symbol never averages over
+  different ensembles.
+- A special case keeps the general notation, with a label added: the cavity's memory
+  kernel is $\Sigma^R_c$, not a new $\Sigma_c$.
 - Typography is the same in every equation (hats, bold, indices), and a function
   keeps its argument wherever it appears ($J(\omega)$, not $J$ in one place).
 - A sentence about an equation names only what the equation shows (no indices the
@@ -50,7 +61,9 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - A result is stated as strongly as its figure and data show, no more ("agrees within
   the statistical error" is checked against the error).
 - The paper's own choices (a bath, a parameter) are stated as choices, not as facts
-  about a regime.
+  about a regime. Each choice says, where it is made, what it represents and why it
+  matters: the initial state and why its Wigner function is the distribution sampled,
+  the parameter values and what they make the test sensitive to.
 - State the general case first, then the paper's instance ("1/S for a spin of length
   S, so 2/N here"). Test every general statement of the method on every example the
   paper treats; a statement with an exception says so.
@@ -80,6 +93,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   general ones and agree with the code behind the figure. It uses the method's names
   for the method's objects and steps (a new name for an existing object is an error),
   and credits a result to the method as a whole, not to one ingredient.
+- A worked example says, at each step, which step of the method it applies and what
+  that step yields, and every equation says where it comes from ("the Heisenberg
+  equations of Eq. (8)", "Eq. (3) with $A = S^x$"). Whether a symbol is an operator or
+  its classical variable is clear from the text at every point.
 - Where a results section departs from a step of the method, it says so at that
   step: the physical reason in a sentence, with a reference, and when the general step
   would apply. The mechanism goes to an appendix. Known results of other work
@@ -89,14 +106,18 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   covers: an asymptotic quantity the data does not reach is not "reproduced".
 
 ## 6. The main text argues, the appendix proves
-- Each section says why, what is known and what it does. Results that matter stay in
+- Each section says why, what is known and what it does. A section or subsection
+  opening is a bird's-eye view: why the section exists and what each part tests, in
+  general terms and in words the reader already has. Particular numbers, system sizes,
+  observables and new symbols wait for the subsection that uses them, and every claim
+  of the opening carries its own reason ("why do the frequencies move?"). Results that matter stay in
   the main text; their derivation and the technical detail go to an appendix.
 - A derivation is one ordered chain: the model and its terms first, each step from the
   ones before, the approximation last, remarks after. A derivation that fails this is
   rewritten as a whole.
 - The main text can be followed without opening an appendix. It sends the reader to
-  an appendix for a proof or a detail, never for a table or an equation needed to
-  understand the sentence.
+  an appendix for a proof or a detail, never for a concept, a table or an equation
+  needed to understand the sentence: a pointer is not an explanation.
 - A remark stands where its subject is introduced and says why it matters there. A
   "Remarks" subsection collecting them means they are in the wrong place; a remark
   that matters nowhere in the argument goes to an appendix or is cut.
@@ -137,7 +158,29 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   (`\interlinepenalty=10000` before `\bibliography`) and check the compiled PDF for
   link boxes larger than a few lines.
 
-## 10. Maintaining the rules
+## 10. Professional English
+The register is not style: a sentence a journal's copy editor or a referee would mark
+as informal, unidiomatic or ungrammatical is an error, in a paragraph the authors wrote
+as much as in a draft, in a section title or a caption as much as in the text. Fix it
+with the smallest edit, in the field's words.
+- Grammatical, idiomatic English as published in the target journal: articles,
+  agreement, prepositions and collocations a native-speaking physicist would use
+  ("is subject to a damping", not "gets the damping"; "satisfies its own equation of
+  motion", not "obeys an equation of its own").
+- No colloquialism, slang or conversational verb ("gets", "buys", "kicks in", "for
+  free", "does the job", "the trick", "nothing else enters"). No anthropomorphism: a
+  bath has a finite correlation time, it does not "forget"; a spin couples to a field,
+  it does not "see" it (`lint.py` PL014).
+- The technical term where one exists, used as the field uses it ("the bath
+  correlation time is short compared with the relaxation time", not "the bath forgets
+  faster than the system relaxes"). A word that has no physical reading in its
+  context is an error (examples.md, "Words that do not fit the physics").
+- Formal, precise, measured: no contractions, no exclamations, no rhetorical
+  questions outside a stated research question, no hype words the data cannot carry.
+- Professional is not stiff: "we" narrates, sentence length varies, and the field's
+  stock phrases are welcome (`style.md`). This rule removes informality, never voice.
+
+## 11. Maintaining the rules
 - A rule is added only for an error a checker or a reader can verify, never for
   taste. Before a rule is added, find the rule it overlaps and merge them; this file
   does not grow by more than it shrinks without a reason.
@@ -150,7 +193,7 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - An author correction about content goes to the paper's `CLAUDE.md` or
   `glossary.toml`.
 
-## 11. The project file `CLAUDE.md`
+## 12. The project file `CLAUDE.md`
 `CLAUDE.md` holds what a reader of the paper and its code cannot infer. Every command
 reads it, so every line costs attention on every run.
 

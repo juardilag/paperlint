@@ -37,7 +37,7 @@ Revise one section and stop. Two jobs, kept apart:
 
 1. Run `lint.py --section "<title>"`. It reports errors only; fix each. Do not run
    `--style` unless the user asks, and never write toward its notes.
-2. Audit the section against `rules.md`, sections 1 to 9:
+2. Audit the section against `rules.md`, sections 1 to 10:
    - every term and symbol defined at first use, one name and one symbol per object
      across the paper (grep it);
    - every number recomputed from its data with the script that prints it, and every
@@ -50,9 +50,11 @@ Revise one section and stop. Two jobs, kept apart:
    - captions carry every parameter that reproduces the figure, and any takeaway
      they state matches the data; legends use the text's terms;
    - each fact once; cross-references and column widths (`Overfull \hbox`).
-3. Launch the `referee` and the `cold-reader` agents in parallel on the section as it
-   is now. Give them the paper directory; they read `CLAUDE.md` for the decisions and
-   nothing about earlier rounds.
+3. Launch the `referee`, `cold-reader` and `rule-checker` agents in parallel on the
+   section as it is now: one `cold-reader` per subsection, and one on each section or
+   subsection opening (the text before its first subsection, which no subsection
+   check covers). Give them the paper directory; they read `CLAUDE.md` for the
+   decisions and nothing about earlier rounds.
 4. Triage every finding:
    - **Error** (wrong, inconsistent, undefined, unsupported): fix it with the smallest
      edit, in the sentence that has the problem. A clause in that sentence, never a new
@@ -63,6 +65,7 @@ Revise one section and stop. Two jobs, kept apart:
      results, anything the data must decide. Check correctness first; send only the
      decision.
    - **Rejected**: say why in one sentence, in the report. Nothing is saved.
+   A `rule-checker` failure is an error, also in a paragraph the authors approved.
    Findings about style, rhythm or length are not errors and are not acted on in a
    check.
 5. Self-check every edit: reread the sentence and its paragraph, check it against the
@@ -76,6 +79,10 @@ Revise one section and stop. Two jobs, kept apart:
    it is over its limit, list its ideas and propose, as an author decision, which move
    to an appendix and which go; never compress to meet the limit.
 8. Compile and fix any `Overfull \hbox` in the section.
+
+9. **Rule gate.** Run the `rule-checker` again on every paragraph this check changed.
+   The check ends only when it reports `PASS`, or after three rounds with each
+   remaining failure listed in the report as open.
 
 A check is one pass. Run it again only if the fixes changed a claim, a number or a
 derivation, and then only on what changed.

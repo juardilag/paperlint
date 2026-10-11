@@ -34,8 +34,8 @@ Files in this skill's directory:
   follow). `check_refs.py`: `.bib` against Crossref. `pdf_comments.py`: annotations of
   a reviewed PDF. `init_project.py`: creates `paperlint.toml` and `glossary.toml`.
 
-Agents: `referee` (wrong or overstated claims), `cold-reader` (at most five places a
-reader gets lost), `literature` (sources), `compare` (blind A/B of two versions against
+Agents: `referee` (wrong or overstated claims), `cold-reader` (every place a
+reader gets lost), `rule-checker` (every failure of `rules.md`, the gate of every check), `literature` (sources), `compare` (blind A/B of two versions against
 real paragraphs), `judge` (the blind test).
 
 ## Project files
@@ -76,7 +76,8 @@ smallest edit in the sentence that has the error.
    match the variety of the models, not an average.
 4. **Check the facts.** Every item of the list is in the draft, with the same strength
    and the same hedge, and no new claim is added. A missing or changed claim is fixed
-   now. What a draft may and should add is discourse, which a list of facts lacks and
+   now. Every sentence is professional English (`rules.md`, section 10): no
+   colloquial or anthropomorphic wording survives the draft. What a draft may and should add is discourse, which a list of facts lacks and
    published paragraphs are full of: how the paragraph follows from the previous one,
    what a result means for the reader or for the question the paper asks, a comparison
    with work the paper already cites, a remark that guides the reader ("notice that
@@ -117,8 +118,8 @@ limit. Every command that writes or redrafts reads it first.
    data behind it. Build a map of the paper in your working notes (what each section
    establishes, where each symbol and term is defined, the source of each number). It
    is not saved: it is rebuilt from the current text every run.
-2. **Check**: run `lint.py`, audit against `rules.md` sections 1 to 9, launch the
-   `referee` and `cold-reader` agents on the text as it is now, and fix each confirmed
+2. **Check**: run `lint.py`, audit against `rules.md` sections 1 to 10, launch the
+   `referee`, `cold-reader` and `rule-checker` agents on the text as it is now, and fix each confirmed
    error with the smallest edit, in the sentence that has it. Recompute every number
    from its script.
 3. **Compile, render and look** at the pages, including figures and equations.
