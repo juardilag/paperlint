@@ -45,10 +45,10 @@ class Defaults(unittest.TestCase):
         self.assertLessEqual(found, lint.ERROR_CHECKS)
 
     def test_enable_one_style_check(self):
-        cfg = lint.Config(enabled={"PL003"})
-        found = [f.code for f in lint.lint_text(DOC % "One; two. We use a recipe.",
+        cfg = lint.Config(enabled={"PL002"})
+        found = [f.code for f in lint.lint_text(DOC % "One: two. We use a recipe.",
                                                  "t.tex", cfg)]
-        self.assertEqual(found, ["PL003"])
+        self.assertEqual(found, ["PL002"])
 
 
 class Sentences(unittest.TestCase):
@@ -145,6 +145,10 @@ class Punctuation(unittest.TestCase):
     def test_em_dash_but_not_en_dash(self):
         self.assertIn("PL004", codes("The bath --- a thermal one --- is fixed."))
         self.assertNotIn("PL004", codes("The range 2.1--2.6 follows Caldeira--Leggett."))
+        self.assertIn("PL004", codes("The bath -- a thermal one -- is fixed."))
+
+    def test_semicolon_and_dash_are_errors(self):
+        self.assertTrue({"PL003", "PL004"} <= lint.ERROR_CHECKS)
 
     def test_math_and_comments_are_ignored(self):
         body = "The map is $f: X\\to Y$ here.\n% note: ignore; this --- line\nThe end."

@@ -44,13 +44,13 @@ REF_UPPER = "\u24c7"   # \Cref{...}
 PARA = "\u00b6"        # paragraph or item break
 
 # Reported by default. Everything else in CHECKS is a style note, off by default.
-ERROR_CHECKS = {"PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024"}
+ERROR_CHECKS = {"PL003", "PL004", "PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
     "PL002": "colon in running text",
     "PL003": "semicolon in running text",
-    "PL004": "em dash",
+    "PL004": "dash used as punctuation (em dash, or a spaced en dash)",
     "PL005": "sentence starts with a symbol, a numeral or an acronym",
     "PL006": "sentence starts with a lower-case reference macro (use the capitalised one)",
     "PL007": "banned phrase",
@@ -598,12 +598,12 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
         if cfg.ban_semicolons:
             for mt in re.finditer(r";", s):
                 p = a + mt.start()
-                add(p, "PL003", "semicolon; prefer two sentences",
+                add(p, "PL003", "semicolon, rare in published physics prose; use a connective or two sentences",
                     excerpt_at(max(a, p - 40), p + 40))
         if cfg.ban_em_dash:
-            for mt in re.finditer(r"(?<!-)---(?!-)|\u2014", s):
+            for mt in re.finditer(r"(?<!-)---(?!-)|\u2014|\s--\s|\s\u2013\s", s):
                 p = a + mt.start()
-                add(p, "PL004", "em dash; rewrite with a comma or a full stop",
+                add(p, "PL004", "dash as punctuation, an LLM tell; use a comma, a connective or a full stop",
                     excerpt_at(max(a, p - 40), p + 40))
         refs = REF_LOWER + REF_UPPER
         groups = re.findall(r"\([^()]*[" + refs + r"][^()]*\)", s)

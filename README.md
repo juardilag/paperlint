@@ -130,10 +130,10 @@ Neither becomes a rule.
 
 `lint.py` reports **errors** by default: an acronym used before it is defined, a term
 the glossary avoids, a hand-typed reference, a lower-case reference macro at a sentence
-start. It also runs on every paragraph Claude edits in a folder with a
+start, a semicolon, a dash used as punctuation. It also runs on every paragraph Claude edits in a folder with a
 `paperlint.toml`, and asks only for the smallest fix.
 
-Style checks (sentence length, colons and semicolons, openers, stock phrases, repeated
+Style checks (sentence length, colons, openers, stock phrases, repeated
 words, list-shaped paragraphs) are off by default. Run them as notes with `--style`, or
 switch some on in `paperlint.toml`:
 

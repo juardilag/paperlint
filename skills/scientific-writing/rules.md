@@ -8,7 +8,9 @@ mechanically (sentence-length caps, punctuation bans, banned openers, "join sent
 with because", "open every paragraph with its claim") are what made earlier drafts read
 as generated, so paperlint has none; `lint.py --style` still offers notes for an author
 who wants to read them. Professional English (section 10) is not style but correctness,
-and is enforced.
+and is enforced. Two punctuation marks are the exception, because they mark a text as
+generated rather than as a matter of taste: semicolons and dashes used as punctuation
+(section 10).
 
 The authors own the prose. A paragraph the authors wrote or approved is changed only to
 fix an error, with the smallest edit that fixes it, unless they ask for a rewrite.
@@ -179,6 +181,23 @@ with the smallest edit, in the field's words.
   questions outside a stated research question, no hype words the data cannot carry.
 - Professional is not stiff: "we" narrates, sentence length varies, and the field's
   stock phrases are welcome (`style.md`). This rule removes informality, never voice.
+- No more words than the argument needs, and no fewer than a human writer would use.
+  Cut whole ideas (a repetition, an aside, a sentence that only announces what
+  follows), never the grammar of the ones that stay: no dropped articles, no clipped
+  appositives ("the field outside", "the exact reference"), no stacked noun phrases, no
+  telegraphic sentences. Compressed prose reads as generated as surely as padded prose
+  does. The measure is the human papers of the corpus doing the same job
+  (`corpus.py retrieve`), not a word count: a section over its budget is fixed by moving
+  or cutting ideas, never by compressing sentences.
+- Openings and closings of sections, subsections and appendices are where generated
+  prose shows most. Before writing one, retrieve corpus paragraphs that do the same job
+  and match how they open (what is studied and why, then a preview) and how they close
+  (the result, or a pointer to what follows), without echoing their wording.
+- No semicolons and no dashes used as punctuation (`---`, an em dash, or a spaced
+  `--`) in running text: they are rare in published physics prose and typical of
+  generated text. Use a connective ("because", "so", "whereas", "while") or two
+  sentences, and a comma or parentheses for an aside. En dashes in ranges and names
+  (2--5, Caldeira--Leggett) are correct (`lint.py` PL003, PL004).
 
 ## 11. Maintaining the rules
 - A rule is added only for an error a checker or a reader can verify, never for
