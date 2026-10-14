@@ -130,7 +130,8 @@ Neither becomes a rule.
 
 `lint.py` reports **errors** by default: an acronym used before it is defined, a term
 the glossary avoids, a hand-typed reference, a lower-case reference macro at a sentence
-start, a semicolon, a dash used as punctuation. It also runs on every paragraph Claude edits in a folder with a
+start, a semicolon, a dash used as punctuation, a British spelling in a paper set to
+American English. It also runs on every paragraph Claude edits in a folder with a
 `paperlint.toml`, and asks only for the smallest fix.
 
 Style checks (sentence length, colons, openers, stock phrases, repeated

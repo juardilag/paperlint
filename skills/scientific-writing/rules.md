@@ -198,6 +198,12 @@ with the smallest edit, in the field's words.
   generated text. Use a connective ("because", "so", "whereas", "while") or two
   sentences, and a comma or parentheses for an aside. En dashes in ranges and names
   (2--5, Caldeira--Leggett) are correct (`lint.py` PL003, PL004).
+- One spelling convention for the whole paper, American English by default, as at the
+  APS, AIP and IOP journals: -ize and -ization (polarize, realization), -or (color,
+  behavior), -er (center), -yze (analyze), single l (modeled, labeled), gray, toward.
+  A paper for a journal that wants British spelling sets `spelling = "british"` in
+  `paperlint.toml` (`lint.py` PL025). Bibliography entries keep the spelling of the
+  published titles.
 
 ## 11. Maintaining the rules
 - A rule is added only for an error a checker or a reader can verify, never for

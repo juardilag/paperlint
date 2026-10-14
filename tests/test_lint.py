@@ -281,3 +281,21 @@ class RepeatedConnective(unittest.TestCase):
         body = ("It captures the exponent, whether the damping or the noise sets it. "
                 "The next section tests the state.")
         self.assertNotIn("PL024", codes(body))
+
+
+class Spelling(unittest.TestCase):
+    def test_british_spelling_is_an_error_in_american_mode(self):
+        cfg = lint.Config()
+        found = [f for f in lint.lint_text(DOC % "The coloured noise is normalised.", "t.tex", cfg)
+                 if f.code == "PL025"]
+        self.assertEqual(len(found), 2)
+        self.assertEqual(found[0].severity, "error")
+
+    def test_words_ending_in_ise_that_are_not_verbs_pass(self):
+        body = "Otherwise the noise would rise, a precise and concise analysis."
+        self.assertNotIn("PL025", codes(body))
+
+    def test_british_mode_switches_the_check_off(self):
+        cfg = lint.Config(spelling="british")
+        self.assertNotIn("PL025", [f.code for f in lint.lint_text(DOC % "The colour.", "t.tex", cfg)])
+

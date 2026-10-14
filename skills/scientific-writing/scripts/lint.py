@@ -44,7 +44,8 @@ REF_UPPER = "\u24c7"   # \Cref{...}
 PARA = "\u00b6"        # paragraph or item break
 
 # Reported by default. Everything else in CHECKS is a style note, off by default.
-ERROR_CHECKS = {"PL003", "PL004", "PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024"}
+ERROR_CHECKS = {"PL003", "PL004", "PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024",
+                "PL025"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
@@ -70,9 +71,62 @@ CHECKS = {
     "PL022": "paragraph longer than the paragraph limit",
     "PL023": "symbol of a displayed equation never named in the text",
     "PL024": "the same connective in two consecutive sentences",
+    "PL025": "British spelling in a paper set to American English",
 }
 
 # Connectives a reader notices when two sentences in a row use them (PL024).
+# British spellings flagged when the paper is set to American English (PL025):
+# whole words with their American form, plus the -ise/-isation family, whose
+# exceptions (noise, otherwise, rise, ...) are not verbs in -ize.
+BRITISH_WORDS = {
+    "colour": "color", "behaviour": "behavior", "neighbour": "neighbor",
+    "favour": "favor", "favourable": "favorable", "unfavourable": "unfavorable",
+    "honour": "honor", "labour": "labor", "vapour": "vapor", "flavour": "flavor",
+    "humour": "humor", "harbour": "harbor", "centre": "center", "centres": "centers",
+    "centred": "centered", "centring": "centering", "metre": "meter",
+    "litre": "liter", "fibre": "fiber", "grey": "gray", "analyse": "analyze",
+    "analysed": "analyzed", "analysing": "analyzing", "catalyse": "catalyze",
+    "catalysed": "catalyzed", "paralyse": "paralyze", "paralysed": "paralyzed",
+    "modelled": "modeled",
+    "modelling": "modeling", "labelled": "labeled", "labelling": "labeling",
+    "travelled": "traveled", "signalled": "signaled", "cancelled": "canceled",
+    "towards": "toward", "judgement": "judgment", "acknowledgement": "acknowledgment",
+    "programme": "program", "whilst": "while", "amongst": "among", "fulfil": "fulfill",
+    "aluminium": "aluminum", "sceptical": "skeptical", "defence": "defense",
+    "licence": "license", "practise": "practice", "focussed": "focused",
+}
+BRITISH_ROOTS = {"colour": "color", "behaviour": "behavior", "neighbour": "neighbor",
+                 "favour": "favor"}
+ISE_EXCEPTIONS = {"noise", "otherwise", "likewise", "clockwise", "pairwise", "rise",
+                  "arise", "precise", "concise", "advise", "revise", "devise",
+                  "supervise", "promise", "premise", "comprise", "compromise",
+                  "exercise", "surprise", "raise", "praise", "poise", "expertise",
+                  "enterprise", "disguise", "franchise", "merchandise", "improvise",
+                  "excise", "incise", "despise", "chastise", "televise", "wise",
+                  "advertise", "bruise", "cruise", "guise", "paradise", "porpoise",
+                  "tortoise", "turquoise", "valise", "anise", "demise", "vise",
+                  "treatise", "elise", "louise", "denise"}
+_ISE_RE = re.compile(r"\b([a-z]+?)(is(?:e|ed|es|ing|ation|ations|er|ers))\b")
+
+
+def british_spelling(word: str) -> str | None:
+    """American form of a British spelling, or None if the word is not British."""
+    w = word.lower()
+    if w in BRITISH_WORDS:
+        return BRITISH_WORDS[w]
+    for root, us in BRITISH_ROOTS.items():
+        if w.startswith(root) and len(w) > len(root):
+            return us + w[len(root):]
+    m = _ISE_RE.fullmatch(w)
+    if m and len(m.group(1)) >= 3:
+        stem, suf = m.groups()
+        base = stem + "ise"
+        if base in ISE_EXCEPTIONS or w in ISE_EXCEPTIONS:
+            return None
+        return stem + "iz" + suf[2:]
+    return None
+
+
 CONNECTIVES = ("whether however therefore thus hence instead moreover whereas "
                "although nevertheless conversely accordingly meanwhile").split()
 
@@ -259,6 +313,7 @@ class Config:
     style: bool = False                 # run every style check
     enabled: set[str] = field(default_factory=set)   # style checks run one by one
     forbidden_terms: list[dict] = field(default_factory=list)
+    spelling: str = "american"          # PL025: "american", "british" or "any"
     root: Path = Path(".")
 
 
@@ -286,7 +341,8 @@ def load_config(start: Path, explicit: Path | None = None) -> Config:
     cfg.files = list(paper.get("files", []))
     for key in ("max_sentence_words", "hard_sentence_words", "ban_colons",
                 "ban_semicolons", "ban_em_dash", "emph_max_words",
-                "reference_style", "max_word_repeats", "max_paragraph_words"):
+                "reference_style", "max_word_repeats", "max_paragraph_words",
+                "spelling"):
         if key in style:
             setattr(cfg, key, style[key])
     cfg.known_acronyms |= set(words.get("known_acronyms", []))
@@ -639,6 +695,14 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 where = " in the main text" if term["scope"] == "main" else ""
                 add(p, "PL010", f"'{mt.group(0)}' is not used{where}{use}{note}",
                     excerpt_at(max(a, p - 40), p + 40))
+
+    if cfg.spelling == "american":
+        for mt in re.finditer(r"[A-Za-z]+", masked):
+            us = british_spelling(mt.group(0))
+            if us:
+                add(mt.start(), "PL025", f"British spelling '{mt.group(0)}'; American "
+                    f"English writes '{us}'", excerpt_at(max(0, mt.start() - 30),
+                                                         mt.end() + 30), "error")
 
     # Paragraph-level texture: PL018 repetition, PL019 enumeration, PL020 agents.
     paragraphs: list[list[tuple[int, int]]] = []
