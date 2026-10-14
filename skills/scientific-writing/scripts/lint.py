@@ -578,6 +578,22 @@ def split_sentences(masked: str) -> list[tuple[int, int]]:
 WORD_RE = re.compile(r"[A-Za-z0-9\u24c2][A-Za-z0-9'\u2019\-]*")
 
 
+def _label_spans(src: str, labels: list[str]) -> list[tuple[int, int]]:
+    """Span of each labeled (sub)section: from its heading to the next heading of
+    the same or a higher level (glossary avoid_in = [labels])."""
+    heads = [(m.start(), len(m.group(1))) for m in
+             re.finditer(r"\\((?:sub)*)section\*?\{", src)]
+    out = []
+    for lab in labels:
+        at = src.find("\\label{" + lab + "}")
+        if at < 0:
+            continue
+        start, lvl = max(((p, l) for p, l in heads if p <= at), default=(0, 0))
+        end = min((p for p, l in heads if p > start and l <= lvl), default=len(src))
+        out.append((start, end))
+    return out
+
+
 def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
     mk = Masker(src)
     masked = mk.run()
@@ -687,6 +703,9 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
             if term["scope"] == "main" and a >= mk.appendix_at:
                 continue
             if term["scope"] == "appendix" and a < mk.appendix_at:
+                continue
+            if isinstance(term["scope"], list) and not any(
+                    x <= a < y for x, y in _label_spans(src, term["scope"])):
                 continue
             for mt in re.finditer(r"\b" + re.escape(term["pattern"]) + r"\b", s, re.I):
                 p = a + mt.start()

@@ -249,6 +249,18 @@ class Sections(unittest.TestCase):
         self.assertEqual(lint.section_range(src, "Sub"), (3, 5))
 
 
+class GlossarySectionScope(unittest.TestCase):
+    def test_term_is_flagged_only_inside_the_labeled_section(self):
+        cfg = lint.Config()
+        cfg.forbidden_terms.append({"pattern": "without photon loss", "use": "",
+                                    "scope": ["sec:b"], "note": ""})
+        body = ("\\section{A}\\label{sec:a}\nA cavity without photon loss is here.\n"
+                "\\section{B}\\label{sec:b}\nA cavity without photon loss is here.\n"
+                "\\section{C}\nA cavity without photon loss is here.")
+        lines = [f.line for f in lint.lint_text(DOC % body, "t.tex", cfg) if f.code == "PL010"]
+        self.assertEqual(len(lines), 1)
+
+
 if __name__ == "__main__":
     unittest.main()
 

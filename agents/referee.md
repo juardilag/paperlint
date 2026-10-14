@@ -45,7 +45,13 @@ them to check it.
    (an asymptotic exponent claimed from points that do not reach the asymptotic
    regime is overstated). A departure from the claim is attributed to a cause only if
    the data shows that cause.
-9. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
+9. **Statements about the model against its equations.** Every negative or
+   descriptive statement about the setup ("without X", "no X", "only Y", "closed",
+   "lossless", "linear coupling"): check it against the Hamiltonian, master equation
+   or equations of motion of that section. A statement the equations contradict is
+   must fix. A term that the paper uses in two senses (linear in the bath versus
+   linear in the system variables) is should fix, with the sense it needs at each place.
+10. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
    done by the paper's own code is not X's.
 
 Do not flag style, rhythm, length, word choice or emphasis: they are the authors'

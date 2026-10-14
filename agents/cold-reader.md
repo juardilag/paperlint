@@ -45,6 +45,9 @@ get no history of earlier reviews: read the text as it is now.
   particular numbers, sizes or symbols before you knew why they mattered;
 - "the X" for an X you had not met yet ("the exact master equation", "the baths");
 - a tool, symbol or comparison that appeared without a sentence preparing it;
+- a term that a later section uses in a different sense from the one it was
+  defined with. When the caller marks a section as accepted (read-only), read it
+  only to report such terms, with the line of each use, and propose nothing in it;
 - in a worked example, a step or an equation whose origin you could not tell (which
   step of the method is this? where does this equation come from?);
 - in a derivation, the first place you could not follow from one equation to the

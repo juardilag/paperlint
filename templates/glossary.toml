@@ -9,7 +9,8 @@ known_acronyms = []
 # [[term]]
 # name = "lattice site"                      # the name used in the text
 # avoid = ["node", "lattice point"]
-# avoid_in = "all"                           # "main" (before \appendix), "appendix" or "all"
+# avoid_in = "all"                           # "main" (before \appendix), "appendix", "all",
+#                                            # or a list of section labels, e.g. ["sec:results"]
 # note = "one name for the same object throughout"
 
 # A specialist term that stays in the appendices:
