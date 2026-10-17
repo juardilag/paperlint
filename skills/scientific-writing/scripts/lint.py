@@ -79,6 +79,8 @@ CHECKS = {
 # whole words with their American form, plus the -ise/-isation family, whose
 # exceptions (noise, otherwise, rise, ...) are not verbs in -ize.
 BRITISH_WORDS = {
+    "artefact": "artifact", "artefacts": "artifacts", "signalling": "signaling",
+    "catalogue": "catalog",
     "colour": "color", "behaviour": "behavior", "neighbour": "neighbor",
     "favour": "favor", "favourable": "favorable", "unfavourable": "unfavorable",
     "honour": "honor", "labour": "labor", "vapour": "vapor", "flavour": "flavor",

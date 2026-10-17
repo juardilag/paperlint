@@ -8,7 +8,7 @@ captions that do not reproduce their figure, and fixes each with the smallest ed
 
 The prose belongs to the authors. paperlint does not rewrite text in rounds toward a
 checklist, because that is what makes text read as generated. When it writes, it aims
-for prose that reads as a physicist wrote it, and it measures whether it got there.
+for prose that reads as a physicist wrote it, and it measures whether it succeeded.
 
 ## Install
 
@@ -27,12 +27,70 @@ marketplace update paperlint` and `claude plugin update paperlint@paperlint`.
 
 Open Claude Code in the paper's folder and run `/paperlint:setup`. It creates
 `paperlint.toml` and `glossary.toml`, builds a `CLAUDE.md` with the script and data
-behind every figure. Then set the reader:
+behind every figure, and on first use builds the corpus of published paragraphs (a
+few minutes, needs network). Then set the reader:
 
 ```toml
 [paper]
 audience = "PRB: cold atoms and condensed-matter theory"
 ```
+
+Pull before every paperlint session if the paper also lives on Overleaf (next
+section), and run `/paperlint:learn` after co-authors edited the text.
+
+## Working with Overleaf
+
+If your co-authors edit on Overleaf, keep a local copy for Claude and sync the two
+through Overleaf's git integration (a paid Overleaf feature).
+
+1. In Overleaf, open **Menu → Git** for the project and copy the clone URL. Create a
+   git authentication token under **Account Settings → Git integration**.
+2. Clone the project next to your paper folder, into `overleaf/`, and keep it out of
+   your own repository:
+
+   ```bash
+   git clone https://git@git.overleaf.com/<project-id> overleaf
+   echo overleaf/ >> .gitignore
+   git -C overleaf config credential.helper store   # asks for the token once
+   ```
+
+   The username is `git` and the password is the token. Run this yourself: Claude
+   should not handle the token. In the VS Code terminal git asks for it in an input
+   box at the top of the window, not in the terminal.
+3. Copy `templates/sync_overleaf.sh` from this repository next to `overleaf/` and edit
+   its first lines: the folder with the paper (`P`), the files synced both ways
+   (`TEX`) and the figure files pushed to `overleaf/figures/` (`FIGS`). Run
+   `bash sync_overleaf.sh pull` once.
+4. Make Claude push its changes whenever it stops, with a `Stop` hook in
+   `.claude/settings.local.json` of the folder where you open Claude Code:
+
+   ```json
+   {
+     "hooks": {
+       "Stop": [{
+         "hooks": [{
+           "type": "command",
+           "command": "cd /path/to/paper-folder && timeout 90 bash sync_overleaf.sh auto",
+           "timeout": 120,
+           "statusMessage": "Syncing paper to Overleaf..."
+         }]
+       }]
+     }
+   }
+   ```
+
+   `auto` pushes only if a local file differs from the Overleaf copy, and never
+   prompts for credentials.
+
+A session then starts with `bash sync_overleaf.sh pull` before a session (or ask Claude to
+run it), `/paperlint:learn` if co-authors edited, then any paperlint command. The
+script never overwrites unsynced work. `pull` refuses when your local copy has edits
+not yet pushed and Overleaf changed too, and `push` refuses when Overleaf changed since
+your last pull. In both cases merge `overleaf/main.tex` into your copy by hand.
+
+The hook makes many commits called "auto-sync from local". When you run
+`/paperlint:learn` on Overleaf edits, compare against the last auto-sync commit, not
+`HEAD~1`, or Claude's own edits are recorded as the author's.
 
 ## Human-like writing
 
@@ -53,8 +111,8 @@ voice the paper should have.
 
 Length is set the same way. `blindtest.py budget` gives every section a budget: the
 median length of published sections that do the same job, with the upper quartile as
-the limit. A section over its limit has too many ideas; paperlint proposes which to
-move to an appendix or cut, and you decide. It never meets a budget by compressing the
+the limit. A section over its limit has too many ideas, so paperlint proposes which
+to move to an appendix or cut, and you decide. It never meets a budget by compressing the
 same ideas into fewer words, which is what makes generated text dense.
 
 The result is measured, not assumed. `/paperlint:blindtest` mixes paragraphs of your
@@ -71,7 +129,7 @@ paragraphs and paperlint checks them.
 | Command | Use it to |
 |---|---|
 | `/paperlint:setup` | Prepare a paper once: settings, glossary, `CLAUDE.md` |
-| `/paperlint:revise` | Check a section and fix its errors; `--rewrite` for a planned rewrite |
+| `/paperlint:revise` | Check a section and fix its errors, or with `--rewrite` rewrite it from a plan |
 | `/paperlint:review` | Report on a section without editing |
 | `/paperlint:write` | Draft new text from your ideas, via a plan you approve |
 | `/paperlint:comments` | Implement a round of comments (annotated PDF, review notes): only the commented sections and what they affect, references, a one-page summary |
@@ -87,28 +145,28 @@ paragraph, drafts only after you approve it, and reports the blind-test score be
 and after.
 
 `comments` works one round of review at a time. Attach the annotated PDF in the chat
-(or drop it in `review/<date>/` next to the main file) and run `/paperlint:comments`;
-add anything else in plain words, such as "also add key references on X" or "leave
-App. B alone". Settings for every round go in `[comments]` of `paperlint.toml`. It changes only the sections with
-comments, plus the appendices, figures and numbers those changes affect (unless you
+(or put it in `review/<date>/` next to the main file), run `/paperlint:comments`,
+and add any other instruction in plain words, such as "also add key references on X"
+or "leave App. B alone". Settings for every round go in `[comments]` of
+`paperlint.toml`. The command changes only the sections with comments, plus the appendices, figures and numbers those changes affect (unless you
 exclude them), rereads until every comment is implemented, adds verified references
 (`--topics` for key works on a subject), and leaves in the same folder a diff and a
 one-page summary of what the comments say about how you write. The paper is compiled
-where it lives; the round folder can be deleted afterwards.
+where it lives, and the round folder can be deleted afterward.
 
 ## Agents
 
 Each agent is a separate Claude that has not seen the conversation. It reads and
-reports; it never edits.
+reports, and it never edits.
 
 | Agent | Reports |
 |---|---|
-| `referee` | wrong, doubtful or overstated claims and limitations without consequence; never style |
-| `cold-reader` | every place where a reader from a neighbouring field gets lost |
-| `rule-checker` | every sentence that breaks a rule of `rules.md`, with the rule; a check ends only on its `PASS` |
+| `referee` | wrong, doubtful or overstated claims and limitations without consequence, never style |
+| `cold-reader` | every place where a reader from a neighboring field loses the argument |
+| `rule-checker` | every sentence that breaks a rule of `rules.md`, with the rule, and a check ends only when it reports `PASS` |
 | `literature` | whether the cited sources say what the text claims, with quotes |
 | `compare` | which of two versions, shown blind, reads more like real paragraphs of the same job, whether either breaks a rule, and whether they make the same claims |
-| `judge` | for the blind test: which paragraphs are published and which generated, and the tells |
+| `judge` | for the blind test: which paragraphs are published and which generated, and the features that gave each away |
 
 ## Files next to the paper
 
@@ -118,21 +176,24 @@ reports; it never edits.
 | `glossary.toml` | One name per object, words to avoid |
 | `CLAUDE.md` | Decisions with who and why, required content, which script and data make each figure and number |
 | `author_edits.md` | Your hand edits of Claude's text, as before/after pairs (`/paperlint:learn`) |
+| `sync_overleaf.sh`, `overleaf/` | Optional: the Overleaf sync script and the clone it syncs with |
 
 No history of findings is kept. Earlier versions kept a ledger of every finding and a
-saved map of the paper; agents that read them repeated old wording and old disputes.
+saved map of the paper, and agents that read them repeated old wording and old disputes.
 What was fixed is in git, a rejected finding is explained once in the report, and the
 reviewers read the text fresh every time. A content decision goes to `CLAUDE.md` or the
-glossary; a style correction is an edit you make, recorded with `/paperlint:learn`.
+glossary, whereas a style correction is an edit you make, recorded with `/paperlint:learn`.
 Neither becomes a rule.
 
 ## The checker
 
 `lint.py` reports **errors** by default: an acronym used before it is defined, a term
 the glossary avoids, a hand-typed reference, a lower-case reference macro at a sentence
-start, a semicolon, a dash used as punctuation, a British spelling in a paper set to
-American English. It also runs on every paragraph Claude edits in a folder with a
-`paperlint.toml`, and asks only for the smallest fix.
+start, a semicolon, a dash used as punctuation, anthropomorphic or colloquial wording,
+a symbol of a displayed equation never named in the text, the same connective in two
+consecutive sentences, a British spelling in a paper set to American English. It also
+runs on every paragraph Claude edits in a folder with a `paperlint.toml`, and asks only
+for the smallest fix.
 
 Style checks (sentence length, colons, openers, stock phrases, repeated
 words, list-shaped paragraphs) are off by default. Run them as notes with `--style`, or
@@ -147,11 +208,12 @@ enable = ["PL007"]       # stock phrases
 
 ## Development
 
-The rules are in `skills/scientific-writing/rules.md` (correctness only), the tells
-and readers' objections in `examples.md`, the corpus list in `corpus_ids.txt`, the
-checker and its scripts in
-`skills/scientific-writing/scripts/`, the agents in `agents/`, and each command in
-`skills/<command>/SKILL.md`.
+The rules are in `skills/scientific-writing/rules.md` (correctness only), the
+features that mark generated text and the readers' objections in `examples.md`, the
+corpus list in `corpus_ids.txt`, the checker and its scripts in
+`skills/scientific-writing/scripts/`, the agents in `agents/`, each command in
+`skills/<command>/SKILL.md`, and the files copied next to a paper (settings, glossary,
+Overleaf sync script) in `templates/`.
 
 ```bash
 python3 -m unittest discover tests
@@ -160,7 +222,7 @@ claude plugin validate .claude-plugin/plugin.json
 
 A rule is added only for an error a checker or a reader can verify, and replaces the
 rule it overlaps. A change to how paperlint writes is kept only if the blind test on a
-fixed sample (same paper, same seed, two seeds) does not get worse. Raise `version` in
+fixed sample (same paper, same seed, two seeds) does not worsen. Raise `version` in
 `.claude-plugin/plugin.json` with every change.
 
 ## License
