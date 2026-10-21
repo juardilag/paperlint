@@ -44,7 +44,7 @@ Revise one section and stop. Two jobs, kept apart:
      statement about a figure checked against what the plotting code draws;
    - every claim no stronger than its evidence, the paper's choices stated as
      choices, general statements tested on every example of the paper;
-   - every limitation with its consequence; Itô or Stratonovich stated;
+   - every limitation with its consequence; Itô or Stratonovich stated (in the appendix when the main text only summarises the method);
    - results equations derived from the method and compared with the code;
    - derivations as one ordered chain, numerical steps reimplementable;
    - captions carry every parameter that reproduces the figure, and any takeaway

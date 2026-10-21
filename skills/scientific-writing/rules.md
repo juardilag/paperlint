@@ -26,7 +26,9 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   after $\hat H$). Every symbol of a displayed equation is named in the sentence that
   introduces or follows it, even one a reader could guess (the frequency $\omega_q$ and
   coupling $\eta_q$ of a bath's modes); the `audience` exemption covers terms, never
-  symbols (`lint.py` PL023). A quantity referred back to is named physically, not by its symbol
+  symbols (`lint.py` PL023); a noun phrase right before the display ("with the total
+  Hamiltonian") names its left-hand side, and a symbol the text never uses again is
+  not introduced at all. A quantity referred back to is named physically, not by its symbol
   alone ("the spectral density $J$", not "the $J$ of panel (a)").
 - A pronoun or "this" points to one object just named; after a sentence that names
   several, name the subject again ("the spectral density depends", not "it depends").
@@ -35,7 +37,8 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   "the cavity is not integrated out", not "keep the cavity".
 - Nothing is referred to before it is introduced. "The X" presupposes that the reader
   has met X: "the exact master equation", "the linearised result", "the baths" and a
-  field $B$ are errors until the text has said which one. A quantity that relates
+  field $B$ are errors until the text has said which one. Section openings and
+  roadmaps included: "the memoryless loss of Sec. X" before Sec. X calls it memoryless. A quantity that relates
   two objects names both ("the coupling $\eta_q$ of the cavity to mode $q$").
 - Nothing appears suddenly. A new tool (a Poisson bracket, a coupling operator), a
   comparison (with another method) or a change of subject is prepared by the sentence
@@ -59,13 +62,16 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 ## 3. Claims are no stronger than the evidence
 - Every number in the text comes from saved data and a script that prints it.
   Recompute it before quoting it; never take it from a comment, a README table or
-  memory.
+  memory. Its scope words ("at all ten frequencies", "only", "up to") are part of
+  the number and are recomputed with it.
 - A result is stated as strongly as its figure and data show, no more ("agrees within
   the statistical error" is checked against the error).
 - The paper's own choices (a bath, a parameter) are stated as choices, not as facts
   about a regime. Each choice says, where it is made, what it represents and why it
   matters: the initial state and why its Wigner function is the distribution sampled,
-  the parameter values and what they make the test sensitive to.
+  the parameter values and what they make the test sensitive to. So does every
+  condition and inequality ("$\Gamma\coth(\omega/2T)\ll\omega$", "a spin of length
+  $N/2$", "a second bath"): its physical reason stands where it appears.
 - State the general case first, then the paper's instance ("1/S for a spin of length
   S, so 2/N here"). Test every general statement of the method on every example the
   paper treats; a statement with an exception says so.
@@ -85,7 +91,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   invalidates the results and in which regime or timescale the method holds, with a
   pointer to where the paper tests it.
 - A test that isolates one effect says why it isolates it.
-- A stochastic equation states Itô or Stratonovich next to it.
+- A stochastic equation states Itô or Stratonovich, next to it in a derivation; a
+  main-text summary of the method says it plainly ("white noise, uncorrelated at
+  different times") and leaves the convention and the derivation's lineage ("derived
+  from the path integral of ...") to the appendix.
 
 ## 5. The method contains what the results use
 - Every parameter or ingredient a results section uses is introduced in the method,
@@ -116,7 +125,9 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   the main text; their derivation and the technical detail go to an appendix.
 - A derivation is one ordered chain: the model and its terms first, each step from the
   ones before, the approximation last, remarks after. A derivation that fails this is
-  rewritten as a whole.
+  rewritten as a whole. Each displayed equation does one job: an equation of motion
+  and the definition of a quantity it uses (a force) are separate, separately
+  labelled equations.
 - The main text can be followed without opening an appendix. It sends the reader to
   an appendix for a proof or a detail, never for a concept, a table or an equation
   needed to understand the sentence: a pointer is not an explanation.
@@ -142,11 +153,16 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - Every element drawn (a line, an arrow, a second curve, a zero line) is explained by
   the caption or the text; an element nobody can explain is removed. A schematic
   figure is redrawn after the text it illustrates is settled.
+- The figures of a paper share one language, checked across all of them: the same
+  object in the same color and marker, inset markers coded alike, insets at the same
+  gap from the parent frame, the same axes height, one grid style, legends inside the
+  axes. No tick label touches or crosses a frame, and no inset hides an axis or data.
 
 ## 8. Each fact is stated once
 - A fact appears once in the paper, in the section that shows it, and a mechanism
   is explained once; later mentions point back to it. A premise that a later argument
-  needs is recalled where it is needed.
+  needs is recalled where it is needed. Inside a sentence too: a qualifier is said
+  once (`lint.py` PL026).
 
 ## 9. LaTeX mechanics
 - Cross-reference with one mechanism (`\cref`/`\Cref`, `\Cref` at a sentence start),

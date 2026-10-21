@@ -191,7 +191,8 @@ Neither becomes a rule.
 the glossary avoids, a hand-typed reference, a lower-case reference macro at a sentence
 start, a semicolon, a dash used as punctuation, anthropomorphic or colloquial wording,
 a symbol of a displayed equation never named in the text, the same connective in two
-consecutive sentences, a British spelling in a paper set to American English. It also
+consecutive sentences, a British spelling in a paper set to American English, the same
+phrase of three or more words twice in one sentence. It also
 runs on every paragraph Claude edits in a folder with a `paperlint.toml`, and asks only
 for the smallest fix.
 

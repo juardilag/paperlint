@@ -28,7 +28,8 @@ them to check it.
    without whether it invalidates the results, and on which timescale or in which regime
    the method holds.
 3. **Missing conventions and lineage.** A stochastic equation with multiplicative noise
-   that does not say Itô or Stratonovich; a formalism of a known class (a generalized
+   whose convention (Itô or Stratonovich) the paper states nowhere, the appendix
+   included; a formalism of a known class (a generalized
    Langevin equation, a Kalman filter) cited without its classic literature.
 4. **General case missing.** A scaling or condition given only for the paper's example
    ("1/N for N spins one-half") when the general form is standard ("1/S").
@@ -43,15 +44,19 @@ them to check it.
    "follows the lines", "reproduces the exponent": recompute it from the saved data
    (the evidence map in `CLAUDE.md`), and check that the data covers what is claimed
    (an asymptotic exponent claimed from points that do not reach the asymptotic
-   regime is overstated). A departure from the claim is attributed to a cause only if
+   regime is overstated). Recompute every scope word against the data too ("at all
+   ten frequencies", "only", "up to", "every"): count the cases, find the maximum. A departure from the claim is attributed to a cause only if
    the data shows that cause.
-9. **Statements about the model against its equations.** Every negative or
+9. **Conditions without their reason.** An inequality, a regime condition or a
+   modelling choice (a spin length, an added bath) stated without its physical
+   reason where it appears.
+10. **Statements about the model against its equations.** Every negative or
    descriptive statement about the setup ("without X", "no X", "only Y", "closed",
    "lossless", "linear coupling"): check it against the Hamiltonian, master equation
    or equations of motion of that section. A statement the equations contradict is
    must fix. A term that the paper uses in two senses (linear in the bath versus
    linear in the system variables) is should fix, with the sense it needs at each place.
-10. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
+11. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
    done by the paper's own code is not X's.
 
 Do not flag style, rhythm, length, word choice or emphasis: they are the authors'

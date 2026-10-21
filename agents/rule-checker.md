@@ -32,12 +32,19 @@ For each rule ask the question it implies, for example:
   appear without a sentence preparing it? Does each relational quantity name both ends?
 - 2: same name and symbol as elsewhere (grep)? A special case in the general notation?
   Every average with its ensemble, in the formula too?
-- 3: every claim no stronger than its evidence? Every choice with what it represents
-  and why?
+- 3: every claim no stronger than its evidence? Every choice, condition and
+  inequality with its physical reason where it appears?
 - 5: in a worked example, does each step say which method step it applies, and does
   every equation say where it comes from?
-- 6: is an opening a bird's-eye view without particular numbers or new symbols? Can
-  every sentence be understood without opening the appendix it points to?
+- 6: is an opening a bird's-eye view without particular numbers or new symbols, and
+  does it (a roadmap too) use only terms defined before it, not ones a later section
+  defines? Does a main-text method summary carry a convention or a derivation's
+  lineage ("in the Stratonovich sense", "derived from the path integral of") that
+  belongs in the appendix, where plain words would do? Can every sentence be
+  understood without opening the appendix it points to? Does each displayed equation
+  do one job?
+- 8: is anything said twice, inside one sentence too, or a symbol introduced that
+  the text never uses?
 - 7: does a caption reproduce its figure?
 - 10: is every sentence, title and caption grammatical, idiomatic, formal English in
   the field's terms, with no colloquial or anthropomorphic wording?

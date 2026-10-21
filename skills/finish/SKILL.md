@@ -37,11 +37,22 @@ after each section.
 - **Notation and terms.** One meaning per symbol and one name per object everywhere,
   including figures, tables and appendices; every term defined at first use in reading
   order; typography the same in every equation.
-- **Numbers.** Every value in the text, captions and tables printed by its folder's
-  script from saved data (`CLAUDE.md` evidence map), with the same rounding everywhere.
+- **Numbers.** List every number in the text, captions and tables (with its line),
+  run the scripts of the evidence map (`CLAUDE.md`), and flag each number that no
+  script output contains, with the same rounding everywhere. A flagged number gets a
+  script line that prints it, or leaves the text; scope words next to it ("all",
+  "only", "up to") are checked with it.
 - **Figures.** Captions carry every parameter that reproduces the figure and any
   takeaway they state matches the data; legends use the text's terms; figures
-  referenced in order.
+  referenced in order. Then all figures side by side against the last bullet of
+  rules.md section 7 (colors and markers per object, inset markers and gaps, axes
+  height, grid, legends inside, tick labels clear of frames, insets clear of axes and
+  data), from the rendered pages and the plotting code.
+- **AI disclosure.** If AI tools did more than light editing, the paper says which
+  tool and version, how it assisted, and how the authors directed and verified it:
+  research use (code, derivations, analysis) in the methods, other use (drafting,
+  revision) in the Acknowledgments (APS policy, June 2026; follow the target
+  journal's). A missing or vague disclosure goes to the authors.
 - **References.** Every cross-reference resolves; every citation supports its
   sentence (doubtful ones to the `literature` agent).
 - **Abstract and title, last.** Propose a plan for the abstract (problem, what is new,
@@ -49,7 +60,19 @@ after each section.
   drafting procedure (job `abstract`), keep it only if the `compare` agent prefers it to the current
   one, and check that the title says what the paper does.
 
-## 4. Compile and inspect
+## 4. Converge
+
+Every fix of steps 2 and 3 can break a neighbouring sentence (in practice five or six
+regressions per whole-paper pass). Repeat until a pass finds no real error:
+1. Audit: `referee`, `cold-reader` and `rule-checker` on every part, told to report
+   only **A** (real errors: wrong, inconsistent, undefined, unsupported) and **B**
+   (clear rule violations), no wording preferences.
+2. Apply the A and B fixes.
+3. Re-audit only the changed sentences plus the paragraph around each, the same way.
+Stop when a pass has A = 0 and its B fixes are one-phrase edits; report the count of
+A and B per pass.
+
+## 5. Compile and inspect
 
 Compile and render every page: link boxes that cover a figure (rules.md, section 9), overfull lines, figures against captions, labels
 against the text's terms, unresolved references, the order of floats.

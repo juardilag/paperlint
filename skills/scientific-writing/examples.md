@@ -92,6 +92,13 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
 - **The balance** *(Author: "we must try not to assume anything of the reader ... this
   is important, find a balance")*: a reference for every term, a clause of meaning
   only for the terms the argument turns on, the mechanism in an appendix.
+- **A convention or lineage in a method summary.** "in the Stratonovich sense"
+  *(Author: "this is too technical to go here in the main text. Just explain what is
+  the white noise")*; "derived from the path integral of the Lindblad equation"
+  *(Author: "not neccesary")*.
+- **Joiners and qualifiers that add nothing.** "together with" in a list *(Author: "I
+  dont like this, just use ','")*; "and their cyclic permutations" twice in one
+  sentence *(Author: "redundant")*.
 - **A departure explained by its mechanism.** A step that does not follow the method
   explained with joint ground states and negative frequencies *(Author: "I think for
   not confuse the reader, just say that because the cavity loss is of Lindblad type,

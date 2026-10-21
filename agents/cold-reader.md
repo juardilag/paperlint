@@ -29,8 +29,9 @@ get no history of earlier reviews: read the text as it is now.
 - in a results section, a name for an object or step that the method section calls
   something else, or a technical word with no physical reading ("a complex noise");
 - a sentence about an equation that mentions what the equation does not show;
-- a step, factor or choice whose reason you needed to follow the argument, and a
-  referee of the field would ask for;
+- a step, factor, choice, condition or inequality whose physical reason is not
+  stated where it appears ("why $\Gamma\coth(\omega/2T)\ll\omega$?", "why length
+  $N/2$?", "why a second bath?");
 - a jump: a quantity or claim you were not prepared for, a "therefore" without a
   reason;
 - a remark whose purpose at that point you could not see ("why is this here?");

@@ -283,6 +283,25 @@ class DisplaySymbols(unittest.TestCase):
         self.assertEqual(lint.check_display_symbols(DOC % body), [])
 
 
+    def test_noun_phrase_before_display_names_its_left_side(self):
+        body = ("with the total Hamiltonian\n\\begin{equation}\n  \\hat H = \\hat H_S + \\hat H_B\n"
+                "\\end{equation}\nwhere $\\hat H_S$ and $\\hat H_B$ act on system and bath.")
+        self.assertEqual(lint.check_display_symbols(DOC % body), [])
+        bare = body.replace("with the total Hamiltonian", "we write")
+        self.assertEqual([k for _, k in lint.check_display_symbols(DOC % bare)], ["H"])
+
+
+class RepeatedPhrase(unittest.TestCase):
+    def test_qualifier_twice_in_one_sentence(self):
+        body = ("The commutators and their cyclic permutations give the brackets "
+                "and their cyclic permutations.")
+        self.assertIn("PL026", codes(body))
+
+    def test_object_named_again_is_fine(self):
+        body = "We probe the atomic bath with one mode and the atomic bath with another."
+        self.assertNotIn("PL026", codes(body))
+
+
 class RepeatedConnective(unittest.TestCase):
     def test_whether_twice_in_a_row(self):
         body = ("It captures the exponent, whether the damping or the noise sets it. "

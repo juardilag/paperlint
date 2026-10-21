@@ -45,7 +45,7 @@ PARA = "\u00b6"        # paragraph or item break
 
 # Reported by default. Everything else in CHECKS is a style note, off by default.
 ERROR_CHECKS = {"PL003", "PL004", "PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024",
-                "PL025"}
+                "PL025", "PL026"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
@@ -72,6 +72,7 @@ CHECKS = {
     "PL023": "symbol of a displayed equation never named in the text",
     "PL024": "the same connective in two consecutive sentences",
     "PL025": "British spelling in a paper set to American English",
+    "PL026": "the same phrase of three or more words twice in one sentence",
 }
 
 # Connectives a reader notices when two sentences in a row use them (PL024).
@@ -129,6 +130,7 @@ def british_spelling(word: str) -> str | None:
     return None
 
 
+GLUE = set("the a an of which that and or in on at to by for with from as".split())
 CONNECTIVES = ("whether however therefore thus hence instead moreover whereas "
                "although nevertheless conversely accordingly meanwhile").split()
 
@@ -679,6 +681,19 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
                 p = a + mt.start()
                 add(p, "PL004", "dash as punctuation, an LLM tell; use a comma, a connective or a full stop",
                     excerpt_at(max(a, p - 40), p + 40))
+        ws = [(m.start(), m.group(0).lower()) for m in WORD_RE.finditer(s)]
+        seen3: dict[tuple[str, ...], int] = {}
+        for i in range(len(ws) - 2):
+            gram = tuple(w for _, w in ws[i:i + 3])
+            if (sum(len(w) > 3 and w.isalpha() and w not in STOPWORDS for w in gram) < 2
+                    or set(gram) & GLUE or not all(w.isalpha() for w in gram)):
+                continue    # "the atomic bath" named again, "X of Y" in a parallel list
+            if gram in seen3 and i - seen3[gram] >= 3:
+                p = a + ws[i][0]
+                add(p, "PL026", f"'{' '.join(gram)}' twice in one sentence; say it once",
+                    excerpt_at(a, min(b, a + 100)), "error")
+                break
+            seen3.setdefault(gram, i)
         refs = REF_LOWER + REF_UPPER
         groups = re.findall(r"\([^()]*[" + refs + r"][^()]*\)", s)
         if len(groups) > 1:
@@ -885,9 +900,19 @@ def check_display_symbols(src: str) -> list[tuple[int, str]]:
     for a, b in displays:
         body = nocom[a:b]
         bound = set(re.findall(r"\bd\s*(\\[A-Za-z]+|[A-Za-z])", body))  # integration variables
+        named_here: set[str] = set()
+        # "with the total Hamiltonian" right before "\hat H = ..." names H
+        lhs = re.match(r"\\(?:begin\{\w+\*?\}|\[)\s*([^=]*?)=", body)
+        if lhs and re.search(r"\b(?:the|a|an)\s+(?:[A-Za-z\-]+\s+){0,3}[A-Za-z\-]{4,}"
+                             r"(?:\s+of\s+\\[cC]ref\{[^{}]*\})?(?:\s+as)?,?\s*$",
+                             prose[max(0, a - 80):a]):
+            lhs_keys = _symbol_keys(lhs.group(1))
+            if len(lhs_keys) == 1:
+                named_here = set(lhs_keys)
         for key, off in _symbol_keys(body).items():
             base = key.split("_")[0]
-            if key in named or _shape(key) in named or key in seen or base in bound:
+            if (key in named or _shape(key) in named or key in seen or base in bound
+                    or key in named_here):
                 continue
             sub = key.partition("_")[2]
             if "," in sub and all(f"{base}_{p}" in named for p in sub.split(",")):
