@@ -173,7 +173,17 @@ A reviewer's finding that contradicts a comment of the round (for example "cut t
 overview" when the comment asked for one) is rejected with that reason; the comment
 wins over the agents, and a conflict with a recorded decision goes to the authors.
 
-Fix what this finds and reread again. Stop when a round changes nothing that a comment
+A finding of an agent is fixed with the smallest change that removes the error. A fix
+that adds a clause or a sentence (an explanation, a precision for a special case, a
+scope) is kept only if the reader needs it to follow the argument; otherwise it goes
+to the report, or to an appendix. Every sentence written or changed in response to an
+agent, not only to a comment, is a rewritten sentence: it is read in its paragraph for
+grammar and sense, and its paragraph goes to `compare` against `before.tex`.
+
+Fix what this finds and reread again. The checks of the last pass run on the text that is delivered: after the
+last fix, run lint and the `rule-checker` again on every paragraph the fixes touched,
+and `compare` on every paragraph changed since the previous `compare`. A round whose
+final text was not checked is not delivered. Stop when a round changes nothing that a comment
 or a correctness rule requires and the `rule-checker` reports `PASS` on the touched paragraphs; at most four rounds, and report what is still open
 after the fourth. Changes made only because a round could find another phrasing are
 not convergence; leave the text.

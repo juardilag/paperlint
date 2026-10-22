@@ -71,7 +71,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   matters: the initial state and why its Wigner function is the distribution sampled,
   the parameter values and what they make the test sensitive to. So does every
   condition and inequality ("$\Gamma\coth(\omega/2T)\ll\omega$", "a spin of length
-  $N/2$", "a second bath"): its physical reason stands where it appears.
+  $N/2$", "a second bath"): its physical reason stands where it appears, in one
+  clause and no more than the reader needs to follow. A reason the method already
+  gives (a step of the recipe, an earlier sentence) is pointed to, not repeated, and
+  a reason that answers only a referee's curiosity goes to an appendix.
 - State the general case first, then the paper's instance ("1/S for a spin of length
   S, so 2/N here"). Test every general statement of the method on every example the
   paper treats; a statement with an exception says so.
