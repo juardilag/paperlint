@@ -52,7 +52,10 @@ get no history of earlier reviews: read the text as it is now.
 - in a worked example, a step or an equation whose origin you could not tell (which
   step of the method is this? where does this equation come from?);
 - in a derivation, the first place you could not follow from one equation to the
-  next.
+  next;
+- an order you could not follow: subsections divided by method rather than by the
+  physics they test, or figure panels and their discussion in an order that tells no
+  story (for example, the hardest case before the one that sets the reference).
 
 Do not report what you could follow, what a reader of the journal knows, matters of
 taste, or anything about how the text sounds.

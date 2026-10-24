@@ -75,6 +75,9 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   clause and no more than the reader needs to follow. A reason the method already
   gives (a step of the recipe, an earlier sentence) is pointed to, not repeated, and
   a reason that answers only a referee's curiosity goes to an appendix.
+- A regime word ("non-Markovian", "weak", "fast", "comparable", "memory") holds at the
+  paper's parameter values: compare the timescales or frequencies it names, and say
+  in which sense the word is meant where it is first used.
 - State the general case first, then the paper's instance ("1/S for a spin of length
   S, so 2/N here"). Test every general statement of the method on every example the
   paper treats; a statement with an exception says so.
@@ -125,7 +128,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   general terms and in words the reader already has. Particular numbers, system sizes,
   observables and new symbols wait for the subsection that uses them, and every claim
   of the opening carries its own reason ("why do the frequencies move?"). Results that matter stay in
-  the main text; their derivation and the technical detail go to an appendix.
+  the main text; their derivation, the technical detail and the precise size of a
+  deviation go to an appendix. A results paragraph states the verdict its figure shows
+  and points to the appendix for the rest. A fix for a review finding moves an
+  explanation there; it never adds one to the main text.
 - A derivation is one ordered chain: the model and its terms first, each step from the
   ones before, the approximation last, remarks after. A derivation that fails this is
   rewritten as a whole. Each displayed equation does one job: an equation of motion
@@ -142,9 +148,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   reimplement, and agrees with the code.
 
 ## 7. Captions reproduce the figure
-- A caption says what is plotted against what, the model and every parameter, the
-  sampling, and what each line, marker and band is, so the figure can be reproduced
-  from it. Settings shared by all panels are given once.
+- A caption says what is plotted against what, the model and its physical
+  parameters, the sampling, and what each line, marker and band is. Numerical
+  settings (time step, cutoffs, sample sizes, quadrature) go to the appendix the
+  caption cites. Settings shared by all panels are given once.
 - Each panel is described in a sentence that names its quantities physically; a
   caption is read without the text, so it is never a list of symbols.
 - Whether a caption also states the takeaway, and how long it runs, is style: follow

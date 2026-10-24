@@ -112,6 +112,17 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
   paper, maybe just state them more direct and concisely")*.
 - **A particular number without its support** *(Author: "This is a particular result,
   right? Maybe we can quit this and just state the general result")*.
+- **The environment of the environment.** The modes outside a lossy cavity, their
+  spectral density and why their vacuum is not thermal, in a results section where
+  the cavity itself is the bath *(Co-author: "just say the cavity has Lindblad loss
+  with rate κ ... This is just confusing for the reader")*; the step-by-step
+  derivation of the noise *(Co-author: "just quote the expression for the noise and
+  say that it cannot be obtained from FDT")*.
+- **The method's steps counted in an example** *(Co-author: "no need to count the
+  steps")*; *(Co-author: "just show the equations of motion")*.
+- **Numbers in a results paragraph** *(Co-author: "don't need to mention any numbers,
+  percentages etc in the main text")*, and numerical settings in a caption
+  *(Co-author: "discuss these in the text, or preferably in an appendix")*.
 - **Every fix right, the whole too long.** An introduction revised from 1519 to 1764
   words, each change justified *(Author: "the text is too dense, is too large ... a
   human seeks to communicate all the ideas in a concise readable way, not wasting space
@@ -135,4 +146,8 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
 - **A placeholder caption** *(Senior author: "a caption has still to be understood
   and not just be a placeholder")*, and its opposite, a caption that repeats the
   text and every setting *(Author: "we need a more concise and direct caption")*.
+- **Subsections divided by method instead of physics** *(Co-author: "the current
+  division of subsections is confusing")*, and figure panels that do not tell a story
+  *(Co-author: "with current plots it's difficult to tell a coherent story" ... start
+  where agreement is excellent, then go to the case furthest from the classical limit)*.
 - **A closing that lists the sections again** (flagged by a second co-author).

@@ -56,7 +56,11 @@ them to check it.
    or equations of motion of that section. A statement the equations contradict is
    must fix. A term that the paper uses in two senses (linear in the bath versus
    linear in the system variables) is should fix, with the sense it needs at each place.
-11. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
+11. **Regime words against the parameters.** Every "non-Markovian", "weak coupling",
+   "long memory", "comparable with": compute the timescales or frequencies it compares
+   at the stated parameter values. A claim the values contradict (a memory time called
+   comparable with a precession time it is shorter than) is must fix.
+12. **Credit.** "We follow Ref. X, which does Y": check that X does Y; a calculation
    done by the paper's own code is not X's.
 
 Do not flag style, rhythm, length, word choice or emphasis: they are the authors'
