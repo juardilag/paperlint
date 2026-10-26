@@ -110,10 +110,14 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   general ones and agree with the code behind the figure. It uses the method's names
   for the method's objects and steps (a new name for an existing object is an error),
   and credits a result to the method as a whole, not to one ingredient.
-- A worked example says, at each step, which step of the method it applies and what
-  that step yields, and every equation says where it comes from ("the Heisenberg
-  equations of Eq. (8)", "Eq. (3) with $A = S^x$"). Whether a symbol is an operator or
-  its classical variable is clear from the text at every point.
+- A worked example shows its equations of motion directly and says where each comes
+  from ("Eq. (3) with $A = S^x$"), without counting the method's steps. The examples
+  of a results section share one structure, the one the authors approved first (for
+  example Model, Equations of motion, Initial state, Result), and each is checked
+  against that example as well as against these rules: the same kinds of paragraphs,
+  a Result that states the verdict its figure shows, and nothing the approved example
+  leaves to an appendix. Whether a symbol is an operator or its classical variable is
+  clear from the text at every point.
 - Where a results section departs from a step of the method, it says so at that
   step: the physical reason in a sentence, with a reference, and when the general step
   would apply. The mechanism goes to an appendix. Known results of other work
@@ -155,7 +159,8 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - Each panel is described in a sentence that names its quantities physically; a
   caption is read without the text, so it is never a list of symbols.
 - Whether a caption also states the takeaway, and how long it runs, is style: follow
-  the house style (`style.md`) and the paper's `CLAUDE.md`. A takeaway it states must match the text and the
+  the house style (`style.md`), the paper's `CLAUDE.md` and the caption the authors
+  approved first, and apply the same choice to every caption. A takeaway it states must match the text and the
   data.
 - Legends and axis labels use the text's terms; re-render the figure after a change
   of term. An equation drawn in a figure is the text's equation, or a schematic of it

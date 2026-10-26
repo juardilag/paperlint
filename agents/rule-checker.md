@@ -34,8 +34,10 @@ For each rule ask the question it implies, for example:
   Every average with its ensemble, in the formula too?
 - 3: every claim no stronger than its evidence? Every choice, condition and
   inequality with its physical reason where it appears?
-- 5: in a worked example, does each step say which method step it applies, and does
-  every equation say where it comes from?
+- 5: does every equation of a worked example say where it comes from, without
+  counting the method's steps? Does each results subsection have the structure of the
+  one the authors approved first (`CLAUDE.md` names it), with a Result that states the
+  verdict and points to an appendix for numbers and settings?
 - 6: is an opening a bird's-eye view without particular numbers or new symbols, and
   does it (a roadmap too) use only terms defined before it, not ones a later section
   defines? Does a main-text method summary carry a convention or a derivation's
@@ -45,7 +47,9 @@ For each rule ask the question it implies, for example:
   do one job?
 - 8: is anything said twice, inside one sentence too, or a symbol introduced that
   the text never uses?
-- 7: does a caption reproduce its figure?
+- 7: does a caption reproduce its figure, and does it make the same choices as the
+  caption the authors approved first (a verdict sentence or none, numerics in an
+  appendix)?
 - 10: is every sentence, title and caption grammatical, idiomatic, formal English in
   the field's terms, with no colloquial or anthropomorphic wording?
 
