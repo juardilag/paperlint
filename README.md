@@ -209,7 +209,9 @@ enable = ["PL007"]       # stock phrases
 
 ## Development
 
-The rules are in `skills/scientific-writing/rules.md` (correctness only), the
+The rules are in `skills/scientific-writing/rules.md` (correctness, for every
+sentence) and `sections.md` (what each section type and its parts do, with how far
+reviewers have shaped each), the
 features that mark generated text and the readers' objections in `examples.md`, the
 corpus list in `corpus_ids.txt`, the checker and its scripts in
 `skills/scientific-writing/scripts/`, the agents in `agents/`, each command in

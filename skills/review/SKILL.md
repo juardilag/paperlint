@@ -7,7 +7,7 @@ argument-hint: "<file.tex> <section title or line range>"
 Review a section and report; do not edit.
 
 1. Identify the file and the section from `$ARGUMENTS`; ask if either is missing.
-   Read `rules.md` and `examples.md` of the `scientific-writing` skill; a fix the
+   Read `rules.md`, `sections.md` and `examples.md` of the `scientific-writing` skill; a fix the
    review proposes is a clause, worded like the sentence around it.
 2. Launch the `referee` agent (correctness only), the `cold-reader` agent (every place
    a reader gets lost, one per subsection and one on each opening) and the

@@ -12,7 +12,7 @@ the plan; the command supplies a draft, the references and the checks.
 1. From `$ARGUMENTS`, identify the file, the kind of text and where it goes. The rest
    is the author's brief: the ideas, results, equations, figures and sources.
 2. Load the `scientific-writing` skill; every paragraph is written with the drafting procedure of the `scientific-writing` skill (facts, real paragraphs retrieved from the corpus, a blind draft, the fact check, blind comparison). Read
-   `rules.md`, `examples.md` and the project files (`paperlint.toml`, `glossary.toml`,
+   `rules.md`, `sections.md`, `examples.md` and the project files (`paperlint.toml`, `glossary.toml`,
    `CLAUDE.md`, `author_edits.md`).
 3. Read the whole paper and build its map in your working notes. The new text uses the paper's
    notation and terms, does not repeat other sections, and fits between its

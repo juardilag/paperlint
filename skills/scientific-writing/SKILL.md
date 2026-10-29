@@ -17,7 +17,10 @@ ones. In the first tests it told all of them apart. Every change to how paperlin
 writes is kept only if it lowers that score.
 
 Files in this skill's directory:
-- `rules.md`: the correctness rules. Read all of it once per session.
+- `rules.md`: the correctness rules for every sentence. Read all of it once per session.
+- `sections.md`: the rules for each section type (abstract, introduction, method,
+  results and their parts, captions, conclusions, appendices), with how far reviewers
+  have shaped each. Read the part for the section you work on.
 - `examples.md`: the tells of generated prose, and what real readers objected to.
 - `style.md`: a short description of the target prose and a few verbatim paragraphs,
   the fallback when the corpus is missing.

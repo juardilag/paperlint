@@ -64,7 +64,8 @@ goes into the project files (step 6.4).
 
 ## 1. Collect the comments
 
-1. Load the `scientific-writing` skill, read `rules.md`, and read `examples.md`; every
+1. Load the `scientific-writing` skill, read `rules.md`, the parts of `sections.md`
+   for the section types in the round, and `examples.md`; every
    paragraph rewritten for a comment uses its drafting procedure (facts, retrieved
    paragraphs, a blind draft, the fact check, comparison with its old version in step
    4). Read the project files (`paperlint.toml`, `glossary.toml`, `CLAUDE.md`,
@@ -248,8 +249,13 @@ the plugin's source repository, not the installed copy.
 2. For each general comment, find where the plugin already covers it (`rules.md`,
    `examples.md`, the skills, the agents, `lint.py`) and why it was not caught.
    Change the plugin where the miss was:
-   - an error a reader or checker can verify: merge it into the rule it overlaps, as
-     `rules.md`, section 11 says (the file does not grow by more than it shrinks
+   - an error a reader or checker can verify that holds for one kind of section only
+     (an opening, a Model paragraph, a caption): add it to that type in
+     `sections.md`, merged with the rule it overlaps, and update the type's review
+     status (a provisional type reached by its first reviewer is no longer
+     provisional);
+   - an error a reader or checker can verify in any section: merge it into the rule it
+     overlaps, as `rules.md`, section 11 says (the file does not grow by more than it shrinks
      without a reason), and give the `referee` or `cold-reader` agent the question
      that finds it;
    - taste: an objection in `examples.md` with the reviewer's words and no invented

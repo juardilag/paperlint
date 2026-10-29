@@ -92,86 +92,32 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   invalidates the results and in which regime or timescale the method holds, with a
   pointer to where the paper tests it.
 - A test that isolates one effect says why it isolates it.
-- A stochastic equation states Itô or Stratonovich, next to it in a derivation; a
-  main-text summary of the method says it plainly ("white noise, uncorrelated at
-  different times") and leaves the convention and the derivation's lineage ("derived
-  from the path integral of ...") to the appendix.
+- A stochastic equation states Itô or Stratonovich, next to it in a derivation (the
+  main text, `sections.md`, Method).
 
 ## 5. The method contains what the results use
 - Every parameter or ingredient a results section uses is introduced in the method,
   with how it enters. A parameter the results never vary does not belong in the paper
   (check the code).
-- A results section applies the method: its equations of motion follow from the
-  general ones and agree with the code behind the figure. It uses the method's names
-  for the method's objects and steps (a new name for an existing object is an error),
-  and credits a result to the method as a whole, not to one ingredient.
-- A worked example shows its equations of motion directly and says where each comes
-  from ("Eq. (3) with $A = S^x$"), without counting the method's steps; intermediate
-  equations a later one replaces are not displayed. The examples of a results section
-  share the structure of the one the authors approved first, but a paragraph of that
-  structure that fails the deletion test (section 8) is dropped, not kept for symmetry.
-  Whether a symbol is an operator or its classical variable is clear at every point.
-- A Result states the verdict its figure shows, and when the figure compares cases it
-  walks through them one comparison per sentence, in the order the figure presents
-  them, saying what each case changes and what the comparison shows. Several cases,
-  exponents or conditions packed into one sentence are an error, however short the
-  paragraph: verdict-only is a limit on numbers and settings, not on the explanation of
-  what is compared.
-- Where a results section departs from a step of the method, it says so at that
-  step: the physical reason in a sentence, with a reference, and when the general step
-  would apply. The mechanism goes to an appendix. Known results of other work
-  (exponents, limits) are quoted with their reference, not re-derived.
-- An agreement claim ("follows", "within one standard error", "reproduces the
-  exponent") is recomputed from the saved data, and holds over the range the data
-  covers: an asymptotic quantity the data does not reach is not "reproduced". The
-  reference it compares against is named, with its method in one clause, in the
-  paragraph that makes the comparison.
+- How a results section applies the method, part by part (Model, Equations of
+  motion, Initial state, Measurement, Result), is in `sections.md`, Results.
 
 ## 6. The main text argues, the appendix proves
-- Each section says why, what is known and what it does. A section or subsection
-  opening is a bird's-eye view: why the section exists and what each part tests, in
-  general terms and in words the reader already has. Particular numbers, system sizes,
-  observables and new symbols wait for the subsection that uses them, and a claim of
-  the opening a reader would question carries its reason. Results that matter stay in
-  the main text; their derivation, the technical detail and the precise size of a
-  deviation go to an appendix. A results paragraph states the verdict its figure shows
-  and points to the appendix for the rest. A fix for a review finding moves an
-  explanation there; it never adds one to the main text.
-- A derivation is one ordered chain: the model and its terms first, each step from the
-  ones before, the approximation last, remarks after. A derivation that fails this is
-  rewritten as a whole. Each displayed equation does one job: an equation of motion
-  and the definition of a quantity it uses (a force) are separate, separately
-  labelled equations.
+- Each section says why, what is known and what it does; what its opening and its
+  parts do is in `sections.md`, by section type. Results that matter stay in the main
+  text; their derivation, the technical detail and the precise size of a deviation go
+  to an appendix. A fix for a review finding moves an explanation there; it never adds
+  one to the main text.
+- Each displayed equation does one job: an equation of motion and the definition of a
+  quantity it uses (a force) are separate, separately labelled equations.
 - The main text can be followed without opening an appendix. It sends the reader to
   an appendix for a proof or a detail, never for a concept, a table or an equation
   needed to understand the sentence: a pointer is not an explanation.
-- A remark stands where its subject is introduced. A "Remarks" subsection collecting
-  them means they are in the wrong place.
-- Every numerical step the results rely on (noise sampling, discretisation,
-  truncation, boundary terms, the integrator) is described well enough to
-  reimplement, and agrees with the code.
 
 ## 7. Captions reproduce the figure
-- A caption says what is plotted against what, what each line, marker and visible
-  band or error bar is, one sentence per panel, and the physical parameters, those
-  shared by all panels once. It carries no equation references, no initial state, no
-  numerical settings (time step, cutoffs, sample sizes, fit windows) and no pointer to
-  them: these live in the text or an appendix, and before one leaves a caption, check
-  that it is stated there.
-- Each panel is described in a sentence that names its quantities physically; a
-  caption is read without the text, so it is never a list of symbols.
-- Whether a caption states the takeaway is style: follow the caption the authors
-  approved first, in every caption. A takeaway must match the text and the data.
-- Legends and axis labels use the text's terms; re-render the figure after a change
-  of term. An equation drawn in a figure is the text's equation, or a schematic of it
-  that the caption calls one.
-- Every element drawn (a line, an arrow, a second curve, a zero line) is explained by
-  the caption or the text; an element nobody can explain is removed. A schematic
-  figure is redrawn after the text it illustrates is settled.
-- The figures of a paper share one language, checked across all of them: the same
-  object in the same color and marker, one marker size in panels and insets, the same
-  role (computed line, reference markers) drawn the same way, one grid style. No tick
-  label touches a frame, and no inset or legend hides data.
+A caption is read without the text, so it is checked like text: every rule of this
+file applies to it, and what a caption contains, and how the figures of a paper share
+one language, is in `sections.md`, Figure captions.
 
 ## 8. Concise, with everything the reader needs to follow
 The text is as short as it can be while the reader can still follow what the paper
@@ -230,7 +176,7 @@ with the smallest edit, in the field's words.
   not grammar.
 - Openings and closings of sections and appendices are where generated prose shows
   most: before writing one, retrieve corpus paragraphs that do the same job and match
-  how they open and close, without echoing their wording.
+  how they open and close, without echoing their wording (`sections.md`).
 - No semicolons and no dashes used as punctuation (`---`, an em dash, or a spaced
   `--`) in running text: they are rare in published physics prose and typical of
   generated text. Use a connective ("because", "so", "whereas", "while") or two
@@ -251,6 +197,9 @@ with the smallest edit, in the field's words.
 - A rule that asks for text (a definition, a reason, a caveat) is checked against
   the deletion test before it is added: reviewers strike what checkers add, and a rule
   that only adds makes every round longer than the last.
+- A rule that holds for one kind of section only (an opening, a Model paragraph, a
+  caption) goes to `sections.md`, under its section type, and that type's review
+  status is updated.
 - An author's edit of the prose is recorded as a pair with `/paperlint:learn`, not
   as a rule. A reviewer's remark about style becomes an objection in `examples.md`,
   with their words and no invented rewrite. The house style itself is not changed by a

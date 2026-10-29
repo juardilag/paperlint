@@ -10,7 +10,7 @@ checks; it does not rewrite the authors' prose.
 
 ## 1. Prepare
 
-1. Load the `scientific-writing` skill, read `rules.md` and `examples.md`; any
+1. Load the `scientific-writing` skill, read `rules.md`, `sections.md` and `examples.md`; any
    paragraph written or redrafted uses its drafting procedure. Read the project files.
 2. Build a map of the whole paper in your working notes (not saved).
 3. Run the blind test on the whole paper (`/paperlint:blindtest`) for the before
@@ -45,7 +45,7 @@ after each section.
 - **Figures.** Captions carry every parameter that reproduces the figure and any
   takeaway they state matches the data; legends use the text's terms; figures
   referenced in order. Then all figures side by side against the last bullet of
-  rules.md section 7 (colors and markers per object, inset markers and gaps, axes
+  `sections.md`, Figure captions (colors and markers per object, inset markers and gaps, axes
   height, grid, legends inside, tick labels clear of frames, insets clear of axes and
   data), from the rendered pages and the plotting code.
 - **AI disclosure.** If AI tools did more than light editing, the paper says which

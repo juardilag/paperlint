@@ -15,7 +15,7 @@ Revise one section and stop. Two jobs, kept apart:
 
 ## Before starting
 
-1. Load the `scientific-writing` skill and read `rules.md` and `examples.md`.
+1. Load the `scientific-writing` skill and read `rules.md`, `sections.md` and `examples.md`.
 2. Read `paperlint.toml`, `glossary.toml`, `CLAUDE.md` and `author_edits.md` in the
    paper directory. Decisions in `CLAUDE.md` are not reopened, except a correctness
    question, which a decision on wording never settles; a later co-author comment that

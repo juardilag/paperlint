@@ -185,6 +185,8 @@ DEFAULT_ANTHROPOMORPHIC = [
     # colloquial: say the technical verb ("acquires", "is subject to", "costs")
     "gets", "buys", "kicks in", "for free", "of its own", "a lot of", "lots of",
     "pretty much", "stuff", "nothing else enters", "does the job", "the trick",
+    # announced instead of posed: state the physics at stake (sections.md, Results)
+    "here we ask",
 ]
 
 # Function words of five letters or more, which PL018 does not count.
