@@ -176,7 +176,9 @@ wins over the agents, and a conflict with a recorded decision goes to the author
 A finding of an agent is fixed with the smallest change that removes the error. A fix
 that adds a clause or a sentence (an explanation, a precision for a special case, a
 scope) is kept only if the reader needs it to follow the argument; otherwise it goes
-to the report, or to an appendix. Every sentence written or changed in response to an
+to the report, or to an appendix. A deletion-test finding (`cut`, `move`) is applied
+like any error, and a sentence a reader agent could not follow is rewritten or cut,
+never kept as it is. Every sentence written or changed in response to an
 agent, not only to a comment, is a rewritten sentence: it is read in its paragraph for
 grammar and sense, and its paragraph goes to `compare` against `before.tex`.
 

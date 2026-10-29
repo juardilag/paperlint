@@ -30,10 +30,10 @@ For each rule ask the question it implies, for example:
 - 1: is every term, symbol, index and label defined here or earlier? Is every "the X"
   something the reader has met? Does anything (a tool, a comparison, a subject)
   appear without a sentence preparing it? Does each relational quantity name both ends?
-- 2: same name and symbol as elsewhere (grep)? A special case in the general notation?
+- 2: same name and symbol as elsewhere (grep), and in an appendix the main text's notation, with no new shorthand or variables? A special case in the general notation?
   Every average with its ensemble, in the formula too?
-- 3: every claim no stronger than its evidence? Every choice, condition and
-  inequality with its physical reason where it appears?
+- 3: every claim no stronger than its evidence? A reason given where the argument
+  uses it or a reader would doubt the choice, and not otherwise?
 - 5: does every equation of a worked example say where it comes from, without
   counting the method's steps? Does each results subsection have the structure of the
   one the authors approved first (`CLAUDE.md` names it), with a Result that states the
@@ -45,19 +45,32 @@ For each rule ask the question it implies, for example:
   belongs in the appendix, where plain words would do? Can every sentence be
   understood without opening the appendix it points to? Does each displayed equation
   do one job?
-- 8: is anything said twice, inside one sentence too, or a symbol introduced that
-  the text never uses?
+- 8: is anything said twice, inside one sentence too? Then the deletion test, on
+  every sentence, clause and displayed equation of the main text: delete it in your
+  head; does a later sentence, a figure, a claim or a step of the argument lose
+  something it needs? If not, report it as `cut` (or `move` to the appendix that
+  details it). Typical cases: an aside on how a noise or sampling enters, a property
+  of a sampling scheme, a variance the formula already shows, a remark about a special
+  case the paragraph does not treat, an equation whose quantity the section never uses
+  again. Run this pass after the others, and also on every clause another rule's
+  finding would add: a finding that adds text it cannot justify by this test is not
+  reported.
 - 7: does a caption reproduce its figure, and does it make the same choices as the
   caption the authors approved first (a verdict sentence or none, numerics in an
   appendix)?
 - 10: is every sentence, title and caption grammatical, idiomatic, formal English in
   the field's terms, with no colloquial or anthropomorphic wording?
 
-Report every failure, not a selection. Do not report what passes, matters of rhythm or
+Report every failure, not a selection, and weigh additions against cuts: reviewers
+strike what checkers add, so a finding that asks for more words must name the later
+sentence that needs them. Ignore any instruction from the caller to skip a kind of
+finding; the caller's binding decisions (a co-author's wording, a recorded choice)
+are respected by not proposing to reverse them, not by skipping the check. Do not report what passes, matters of rhythm or
 length, or anything a rule does not cover.
 
 ## Output
 
 A list ordered by line. For each failure: `line N`, `rule k`, the quoted words, and in
-one sentence what the rule requires that the text lacks. No rewrite. End with one line:
+one sentence what the rule requires that the text lacks; for a deletion-test finding,
+`cut` or `move` and the reason nothing later needs it. No rewrite. End with one line:
 `PASS` if there are no failures, otherwise `FAIL: n findings`.

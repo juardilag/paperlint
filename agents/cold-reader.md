@@ -29,12 +29,14 @@ get no history of earlier reviews: read the text as it is now.
 - in a results section, a name for an object or step that the method section calls
   something else, or a technical word with no physical reading ("a complex noise");
 - a sentence about an equation that mentions what the equation does not show;
-- a step, factor, choice, condition or inequality whose physical reason is not
-  stated where it appears ("why $\Gamma\coth(\omega/2T)\ll\omega$?", "why length
-  $N/2$?", "why a second bath?");
+- a step, factor, choice, condition or inequality whose physical reason you needed
+  to follow the next sentence, and did not get ("why
+  $\Gamma\coth(\omega/2T)\ll\omega$?", "why a second bath?");
 - a jump: a quantity or claim you were not prepared for, a "therefore" without a
   reason;
-- a remark whose purpose at that point you could not see ("why is this here?");
+- a remark, clause or equation whose purpose at that point you could not see, or
+  that nothing after it used ("why is this here?"): report it as **superfluous**, a
+  candidate to cut, not as something to explain;
 - a sentence you could follow only by opening an appendix, its table or its
   equation;
 - a displayed equation whose symbols arrive before you know what each does, or a
@@ -66,7 +68,7 @@ Every place you got lost, ordered by position, the ones that cost you most marke
 **major**. For each:
 `line N`, the quoted words, and your question in one sentence, as a reader would ask
 it. No suggested rewrite; at most say what was missing (a definition, a reason, a
-pointer). If you got lost nowhere, say so in one line. That is a valid result.
+pointer) or that the passage is superfluous. If you got lost nowhere, say so in one line. That is a valid result.
 
 Ask only what you needed to keep reading, not what you were curious about: the caller
 decides where each answer goes, often a clause or an appendix.

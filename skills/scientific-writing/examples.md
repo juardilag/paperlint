@@ -85,6 +85,12 @@ the paper's `author_edits.md`) or from a reviewer's remark, never from a draft.
   *(Co-author: "You shouldn't put formulas into words.")*; *(Authors: "too much
   technical detail")*; a name coined and used once *(Co-author: "Do we care about
   this?")*.
+- **Too much, added by the checks:** clauses written to answer a checker's "why?"
+  that nothing later uses: how the vacuum noise "enters through Eq. (15)", "of
+  variance N/4" after the formula, what a sampling scheme "reproduces exactly", a
+  correction for a special case in the paragraph about the noise, an equation
+  displayed where it is not discussed *(Co-author struck each; "this is out of place,
+  [it] is not cited in this subsection")*.
 - **Too little, for notation:** an index pair, a subscript or a new argument used
   without a word *(Senior author: "it is assumed the reader will figure out but he
   won't"; "each notation adds overhead to reading")*; two averages behind one overline

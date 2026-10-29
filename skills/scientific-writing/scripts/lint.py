@@ -45,7 +45,7 @@ PARA = "\u00b6"        # paragraph or item break
 
 # Reported by default. Everything else in CHECKS is a style note, off by default.
 ERROR_CHECKS = {"PL003", "PL004", "PL006", "PL010", "PL011", "PL013", "PL014", "PL023", "PL024",
-                "PL025", "PL026"}
+                "PL025", "PL026", "PL028", "PL029"}
 
 CHECKS = {
     "PL001": "sentence longer than the hard limit",
@@ -73,6 +73,8 @@ CHECKS = {
     "PL024": "the same connective in two consecutive sentences",
     "PL025": "British spelling in a paper set to American English",
     "PL026": "the same phrase of three or more words twice in one sentence",
+    "PL028": "appendix label that cleveref will print as 'Sec.' (revtex)",
+    "PL029": "noun phrase hung on a displayed equation (clipped appositive)",
 }
 
 # Connectives a reader notices when two sentences in a row use them (PL024).
@@ -836,8 +838,41 @@ def lint_text(src: str, fname: str, cfg: Config) -> list[Finding]:
         add(pos, "PL023", f"${key}$ appears only in displayed equations; name it in "
             "the sentence that introduces or follows the equation", key, "error")
 
+    for pos, code, msg in check_structure(src):
+        add(pos, code, msg, excerpt_at(pos, pos + 40), "error")
+
     out.sort(key=lambda f: (f.line, f.col, f.code))
     return out
+
+
+# ---------------------------------------------------------------------------
+# PL028-PL029: appendix labels and noun phrases hung on displayed equations.
+APPOSITIVE_RE = re.compile(r"\s*(?:a|an)\s+[a-z]")
+
+
+def _uncommented(src: str) -> str:
+    """The source with comments blanked, offsets kept."""
+    return re.sub(r"(?<!\\)%[^\n]*", lambda m: " " * len(m.group()), src)
+
+
+def check_structure(src: str) -> list[tuple[int, str, str]]:
+    found = []
+    text = _uncommented(src)
+    for m in re.finditer(r"\\begin\{(" + DISPLAY_ENVS + r")\}(.*?)\\end\{\1\}", text, re.S):
+        b = m.end()
+        # PL029: the sentence continues after the display with a bare noun phrase.
+        if APPOSITIVE_RE.match(text, b) and re.search(r",\s*(?:\\label\{[^}]*\}\s*)?$",
+                                                     m.group(2).rstrip()):
+            found.append((b, "PL029", "a noun phrase hung on the equation; make it a clause "
+                          "('which has ...', 'the response of ...' as a sentence)"))
+    app = text.find("\\appendix")
+    if app >= 0 and re.search(r"\\documentclass[^{]*\{revtex", text):
+        for m in re.finditer(r"\\(?:sub)*section\*?\s*\{[^}]*\}\s*\\label\{([^}]*)\}",
+                             text[app:]):
+            found.append((app + m.start(), "PL028",
+                          f"revtex numbers appendices as sections, so \\cref{{{m.group(1)}}} "
+                          "prints 'Sec.'; use \\label[appendix]{...} (or [subappendix])"))
+    return found
 
 
 # ---------------------------------------------------------------------------

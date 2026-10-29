@@ -48,8 +48,8 @@ them to check it.
    ten frequencies", "only", "up to", "every"): count the cases, find the maximum. A departure from the claim is attributed to a cause only if
    the data shows that cause.
 9. **Conditions without their reason.** An inequality, a regime condition or a
-   modelling choice (a spin length, an added bath) stated without its physical
-   reason where it appears.
+   modelling choice stated without the physical reason the argument then relies on.
+   A reason nothing later uses is not missing; do not ask for it.
 10. **Statements about the model against its equations.** Every negative or
    descriptive statement about the setup ("without X", "no X", "only Y", "closed",
    "lossless", "linear coupling"): check it against the Hamiltonian, master equation

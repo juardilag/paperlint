@@ -1,16 +1,12 @@
 # Rules for scientific writing
 
 These rules are about **correctness and clarity**, which a checker can enforce. They
-are deliberately few. **Style is not a rule.** It is learned from real paragraphs of the
-house style (the corpus, `scripts/corpus.py`) and from the authors' own edits
-(`author_edits.md`), and it is measured by the blind test. Style rules applied
-mechanically (sentence-length caps, punctuation bans, banned openers, "join sentences
-with because", "open every paragraph with its claim") are what made earlier drafts read
-as generated, so paperlint has none; `lint.py --style` still offers notes for an author
-who wants to read them. Professional English (section 10) is not style but correctness,
-and is enforced. Two punctuation marks are the exception, because they mark a text as
-generated rather than as a matter of taste: semicolons and dashes used as punctuation
-(section 10).
+are deliberately few. **Style is not a rule.** It is learned from the house style (the
+corpus, `scripts/corpus.py`) and the authors' own edits (`author_edits.md`), and
+measured by the blind test; mechanical style rules made earlier drafts read as
+generated (`lint.py --style` keeps them as optional notes). Professional English
+(section 10), including the ban on semicolons and punctuation dashes, is correctness
+and is enforced.
 
 The authors own the prose. A paragraph the authors wrote or approved is changed only to
 fix an error, with the smallest edit that fixes it, unless they ask for a rewrite.
@@ -21,15 +17,12 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   (`audience` in `paperlint.toml`) who knows the term gets the reference only.
 - A term that needs more than a clause is described in plain words in the main text,
   and the term itself is kept for the appendix.
-- This includes every index, subscript and label (what $n$ and $m$ run over, what
-  the subscript of a bracket marks) and every argument a function gains ($H(\phi)$
-  after $\hat H$). Every symbol of a displayed equation is named in the sentence that
-  introduces or follows it, even one a reader could guess (the frequency $\omega_q$ and
-  coupling $\eta_q$ of a bath's modes); the `audience` exemption covers terms, never
-  symbols (`lint.py` PL023); a noun phrase right before the display ("with the total
-  Hamiltonian") names its left-hand side, and a symbol the text never uses again is
-  not introduced at all. A quantity referred back to is named physically, not by its symbol
-  alone ("the spectral density $J$", not "the $J$ of panel (a)").
+- This includes every index, subscript and label (what $n$ and $m$ run over) and
+  every argument a function gains ($H(\phi)$ after $\hat H$). Every symbol of a
+  displayed equation is named in the sentence that introduces or follows it, even one
+  a reader could guess; the `audience` exemption covers terms, never symbols
+  (`lint.py` PL023). A quantity referred back to is named physically, not by its
+  symbol alone ("the spectral density $J$", not "the $J$ of panel (a)").
 - A pronoun or "this" points to one object just named; after a sentence that names
   several, name the subject again ("the spectral density depends", not "it depends").
   A specific object is named specifically: "the critical exponent $\nu$ of the photon
@@ -49,6 +42,10 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 ## 2. One name and one symbol per object
 - The same object has the same name and symbol in every section, figure, legend and
   table (`glossary.toml`). One symbol has one meaning in the whole paper.
+- The appendices use the notation of the main text, never their own: no shorthand
+  for a combination the main text writes out ($g/\sqrt N$, not a new $g_N$), no
+  change of variable mid-derivation without saying so, and the same variables
+  ($\mathbf m$ in the appendix if the main text's equation is in $\mathbf m$).
 - Every average says what it runs over (noise realisations, initial conditions,
   both), in the formula as well as in the words, and one symbol never averages over
   different ensembles.
@@ -67,14 +64,12 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - A result is stated as strongly as its figure and data show, no more ("agrees within
   the statistical error" is checked against the error).
 - The paper's own choices (a bath, a parameter) are stated as choices, not as facts
-  about a regime. Each choice says, where it is made, what it represents and why it
-  matters: the initial state and why its Wigner function is the distribution sampled,
-  the parameter values and what they make the test sensitive to. So does every
-  condition and inequality ("$\Gamma\coth(\omega/2T)\ll\omega$", "a spin of length
-  $N/2$", "a second bath"): its physical reason stands where it appears, in one
-  clause and no more than the reader needs to follow. A reason the method already
-  gives (a step of the recipe, an earlier sentence) is pointed to, not repeated, and
-  a reason that answers only a referee's curiosity goes to an appendix.
+  about a regime. A choice or condition carries its reason in the main text only when
+  the argument that follows uses that reason, or when a reader of the field would
+  otherwise doubt the choice; then in one clause. Any other reason, a property of a
+  sampling scheme, a variance the formula already shows or a detail a referee might
+  ask about, goes to an appendix or is cut (section 8, the deletion test). A reason
+  the method already gives is pointed to, not repeated.
 - A regime word ("non-Markovian", "weak", "fast", "comparable", "memory") holds at the
   paper's parameter values: compare the timescales or frequencies it names, and say
   in which sense the word is meant where it is first used.
@@ -112,26 +107,25 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   and credits a result to the method as a whole, not to one ingredient.
 - A worked example shows its equations of motion directly and says where each comes
   from ("Eq. (3) with $A = S^x$"), without counting the method's steps. The examples
-  of a results section share one structure, the one the authors approved first (for
-  example Model, Equations of motion, Initial state, Result), and each is checked
-  against that example as well as against these rules: the same kinds of paragraphs,
-  a Result that states the verdict its figure shows, and nothing the approved example
-  leaves to an appendix. Whether a symbol is an operator or its classical variable is
-  clear from the text at every point.
+  of a results section share the structure of the one the authors approved first,
+  with a Result that states the verdict its figure shows. Whether a symbol is an
+  operator or its classical variable is clear at every point.
 - Where a results section departs from a step of the method, it says so at that
   step: the physical reason in a sentence, with a reference, and when the general step
   would apply. The mechanism goes to an appendix. Known results of other work
   (exponents, limits) are quoted with their reference, not re-derived.
 - An agreement claim ("follows", "within one standard error", "reproduces the
   exponent") is recomputed from the saved data, and holds over the range the data
-  covers: an asymptotic quantity the data does not reach is not "reproduced".
+  covers: an asymptotic quantity the data does not reach is not "reproduced". The
+  reference it compares against is named, with its method in one clause, in the
+  paragraph that makes the comparison.
 
 ## 6. The main text argues, the appendix proves
 - Each section says why, what is known and what it does. A section or subsection
   opening is a bird's-eye view: why the section exists and what each part tests, in
   general terms and in words the reader already has. Particular numbers, system sizes,
-  observables and new symbols wait for the subsection that uses them, and every claim
-  of the opening carries its own reason ("why do the frequencies move?"). Results that matter stay in
+  observables and new symbols wait for the subsection that uses them, and a claim of
+  the opening a reader would question carries its reason. Results that matter stay in
   the main text; their derivation, the technical detail and the precise size of a
   deviation go to an appendix. A results paragraph states the verdict its figure shows
   and points to the appendix for the rest. A fix for a review finding moves an
@@ -144,9 +138,8 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
 - The main text can be followed without opening an appendix. It sends the reader to
   an appendix for a proof or a detail, never for a concept, a table or an equation
   needed to understand the sentence: a pointer is not an explanation.
-- A remark stands where its subject is introduced and says why it matters there. A
-  "Remarks" subsection collecting them means they are in the wrong place; a remark
-  that matters nowhere in the argument goes to an appendix or is cut.
+- A remark stands where its subject is introduced. A "Remarks" subsection collecting
+  them means they are in the wrong place.
 - Every numerical step the results rely on (noise sampling, discretisation,
   truncation, boundary terms, the integrator) is described well enough to
   reimplement, and agrees with the code.
@@ -169,27 +162,33 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   the caption or the text; an element nobody can explain is removed. A schematic
   figure is redrawn after the text it illustrates is settled.
 - The figures of a paper share one language, checked across all of them: the same
-  object in the same color and marker, inset markers coded alike, insets at the same
-  gap from the parent frame, the same axes height, one grid style, legends inside the
-  axes. No tick label touches or crosses a frame, and no inset hides an axis or data.
+  object in the same color and marker, one marker size in panels and insets, the same
+  role (computed line, reference markers) drawn the same way, one grid style. No tick
+  label touches a frame, and no inset or legend hides data.
 
-## 8. Each fact is stated once
+## 8. Each fact is stated once, and only if it is needed
 - A fact appears once in the paper, in the section that shows it, and a mechanism
   is explained once; later mentions point back to it. A premise that a later argument
   needs is recalled where it is needed. Inside a sentence too: a qualifier is said
   once (`lint.py` PL026).
+- The deletion test: a sentence, clause or displayed equation of the main text that
+  no later sentence, figure, claim or step of the argument uses is cut, or moved to
+  the appendix that proves or details it. A displayed equation is used when the text
+  refers to it or to the quantity it defines. This test decides when rules pull apart
+  (section 1 asks for a definition, section 3 for a reason, section 6 for an
+  appendix): a definition or reason that fails it is not added; one that passes stays,
+  in one clause.
 
 ## 9. LaTeX mechanics
 - Cross-reference with one mechanism (`\cref`/`\Cref`, `\Cref` at a sentence start),
-  never by hand.
+  never by hand, and check how it renders: an appendix is cited as an appendix, never
+  as "Sec. A 4" (in revtex, `\label[appendix]{...}`, `lint.py` PL028).
 - Every displayed equation fits its column: no `Overfull \hbox` in the log for the
   text you touched; render the page and look at it.
 - New references go into the `.bib` file, and the authors are told which.
-- No link covers a figure. A hyperlink broken across a page or column break (a DOI
-  title in the bibliography) is restarted by pdfTeX at the top of the next page and
-  covers any float there; keep bibliography entries unbroken
-  (`\interlinepenalty=10000` before `\bibliography`) and check the compiled PDF for
-  link boxes larger than a few lines.
+- No link covers a figure: a hyperlink broken across a page restarts on the next
+  page and covers any float there, so keep bibliography entries unbroken
+  (`\interlinepenalty=10000` before `\bibliography`) and check the compiled PDF.
 
 ## 10. Professional English
 The register is not style: a sentence a journal's copy editor or a referee would mark
@@ -215,15 +214,15 @@ with the smallest edit, in the field's words.
 - No more words than the argument needs, and no fewer than a human writer would use.
   Cut whole ideas (a repetition, an aside, a sentence that only announces what
   follows), never the grammar of the ones that stay: no dropped articles, no clipped
-  appositives ("the field outside", "the exact reference"), no stacked noun phrases, no
-  telegraphic sentences. Compressed prose reads as generated as surely as padded prose
+  appositives ("the field outside", "the exact reference", a noun phrase hung on a
+  displayed equation, `lint.py` PL029), no stacked noun phrases, no telegraphic
+  sentences. Compressed prose reads as generated as surely as padded prose
   does. The measure is the human papers of the corpus doing the same job
   (`corpus.py retrieve`), not a word count: a section over its budget is fixed by moving
   or cutting ideas, never by compressing sentences.
-- Openings and closings of sections, subsections and appendices are where generated
-  prose shows most. Before writing one, retrieve corpus paragraphs that do the same job
-  and match how they open (what is studied and why, then a preview) and how they close
-  (the result, or a pointer to what follows), without echoing their wording.
+- Openings and closings of sections and appendices are where generated prose shows
+  most: before writing one, retrieve corpus paragraphs that do the same job and match
+  how they open and close, without echoing their wording.
 - No semicolons and no dashes used as punctuation (`---`, an em dash, or a spaced
   `--`) in running text: they are rare in published physics prose and typical of
   generated text. Use a connective ("because", "so", "whereas", "while") or two
@@ -239,7 +238,11 @@ with the smallest edit, in the field's words.
 ## 11. Maintaining the rules
 - A rule is added only for an error a checker or a reader can verify, never for
   taste. Before a rule is added, find the rule it overlaps and merge them; this file
-  does not grow by more than it shrinks without a reason.
+  does not grow by more than it shrinks without a reason. A check a pattern can do
+  goes to `lint.py`, not here.
+- A rule that asks for text (a definition, a reason, a caveat) is checked against
+  the deletion test before it is added: reviewers strike what checkers add, and a rule
+  that only adds makes every round longer than the last.
 - An author's edit of the prose is recorded as a pair with `/paperlint:learn`, not
   as a rule. A reviewer's remark about style becomes an objection in `examples.md`,
   with their words and no invented rewrite. The house style itself is not changed by a

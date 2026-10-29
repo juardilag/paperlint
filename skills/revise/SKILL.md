@@ -54,7 +54,8 @@ Revise one section and stop. Two jobs, kept apart:
    section as it is now: one `cold-reader` per subsection, and one on each section or
    subsection opening (the text before its first subsection, which no subsection
    check covers). Give them the paper directory; they read `CLAUDE.md` for the
-   decisions and nothing about earlier rounds.
+   decisions and nothing about earlier rounds. Do not tell them what to skip; pass the
+   binding decisions and let them check everything else.
 4. Triage every finding:
    - **Error** (wrong, inconsistent, undefined, unsupported): fix it with the smallest
      edit, in the sentence that has the problem. A clause in that sentence, never a new
@@ -64,6 +65,12 @@ Revise one section and stop. Two jobs, kept apart:
    - **Author decision**: scope, structure, what the paper claims about its own
      results, anything the data must decide. Check correctness first; send only the
      decision.
+   - **Superfluous** (a `cut`/`move` of the deletion test, a cold reader's
+     "superfluous"): cut it, or move it to its appendix. Prefer this to adding text:
+     reviewers strike what checks add.
+   - **Unclear** (a reader could not follow a sentence): rewrite it or cut it. Never
+     keep it unchanged with a note that it is fine; a passage two readers stumble on is
+     what the next reviewer marks.
    - **Rejected**: say why in one sentence, in the report. Nothing is saved.
    A `rule-checker` failure is an error, also in a paragraph the authors approved.
    Findings about style, rhythm or length are not errors and are not acted on in a

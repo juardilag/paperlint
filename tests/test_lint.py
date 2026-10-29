@@ -330,3 +330,23 @@ class Spelling(unittest.TestCase):
         cfg = lint.Config(spelling="british")
         self.assertNotIn("PL025", [f.code for f in lint.lint_text(DOC % "The colour.", "t.tex", cfg)])
 
+
+
+class Structure(unittest.TestCase):
+    def test_appositive_after_display(self):
+        body = ("The kernel is\n\\begin{equation}\n  J = x ,\n\\end{equation}\n"
+                "a peak of width one at the cavity frequency.")
+        self.assertIn("PL029", codes(body))
+
+    def test_clause_after_display_is_fine(self):
+        body = ("The kernel is\n\\begin{equation}\n  J = x ,\n\\end{equation}\n"
+                "which has a peak of width one.")
+        self.assertNotIn("PL029", codes(body))
+
+    def test_revtex_appendix_label(self):
+        src = ("\\documentclass{revtex4-2}\n\\begin{document}\nSee \\cref{app:a}.\n"
+               "\\appendix\n\\section{Proof}\n\\label{app:a}\nText.\n\\end{document}\n")
+        cfg = lint.Config()
+        self.assertIn("PL028", [f.code for f in lint.lint_text(src, "t.tex", cfg)])
+        fixed = src.replace("\\label{app:a}", "\\label[appendix]{app:a}")
+        self.assertNotIn("PL028", [f.code for f in lint.lint_text(fixed, "t.tex", cfg)])
