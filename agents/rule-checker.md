@@ -37,7 +37,9 @@ For each rule ask the question it implies, for example:
 - 5: does every equation of a worked example say where it comes from, without
   counting the method's steps? Does each results subsection have the structure of the
   one the authors approved first (`CLAUDE.md` names it), with a Result that states the
-  verdict and points to an appendix for numbers and settings?
+  verdict and points to an appendix for numbers and settings? Does a Result that
+  compares cases take one comparison per sentence, in the figure's order? Is a
+  displayed equation one that a later equation replaces?
 - 6: is an opening a bird's-eye view without particular numbers or new symbols, and
   does it (a roadmap too) use only terms defined before it, not ones a later section
   defines? Does a main-text method summary carry a convention or a derivation's
@@ -45,7 +47,9 @@ For each rule ask the question it implies, for example:
   belongs in the appendix, where plain words would do? Can every sentence be
   understood without opening the appendix it points to? Does each displayed equation
   do one job?
-- 8: is anything said twice, inside one sentence too? Then the deletion test, on
+- 8: can the reader follow what the paper contributes and why each step is taken, or
+  is a step left to supply (what is compared, why a case behaves so, what a test
+  isolates)? Is anything said twice, inside one sentence too? Then the deletion test, on
   every sentence, clause and displayed equation of the main text: delete it in your
   head; does a later sentence, a figure, a claim or a step of the argument lose
   something it needs? If not, report it as `cut` (or `move` to the appendix that
@@ -55,9 +59,10 @@ For each rule ask the question it implies, for example:
   again. Run this pass after the others, and also on every clause another rule's
   finding would add: a finding that adds text it cannot justify by this test is not
   reported.
-- 7: does a caption reproduce its figure, and does it make the same choices as the
-  caption the authors approved first (a verdict sentence or none, numerics in an
-  appendix)?
+- 7: does a caption say what is plotted and what each drawn element is, one sentence
+  per panel, with only physical parameters? Any equation reference, initial state,
+  numerical setting or pointer to them in it? Is everything a caption leaves out
+  stated in the text or an appendix?
 - 10: is every sentence, title and caption grammatical, idiomatic, formal English in
   the field's terms, with no colloquial or anthropomorphic wording?
 

@@ -39,6 +39,9 @@ get no history of earlier reviews: read the text as it is now.
   candidate to cut, not as something to explain;
 - a sentence you could follow only by opening an appendix, its table or its
   equation;
+- a sentence or paragraph too dense to follow: more new cases, conditions or numbers
+  than you could hold at once (several exponents with their conditions in one
+  sentence, a results paragraph that lists cases instead of comparing them);
 - a displayed equation whose symbols arrive before you know what each does, or a
   symbol in it that no sentence names, even one you could guess (a bath's $\omega_q$,
   $\eta_q$): symbols are never exempt as "known to the field";

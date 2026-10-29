@@ -106,10 +106,17 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   for the method's objects and steps (a new name for an existing object is an error),
   and credits a result to the method as a whole, not to one ingredient.
 - A worked example shows its equations of motion directly and says where each comes
-  from ("Eq. (3) with $A = S^x$"), without counting the method's steps. The examples
-  of a results section share the structure of the one the authors approved first,
-  with a Result that states the verdict its figure shows. Whether a symbol is an
-  operator or its classical variable is clear at every point.
+  from ("Eq. (3) with $A = S^x$"), without counting the method's steps; intermediate
+  equations a later one replaces are not displayed. The examples of a results section
+  share the structure of the one the authors approved first, but a paragraph of that
+  structure that fails the deletion test (section 8) is dropped, not kept for symmetry.
+  Whether a symbol is an operator or its classical variable is clear at every point.
+- A Result states the verdict its figure shows, and when the figure compares cases it
+  walks through them one comparison per sentence, in the order the figure presents
+  them, saying what each case changes and what the comparison shows. Several cases,
+  exponents or conditions packed into one sentence are an error, however short the
+  paragraph: verdict-only is a limit on numbers and settings, not on the explanation of
+  what is compared.
 - Where a results section departs from a step of the method, it says so at that
   step: the physical reason in a sentence, with a reference, and when the general step
   would apply. The mechanism goes to an appendix. Known results of other work
@@ -145,16 +152,16 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   reimplement, and agrees with the code.
 
 ## 7. Captions reproduce the figure
-- A caption says what is plotted against what, the model and its physical
-  parameters, the sampling, and what each line, marker and band is. Numerical
-  settings (time step, cutoffs, sample sizes, quadrature) go to the appendix the
-  caption cites. Settings shared by all panels are given once.
+- A caption says what is plotted against what, what each line, marker and visible
+  band or error bar is, one sentence per panel, and the physical parameters, those
+  shared by all panels once. It carries no equation references, no initial state, no
+  numerical settings (time step, cutoffs, sample sizes, fit windows) and no pointer to
+  them: these live in the text or an appendix, and before one leaves a caption, check
+  that it is stated there.
 - Each panel is described in a sentence that names its quantities physically; a
   caption is read without the text, so it is never a list of symbols.
-- Whether a caption also states the takeaway, and how long it runs, is style: follow
-  the house style (`style.md`), the paper's `CLAUDE.md` and the caption the authors
-  approved first, and apply the same choice to every caption. A takeaway it states must match the text and the
-  data.
+- Whether a caption states the takeaway is style: follow the caption the authors
+  approved first, in every caption. A takeaway must match the text and the data.
 - Legends and axis labels use the text's terms; re-render the figure after a change
   of term. An equation drawn in a figure is the text's equation, or a schematic of it
   that the caption calls one.
@@ -166,7 +173,11 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   role (computed line, reference markers) drawn the same way, one grid style. No tick
   label touches a frame, and no inset or legend hides data.
 
-## 8. Each fact is stated once, and only if it is needed
+## 8. Concise, with everything the reader needs to follow
+The text is as short as it can be while the reader can still follow what the paper
+contributes and why each step is taken. Both halves are errors to check: a sentence
+the argument does not need, and a step of the argument (what is compared, why a case
+behaves as it does, what a test isolates) the reader is left to supply.
 - A fact appears once in the paper, in the section that shows it, and a mechanism
   is explained once; later mentions point back to it. A premise that a later argument
   needs is recalled where it is needed. Inside a sentence too: a qualifier is said
@@ -211,15 +222,12 @@ with the smallest edit, in the field's words.
   questions outside a stated research question, no hype words the data cannot carry.
 - Professional is not stiff: "we" narrates, sentence length varies, and the field's
   stock phrases are welcome (`style.md`). This rule removes informality, never voice.
-- No more words than the argument needs, and no fewer than a human writer would use.
-  Cut whole ideas (a repetition, an aside, a sentence that only announces what
-  follows), never the grammar of the ones that stay: no dropped articles, no clipped
-  appositives ("the field outside", "the exact reference", a noun phrase hung on a
-  displayed equation, `lint.py` PL029), no stacked noun phrases, no telegraphic
-  sentences. Compressed prose reads as generated as surely as padded prose
-  does. The measure is the human papers of the corpus doing the same job
-  (`corpus.py retrieve`), not a word count: a section over its budget is fixed by moving
-  or cutting ideas, never by compressing sentences.
+- Section 8 decides which ideas stay; this rule keeps the grammar of the ones that
+  do. Cut whole ideas, never articles, verbs or connectives: no clipped appositives
+  ("the field outside", a noun phrase hung on a displayed equation, `lint.py` PL029),
+  no stacked noun phrases, no telegraphic sentences. Compressed prose reads as
+  generated as surely as padded prose, and a section over its budget loses ideas,
+  not grammar.
 - Openings and closings of sections and appendices are where generated prose shows
   most: before writing one, retrieve corpus paragraphs that do the same job and match
   how they open and close, without echoing their wording.
@@ -253,24 +261,13 @@ with the smallest edit, in the field's words.
   `glossary.toml`.
 
 ## 12. The project file `CLAUDE.md`
-`CLAUDE.md` holds what a reader of the paper and its code cannot infer. Every command
-reads it, so every line costs attention on every run.
-
-What belongs:
-- **Decisions**, each with who took it, when and why. A decision without its reason
-  is flagged, because nobody can later tell whether it still applies.
-- **Content the authors require**, and where it goes.
-- **The evidence map**: for each figure, table and quoted number, the script, the data
-  and the command that regenerate it, and where heavy runs are executed.
-- **Build**: how to compile, and any setting a command must not change.
-- **Review status**: which sections are revised, and the open author items, one line
-  each.
-
-What does not belong: terminology (`glossary.toml`), lint settings and the audience
-(`paperlint.toml`), the history of findings (git and the reports), a map of the paper
-(rebuilt from the text every run), style (the corpus and `author_edits.md`), and
-anything the paper, the code or the git history already states.
-
-Form: one checkable instruction per line or bullet; objects named by label, not
-number; entries replaced, never duplicated; a later co-author comment that contradicts
-an entry is reported to the user as a conflict.
+`CLAUDE.md` holds what a reader of the paper and its code cannot infer, and every
+command reads it, so every line costs attention. It holds decisions (who, when and
+why; one without its reason is flagged), content the authors require, the evidence
+map (script, data and command for each figure, table and quoted number, and where
+heavy runs go), the build, and the review status with open author items. It does not
+hold terminology (`glossary.toml`), lint settings (`paperlint.toml`), the history of
+findings, a map of the paper, style, or anything the paper, code or git history
+states. One checkable instruction per line; objects named by label, not number;
+entries replaced, never duplicated; a co-author comment that contradicts an entry is
+reported to the user as a conflict.
