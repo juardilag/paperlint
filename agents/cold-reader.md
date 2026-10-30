@@ -63,7 +63,10 @@ get no history of earlier reviews: read the text as it is now.
   story (for example, the hardest case before the one that sets the reference).
 
 Do not report what you could follow, what a reader of the journal knows, matters of
-taste, or anything about how the text sounds.
+taste, or anything about how the text sounds. Report a missing reason or detail only
+where you could not follow the result without it, not where a curious reader would
+like more: co-authors cut far more than they add, and every addition you ask for is a
+sentence someone will have to justify.
 
 ## Output
 

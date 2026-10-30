@@ -11,6 +11,13 @@ and is enforced.
 The authors own the prose. A paragraph the authors wrote or approved is changed only to
 fix an error, with the smallest edit that fixes it, unless they ask for a rewrite.
 
+**Write no more than is needed.** A language model adds: a reason, a caveat, a check,
+a definition, a summary, each defensible alone. Co-authors then spend their rounds
+cutting, and most of their corrections are strikes. So the default for any sentence
+is not to write it. Every sentence, clause and caveat must pass the deletion test of
+section 8 before it is written, not after a reviewer strikes it, and a check that
+finds a problem prefers the fix that removes words to the fix that adds them.
+
 ## 1. Every term is defined where it is first used
 - A technical term, symbol or acronym gets its meaning at its first use in the paper,
   in a clause, with a reference where the field has one. A reader of the journal

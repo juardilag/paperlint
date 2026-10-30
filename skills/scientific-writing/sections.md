@@ -12,8 +12,11 @@ is filled in as review rounds reach it (`/paperlint:comments --train` adds the
 comments of a round to the type they concern). A rule a paper's authors decide
 against is recorded as a decision in that paper's `CLAUDE.md`, not deleted here.
 
-Every section type also follows the general rule for openings: an opening (of a
-section, subsection or appendix) is a bird's-eye view in words the reader already has.
+Every section type also follows the general rule for openings. A section, and a
+subsection whose parent has no introduction of its own, opens with a short paragraph
+before its first part; the subsections of a section whose introduction already says
+what each of them tests open directly with their first part, and repeat nothing of
+it. An opening is a bird's-eye view in words the reader already has.
 Particular numbers, system sizes and new symbols wait for the part that uses them, and
 a claim of the opening a reader would question carries its reason. Before writing an
 opening or a closing, retrieve corpus paragraphs that do the same job (`rules.md`,
@@ -84,8 +87,6 @@ the method ... this is not guaranteed ... is therefore a test"), not announced (
 ask whether"). An opening that only announces a comparison ("we compare X with Y on
 Z") is an error. Where the regime is part of the point (Markovian or not, weak or
 strong coupling), the opening says in which sense, at the subsection's parameters.
-Where the parent section's introduction already poses the question, the subsection
-opens with its Model and does not repeat it.
 
 **Parts.** The subsections share the structure the authors approved first (its parts,
 named in `CLAUDE.md`, typically Model, Equations of motion, Initial state, Result),

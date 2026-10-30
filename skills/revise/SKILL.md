@@ -89,7 +89,9 @@ Revise one section and stop. Two jobs, kept apart:
 6. **Redraft patched paragraphs.** A paragraph that received two or more fixes in this
    check is redrafted with the drafting procedure (facts, models, blind draft, fact
    check, compare). Patches stacked in one paragraph are what reads as generated.
-7. **Length.** Run `budget` again. The section must not be longer than it started. If
+7. **Length.** Run `budget` again, and report the words the check added and cut.
+   The section must not be longer than it started; a finding is fixed by cutting
+   whenever cutting removes the error. If
    it is over its limit, list its ideas and propose, as an author decision, which move
    to an appendix and which go; never compress to meet the limit.
 8. Compile and fix any `Overfull \hbox` in the section.

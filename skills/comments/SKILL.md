@@ -175,7 +175,9 @@ A reviewer's finding that contradicts a comment of the round (for example "cut t
 overview" when the comment asked for one) is rejected with that reason; the comment
 wins over the agents, and a conflict with a recorded decision goes to the authors.
 
-A finding of an agent is fixed with the smallest change that removes the error. A fix
+A finding of an agent is fixed with the smallest change that removes the error,
+and a change that cuts beats one that adds: most comments of co-authors are cuts, and
+the round reports the words it added and cut in each section. A fix
 that adds a clause or a sentence (an explanation, a precision for a special case, a
 scope) is kept only if the reader needs it to follow the argument; otherwise it goes
 to the report, or to an appendix. A deletion-test finding (`cut`, `move`) is applied
