@@ -70,6 +70,13 @@ fix an error, with the smallest edit that fixes it, unless they ask for a rewrit
   sampling scheme, a variance the formula already shows or a detail a referee might
   ask about, goes to an appendix or is cut (section 8, the deletion test). A reason
   the method already gives is pointed to, not repeated.
+- An asymptotic value (an exponent, a limit, a scaling law) is attached to plotted
+  data only where the data reach it in the plotted range, checked on the reference
+  too; otherwise the data are said to be pre-asymptotic, with the value they do reach,
+  and legends and labels carry no asymptotic value. A limit stated for a parameter
+  set to zero ("for $\kappa\to0$") is not attributed to a run at a small finite value.
+- When two checks disagree on a fact (converged or not, inside the error or not), the
+  fact is recomputed from the saved data before either version is written.
 - A regime word ("non-Markovian", "weak", "fast", "comparable", "memory") holds at the
   paper's parameter values: compare the timescales or frequencies it names, and say
   in which sense the word is meant where it is first used.
@@ -219,4 +226,8 @@ hold terminology (`glossary.toml`), lint settings (`paperlint.toml`), the histor
 findings, a map of the paper, style, or anything the paper, code or git history
 states. One checkable instruction per line; objects named by label, not number;
 entries replaced, never duplicated; a co-author comment that contradicts an entry is
-reported to the user as a conflict.
+reported to the user as a conflict. Text a co-author struck stays out: no check,
+rule or lint finding restores it, even reworded. A struck passage kept on purpose
+(moved rather than cut, or overruled by the authors) is listed as
+`kept-strike: <round> C<n>` with its reason, and `strikes.py` reports every other
+struck passage that is back.

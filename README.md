@@ -207,6 +207,11 @@ enable = ["PL007"]       # stock phrases
 
 `--list-checks` lists every code and marks which are errors.
 
+`strikes.py main.tex` reads the annotated PDFs in `review/` and lists every passage a
+reviewer struck that is back in the text, reworded or not. A passage kept on purpose is
+listed in `CLAUDE.md` as `kept-strike: <round> C<n>` with its reason. The comments,
+revise and rule-checker steps run it, so a check never restores what a co-author cut.
+
 ## Development
 
 The rules are in `skills/scientific-writing/rules.md` (correctness, for every

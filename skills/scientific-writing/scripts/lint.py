@@ -937,6 +937,10 @@ def check_display_symbols(src: str) -> list[tuple[int, str]]:
     for a, b in displays:
         body = nocom[a:b]
         bound = set(re.findall(r"\bd\s*(\\[A-Za-z]+|[A-Za-z])", body))  # integration variables
+        # In a spectral density defined as sum_k |lambda_k|^2 delta(omega - omega_k) the
+        # mode index is a dummy: lambda_k and omega_k need no name of their own there.
+        summed = (set("".join(re.findall(r"\\sum\s*_\s*\{?\s*([a-z]+)", body)))
+                  if re.search(r"\\delta\s*\(", body) else set())
         named_here: set[str] = set()
         # "with the total Hamiltonian" right before "\hat H = ..." names H
         lhs = re.match(r"\\(?:begin\{\w+\*?\}|\[)\s*([^=]*?)=", body)
@@ -952,6 +956,8 @@ def check_display_symbols(src: str) -> list[tuple[int, str]]:
                     or key in named_here):
                 continue
             sub = key.partition("_")[2]
+            if sub and summed and set(sub) <= summed:
+                continue    # a symbol indexed only by a summed index
             if "," in sub and all(f"{base}_{p}" in named for p in sub.split(",")):
                 continue    # phi_{cl,q} with phi_cl and phi_q each named
             seen.add(key)

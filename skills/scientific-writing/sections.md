@@ -84,6 +84,8 @@ the method ... this is not guaranteed ... is therefore a test"), not announced (
 ask whether"). An opening that only announces a comparison ("we compare X with Y on
 Z") is an error. Where the regime is part of the point (Markovian or not, weak or
 strong coupling), the opening says in which sense, at the subsection's parameters.
+Where the parent section's introduction already poses the question, the subsection
+opens with its Model and does not repeat it.
 
 **Parts.** The subsections share the structure the authors approved first (its parts,
 named in `CLAUDE.md`, typically Model, Equations of motion, Initial state, Result),
@@ -104,8 +106,9 @@ cannot be followed without it.
   point) is stated as a known result with its reference, in one or two sentences; its
   derivation goes to the appendix. One job per sentence: a model paragraph that also
   derives its mechanism is split.
-- The references the Result compares against are named, with their method in one
-  clause, where the comparison is set up.
+- The references the Result compares against are named where the comparison is set
+  up, with a pointer to the appendix that describes how they are computed; a
+  sentence describing the reference's method belongs there, not in the main text.
 
 **Equations of motion.**
 - Shown directly, as the method's general equation for these variables ("Eq. (3)
@@ -121,11 +124,12 @@ cannot be followed without it.
 - Where the results depart from a step of the method, they say so at that step, with
   the physical reason and when the general step would apply.
 
-**Initial state.** The prepared state and the distribution sampled from it are named
-explicitly (which variables are Gaussian with which variance, or which discrete
-values with which probabilities), and why it is the Wigner function of that state. A
-special-case scheme gets one sentence and its benefit. The part is cut when the text
-does not use it and an appendix states it.
+**Initial state.** The main text gives only the sampling a reader needs to follow the
+result (which variables are Gaussian, or which discrete values with which
+probabilities); the prepared state's parameters (its direction, the cavity's vacuum,
+a fixed component) go to the appendix with the run settings. A special-case scheme
+gets one sentence. The part is cut when the text does not use it and an appendix
+states it.
 
 **Measurement.** The observable is defined before the Result: what it characterizes,
 its scaling form where one is tested, the meaning of the sign of the control
@@ -157,7 +161,8 @@ estimated goes to the appendix, unless the reader needs it to trust the verdict.
   the physical parameters, those shared by all panels once. It carries no equation
   references, no initial state, no numerical settings (time step, cutoffs, sample
   sizes, fit windows) and no pointer to them; before one leaves a caption, check that
-  the text or an appendix states it.
+  the text or an appendix states it. It does not repeat a value the text derives (a
+  critical coupling) or a parameter the figure itself shows.
 - Whether a caption states the takeaway follows the caption the authors approved
   first, in every caption, and must match the text and the data.
 - Legends and axis labels use the text's terms; a key that only repeats the caption
@@ -167,7 +172,9 @@ estimated goes to the appendix, unless the reader needs it to trust the verdict.
 - The figures share one language, checked across all of them: the same object in the
   same color and marker, one marker size in panels and insets, the same role drawn
   the same way, one grid style; no tick label touches a frame, and no inset or legend
-  hides data.
+  hides data. The colored series of every figure take one fixed palette in order (the
+  first series the first color, and so on, in legend order), and every panel's axes
+  box has the same height, measured on the rendered figure.
 
 ## Conclusions
 *Provisional: no reviewer comments yet.*

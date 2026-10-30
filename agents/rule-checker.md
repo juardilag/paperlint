@@ -18,10 +18,15 @@ and the paper directory. Read:
   and `sections.md` next to it, the part for each section type you check;
 - `paperlint.toml` (the `audience`), `glossary.toml` and `CLAUDE.md` in the paper
   directory; a decision in `CLAUDE.md` overrides a rule only where it says so;
+- the `comments.md` of every round in `review/` that touches the text you check: text
+  a co-author struck stays out, so a finding whose fix would restore it (a definition,
+  a reason, an opening, a named symbol) is not reported; name the comment instead;
 - the whole paper up to the text you check, so you know what the reader has already met.
 
 Run `lint.py` on the file (`python3 <skill>/scripts/lint.py <file>`) and include its
-errors in the checked range.
+errors in the checked range. If the paper has a `review/` folder, also run
+`strikes.py <file>` and report each struck passage it finds in the checked range as a
+failure of rule 8 (`cut`), with its round and comment.
 
 ## How to check
 

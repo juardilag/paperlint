@@ -90,8 +90,9 @@ goes into the project files (step 6.4).
    question; do not guess. Without a main file, use `files` in
    `paperlint.toml` of the current directory, or the one `.tex` file with
    `\documentclass`.
-3. Read the `comments.md` of every earlier round on the same sections. Each earlier
-   comment is a regression test: a redraft in this round must not bring back what an
+3. Read the `comments.md` of every earlier round on the same sections, and run
+   `strikes.py` on the main file: it lists every passage a reviewer struck in any
+   round that is back in the text. Each earlier comment is a regression test: a redraft in this round must not bring back what an
    earlier round removed (a vague "a critical exponent", a repeated connective, a
    technical explanation the author asked to simplify). A comment that recurs across
    rounds is listed in the report as recurring, with what failed the first time.
@@ -186,7 +187,8 @@ grammar and sense, and its paragraph goes to `compare` against `before.tex`.
 Fix what this finds and reread again. The checks of the last pass run on the text that is delivered: after the
 last fix, run lint and the `rule-checker` again on every paragraph the fixes touched,
 and `compare` on every paragraph changed since the previous `compare`. A round whose
-final text was not checked is not delivered. Stop when a round changes nothing that a comment
+final text was not checked is not delivered, and `strikes.py` reports nothing the
+round has not kept on purpose. Stop when a round changes nothing that a comment
 or a correctness rule requires and the `rule-checker` reports `PASS` on the touched paragraphs; at most four rounds, and report what is still open
 after the fourth. Changes made only because a round could find another phrasing are
 not convergence; leave the text.
@@ -235,7 +237,9 @@ not convergence; leave the text.
    Every before/after quoted is real text from the two versions.
 4. **Learn.** A comment about content becomes a decision in `CLAUDE.md`, with who and
    when. A comment that rewrote the authors' prose in their own words is recorded with
-   `learn.py` (their words are the after). Never as a rule.
+   `learn.py` (their words are the after). Never as a rule. A struck passage the
+   round kept on purpose (moved rather than cut, or kept after a reply) is recorded as
+   `kept-strike: <round> C<n>` with its reason, so `strikes.py` stops reporting it.
 
 ## 7. Train paperlint (only with `--train`)
 

@@ -36,7 +36,9 @@ Revise one section and stop. Two jobs, kept apart:
 ## Check (always)
 
 1. Run `lint.py --section "<title>"`. It reports errors only; fix each. Do not run
-   `--style` unless the user asks, and never write toward its notes.
+   `--style` unless the user asks, and never write toward its notes. If the paper has
+   a `review/` folder, run `strikes.py` too: a struck passage that is back is cut
+   again, unless `CLAUDE.md` lists it as a `kept-strike`.
 2. Audit the section against `rules.md`, sections 1 to 10:
    - every term and symbol defined at first use, one name and one symbol per object
      across the paper (grep it);
@@ -54,7 +56,7 @@ Revise one section and stop. Two jobs, kept apart:
    section as it is now: one `cold-reader` per subsection, and one on each section or
    subsection opening (the text before its first subsection, which no subsection
    check covers). Give them the paper directory; they read `CLAUDE.md` for the
-   decisions and nothing about earlier rounds. Do not tell them what to skip; pass the
+   decisions and the round notes in `review/` for what co-authors struck. Do not tell them what to skip; pass the
    binding decisions and let them check everything else.
 4. Triage every finding:
    - **Error** (wrong, inconsistent, undefined, unsupported): fix it with the smallest
@@ -71,6 +73,11 @@ Revise one section and stop. Two jobs, kept apart:
    - **Unclear** (a reader could not follow a sentence): rewrite it or cut it. Never
      keep it unchanged with a note that it is fine; a passage two readers stumble on is
      what the next reviewer marks.
+   - **Struck**: a finding whose fix would restore text a co-author struck (a
+     definition, a reason, an opening, a method clause) is rejected, citing the
+     comment; if the authors want it back, it is recorded as a `kept-strike`.
+   - **Conflicting**: when two agents disagree on a fact, recompute it from the saved
+     data before writing either version.
    - **Rejected**: say why in one sentence, in the report. Nothing is saved.
    A `rule-checker` failure is an error, also in a paragraph the authors approved.
    Findings about style, rhythm or length are not errors and are not acted on in a

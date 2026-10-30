@@ -283,6 +283,12 @@ class DisplaySymbols(unittest.TestCase):
         self.assertEqual(lint.check_display_symbols(DOC % body), [])
 
 
+    def test_summed_index_symbols_are_dummies(self):
+        body = ("We assume the spectral density $J$ of the frequency $\\omega$,\n\\begin{equation}\n"
+                "J(\\omega)=\\sum_k|\\lambda_k|^2\\delta(\\omega-\\omega_k)\n"
+                "\\end{equation}\nwhich is smooth.")
+        self.assertEqual(lint.check_display_symbols(DOC % body), [])
+
     def test_noun_phrase_before_display_names_its_left_side(self):
         body = ("with the total Hamiltonian\n\\begin{equation}\n  \\hat H = \\hat H_S + \\hat H_B\n"
                 "\\end{equation}\nwhere $\\hat H_S$ and $\\hat H_B$ act on system and bath.")

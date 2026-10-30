@@ -115,3 +115,31 @@ class PdfComments(unittest.TestCase):
         self.assertEqual([r["type"] for r in rows], ["Text", "Highlight"])
         self.assertEqual(rows[0]["comment"], "say who?")
         self.assertEqual(rows[1]["page"], 1)
+
+
+class Strikes(unittest.TestCase):
+    STRUCK = ["the bath modes of frequencies omega and couplings to the atoms start in a "
+              "thermal state at temperature T",
+              "a short phrase"]
+
+    def test_struck_passage_back_reworded(self):
+        import strikes
+        src = ("We assume the spectral density. Here the bath modes have frequencies and "
+               "couplings to the atoms, which start in a thermal state at the temperature T.")
+        hits = strikes.returns(self.STRUCK, src)
+        self.assertEqual([i for i, _, _ in hits], [0])
+
+    def test_absent_passage_and_short_phrase_not_reported(self):
+        import strikes
+        src = "We assume the spectral density of Eq. (2), with a short phrase here."
+        self.assertEqual(strikes.returns(self.STRUCK, src), [])
+
+    def test_part_of_long_strike_is_found(self):
+        import strikes
+        long = ("We now follow the steps of the method. The system is the collective spin, "
+                "and its bath is the cavity mode together with the modes outside it. The spin "
+                "operators become a classical spin of length half the number of atoms, the "
+                "total spin in the permutation symmetric sector")
+        src = ("The atoms are a classical spin of length half the number of atoms, the total "
+               "spin in the permutation symmetric sector, coupled to the cavity.")
+        self.assertEqual(len(strikes.returns([long], src)), 1)
